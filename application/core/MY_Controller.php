@@ -8,6 +8,7 @@ class MY_Controller extends CI_Controller{
 	function __construct(){
 		
 		parent::__construct();
+		$this->load->model('users');
 		$cookieuid = $this->session->userdata('logon');
 		if(isset($cookieuid) and !empty($cookieuid)):
 			$this->user['uid'] = $this->session->userdata('userid');

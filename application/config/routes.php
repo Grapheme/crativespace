@@ -4,7 +4,11 @@ $route['default_controller'] = "users_interface";
 $route['404_override'] = '';
 
 /*************************************************** AJAX INTRERFACE ***********************************************/
+$route['admin/login'] = "ajax_interface/login_in";
+$route['administrator/profile/save'] = "ajax_interface/profileSave";
 
+/*********** news ***************/
+$route['administrator/news/insert'] = "ajax_interface/saveNews";
 /*************************************************** USERS INTRERFACE ***********************************************/
 
 $route['events'] = "users_interface/events";
@@ -15,6 +19,11 @@ $route['object/project'] = "users_interface/objectProject";
 $route['people'] = "users_interface/people";
 $route['contacts'] = "users_interface/contacts";
 
+$route['admin'] = "users_interface/login";
+$route['logoff'] = "users_interface/logoff";
 /*************************************************** ADMIN INTRERFACE ***********************************************/
 
 $route[ADM_START_PAGE] = "admin_interface/control_panel";
+$route['administrator/profile'] = "admin_interface/profile";
+/*********** news ***************/
+$route['administrator/news/add'] = "admin_interface/insertNews";

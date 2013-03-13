@@ -9,34 +9,19 @@ class Ajax_interface extends MY_Controller{
 	
 	/******************************************** guests interface *******************************************************/
 	public function login_in(){
-		
 		if(!$this->input->is_ajax_request()):
 			show_error('В доступе отказано');
 		endif;
 		$json_request = array('status'=>FALSE,'message'=>'Ошибка авторизации','cabinet_path'=>base_url());
-		$user_email = trim(strtolower($this->input->post('user_email')));
-		$email_password = trim($this->input->post('email_password'));
+		$user_email = trim(strtolower($this->input->post('login')));
+		$email_password = trim($this->input->post('password'));
 		if($user_email || $email_password):
+			$this->load->model('users');
 			$user = $this->users->auth_user($user_email,$email_password);
 			if($user):
-				if($user['active']):
-					$json_request['status'] = TRUE;
-					$this->session->set_userdata(array('logon'=>md5($user_email),'userid'=>$user['id']));
-					$this->load->model('currentdialogs');
-					$this->currentdialogs->clear_history($user['id']);
-					switch($user['class']):
-						case 1: $json_request['cabinet_path'] .= ADM_START_PAGE;
-							break;
-						case 2: $json_request['cabinet_path'] .= UNIVERSITY_START_PAGE;
-							break;
-						case 3: $json_request['cabinet_path'] .= TEACHER_START_PAGE;
-							break;
-						case 4: $json_request['cabinet_path'] .= STUDENT_START_PAGE;
-							break;
-						case 5: $json_request['cabinet_path'] .= KEEPER_START_PAGE;
-							break;
-					endswitch;
-				endif;
+				$json_request['status'] = TRUE;
+				$this->session->set_userdata(array('logon'=>md5($user_email),'userid'=>$user['id']));
+				$json_request['cabinet_path'] = ADM_START_PAGE;
 			endif;
 		endif;
 		echo json_encode($json_request);
@@ -69,49 +54,33 @@ class Ajax_interface extends MY_Controller{
 		echo json_encode($json_request);
 	}
 	
-	public function register_student(){
+	/************************************************* news ************************************************************/
+	public function saveNews(){
 		
 		if(!$this->input->is_ajax_request()):
 			show_error('В доступе отказано');
 		endif;
-		print_r($this->session->userdata('current_language'));
-		$json_request = array('status'=>FALSE,'message'=>'Ошибка при регистрации','cabinet_path'=>base_url().'student/register-successful');
-		$data = trim($this->input->post('postdata'));
-		if($data):
-			$data = preg_split("/&/",$data);
-			for($i=0;$i<count($data);$i++):
-				$dataid = preg_split("/=/",$data[$i]);
-				$dataval[$dataid[0]] = $dataid[1];
-			endfor;
-			if($this->users->record_exist('users','email',trim($dataval['email']))):
-				$json_request['message'] = 'Email уже зерегистрирован';
-			else:
-				if($dataval && !$this->loginstatus):
-					$this->load->model('students');
-					$student_id = $this->students->insert_record($dataval);
-					$user_id = $this->users->insert_record($dataval);
-					if($user_id):
-						$this->users->update_field($user_id,'user_id',$student_id,'users');
-						$this->users->update_field($user_id,'class',4,'users');
-						$this->users->update_field($user_id,'language',$this->language,'users');
-						$this->load->helper('string');
-						$activate_code = random_string('alnum',25);
-						$this->users->update_field($user_id,'temporary_code',$activate_code,'users');
-						$json_request['status'] = TRUE;
-						$this->session->set_userdata('student_registering_flag',TRUE);
-						ob_start();?>
-						<p>Здравствуйте <em><?=$dataval['name'];?></em>,</p>
-						<p>Спасибо за регистрацию в UNIVERSIALITY.<br/>Чтобы получить доступ к вашему аккаунту, пожалуйста, перейдите по одноразовой ссылке:<br/>
-						<?=anchor('registering/student/activation-code/'.$activate_code,base_url().'registering/student/activation-code/'.$activate_code,array('target'=>'_blank'));?></p><?
-						$mailtext = ob_get_clean();
-						$this->send_mail($dataval['email'],'robot@universiality.ru','Universiality','Регистравция в UNIVERSIALITY',$mailtext);
-					endif;
+		$insert = $this->input->post();
+		if($insert):
+			$this->load->model('news');
+			$insert['date'] = preg_replace("/(\d+)\.(\w+)\.(\d+)/i","\$3-\$2-\$1",$insert['date']);
+			$news_id = $this->news->insert_record($insert);
+			if($news_id):
+				if(isset($insert['publish'])):
+					$this->news->update_field($news_id,'publish',1,'news');
 				endif;
+				$text = '<img src="'.site_url('img/check.png').'" alt="" /> Новость добавлена<hr/>';
+				$text .= '<ul><li><a id="load-images" href="#">Добавить изображения к созданной новости</a>';
+				if($news_id):
+					$text .= '<li><a href="'.site_url('administrator/news/edit/'.$news_id).'">Редактировать созданную новость</a></li>';
+					$text .= '<li><a href="'.site_url('news').'" target="_blank">Читать созданную новость</a></li>';
+				endif;
+				$text .= '<li><a href="'.site_url('administrator/news').'">К списку новостей</a></li></ul>';
+				echo $text;
 			endif;
 		endif;
-		echo json_encode($json_request);
 	}
-
+	
 	/*********************************************** profiles **********************************************************/
 	public function saveProfileAvatar(){
 		
@@ -141,23 +110,19 @@ class Ajax_interface extends MY_Controller{
 		echo json_encode($json_request);
 	}
 	
-	public function accountSave(){
+	public function profileSave(){
 		
 		if(!$this->input->is_ajax_request()):
 			show_error('В доступе отказано');
 		endif;
-		$insert = $this->input->post();
-		if($insert):
-			$current_item = $this->session->userdata('current_item');
-			if(!$current_item):
-				echo '<img src="'.site_url('img/no-check.png').'" alt="" /> Ошибка при сохранении';
-			else:
-				$update = $this->input->post();
-				if(isset($update['active'])):
-					$this->users->update_field($current_item,'active',1,'users');
-				endif;
-				echo '<img src="'.site_url('img/check.png').'" alt="" /> Профиль сохранен';
+		$update = $this->input->post();
+		if($update):
+			$update['id'] = $this->user['uid'];
+			$this->load->model('users');
+			if(!empty($update['password']) && ($update['password'] == $update['confirm'])):
+				$this->users->update_field($this->user['uid'],'password',md5($update['password']),'users');
 			endif;
+			echo '<img src="'.site_url('img/check.png').'" alt="" /> Профиль сохранен';
 		endif;
 	}
 

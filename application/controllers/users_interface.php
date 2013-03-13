@@ -79,14 +79,20 @@ class Users_interface extends MY_Controller{
 	/********************************************************************************************************************/
 	public function logoff(){
 		
-		$this->session->unset_userdata(array('logon'=>'','userid'=>'','backpath'=>''));
-		$this->session->set_userdata('current_language',$this->language);
-		$this->load->model('currentdialogs');
-		$this->currentdialogs->clear_history($this->user['uid']);
+		$this->session->sess_destroy();
 		if(isset($_SERVER['HTTP_REFERER'])):
 			redirect($_SERVER['HTTP_REFERER']);
 		else:
 			redirect('');
+		endif;
+	}
+	
+	public function login(){
+		
+		if($this->loginstatus):
+			redirect(ADM_START_PAGE);
+		else:
+			$this->load->view("users_interface/login");
 		endif;
 	}
 	
