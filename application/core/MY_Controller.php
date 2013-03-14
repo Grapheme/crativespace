@@ -81,11 +81,12 @@ class MY_Controller extends CI_Controller{
 		$section = $this->uri->segment(2);
 		$id = $this->uri->segment(3);
 		switch ($section):
-			case 'photo':$image = $this->users->read_field($id,'users','photo'); break;
+			case 'events': $this->load->model('events');$image = $this->events->read_field($id,'events','photo'); break;
+			case 'project': $this->load->model('projects');$image = $this->projects->read_field($id,'projects','photo'); break;
 			default : show_error('Рисунок не найден');break;
 		endswitch;
 		if(!$image):
-			$image = file_get_contents(getcwd().'/img/icons/no_icon.jpg');
+			$image = file_get_contents(getcwd().'/img/no-photo.png');
 		endif;
 		header('Content-type: image/gif');
 		echo $image;

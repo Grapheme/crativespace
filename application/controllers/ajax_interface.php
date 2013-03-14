@@ -67,9 +67,6 @@ class Ajax_interface extends MY_Controller{
 			$news_id = $this->news->insert_record($insert);
 			if($news_id):
 				$this->session->set_userdata('current_item',$news_id);
-				if(isset($insert['publish'])):
-					$this->news->update_field($news_id,'publish',1,'news');
-				endif;
 				$text = '<img src="'.site_url('img/check.png').'" alt="" /> Новость добавлена<hr/>';
 				$text .= '<ul><li><a id="load-images" href="#">Добавить изображения к созданной новости</a>';
 				if($news_id):
@@ -93,12 +90,12 @@ class Ajax_interface extends MY_Controller{
 			$update['date'] = preg_replace("/(\d+)\.(\w+)\.(\d+)/i","\$3-\$2-\$1",$update['date']);
 			$update['id'] = $this->session->userdata('current_item');
 			$this->news->update_record($update);
+			$this->session->unset_userdata('current_item');
 			$text = '<img src="'.site_url('img/check.png').'" alt="" /> Новость сохранена<hr/>';
 			$text .= '<ul><li><a href="'.site_url('administrator/news/edit/images/'.$update['id']).'">Управлять изображеними к текущей новости</a>';
-			$text .= '<li><a href="'.site_url('news').'" target="_blank">Просмотреть созданную новость</a></li>';
+			$text .= '<li><a href="'.site_url('news').'" target="_blank">Просмотреть новость</a></li>';
 			$text .= '<li><a href="'.site_url('administrator/news').'">К списку новостей</a></li></ul>';
 			echo $text;
-			$this->session->unset_userdata('current_item');
 		else:
 			$text = '<img src="'.site_url('img/no-check.png').'" alt="" /> Ошибка при сохранении<hr/>';
 		endif;
@@ -192,6 +189,207 @@ class Ajax_interface extends MY_Controller{
 		endif;
 		echo json_encode($json_request);
 	}
+
+	/************************************************* events ************************************************************/
+	public function insertEvent(){
+		
+		if(!$this->input->is_ajax_request()):
+			show_error('В доступе отказано');
+		endif;
+		$insert = $this->input->post();
+		if($insert):
+			$this->load->model('events');
+			$insert['date'] = preg_replace("/(\d+)\.(\w+)\.(\d+)/i","\$3-\$2-\$1",$insert['date']);
+			$event_id = $this->events->insert_record($insert);
+			if($event_id):
+				if(isset($_FILES['photo'])):
+					if($_FILES['photo']['error'] != 4):
+						$this->image_manupulation($_FILES['photo']['tmp_name'],'width',TRUE,200,200);
+						$photo = file_get_contents($_FILES['photo']['tmp_name']);
+						if($photo):
+							$this->events->update_field($event_id,'photo',$photo,'events');
+						endif;
+					endif;
+				endif;
+				$text = '<img src="'.site_url('img/check.png').'" alt="" /> Мероприятие добавлено<hr/>';
+				$text .= '<ul><li><a href="'.site_url('administrator/events/add').'">Добавить мероприятие</a>';
+				if($event_id):
+					$text .= '<li><a href="'.site_url('administrator/events/edit/'.$event_id).'">Редактировать созданное мероприятие</a></li>';
+					$text .= '<li><a href="'.site_url('events').'" target="_blank">Просмотреть созданное мероприятие</a></li>';
+				endif;
+				$text .= '<li><a href="'.site_url('administrator/events').'">К списку мероприятий</a></li></ul>';
+				echo $text;
+			endif;
+		endif;
+	}
+	
+	public function updateEvent(){
+		
+		if(!$this->input->is_ajax_request()):
+			show_error('В доступе отказано');
+		endif;
+		$update = $this->input->post();
+		if($update && $this->session->userdata('current_item')):
+			$this->load->model('events');
+			$update['date'] = preg_replace("/(\d+)\.(\w+)\.(\d+)/i","\$3-\$2-\$1",$update['date']);
+			$update['id'] = $this->session->userdata('current_item');
+			$this->events->update_record($update);
+			$this->session->unset_userdata('current_item');
+			$text = '<img src="'.site_url('img/check.png').'" alt="" /> Мероприятие сохранено<hr/>';
+			$text .= '<li><a href="'.site_url('events').'" target="_blank">Просмотреть мероприятие</a></li>';
+			$text .= '<li><a href="'.site_url('administrator/events').'">К списку меропритий</a></li></ul>';
+			echo $text;
+		else:
+			$text = '<img src="'.site_url('img/no-check.png').'" alt="" /> Ошибка при сохранении<hr/>';
+		endif;
+	}
+	
+	public function deleteEvent(){
+		
+		if(!$this->input->is_ajax_request()):
+			show_error('В доступе отказано');
+		endif;
+		$event = $this->input->post('parameter');
+		$json_request = array('status'=>FALSE,'message'=>'');
+		if($event):
+			$this->load->model('events');
+			$this->events->delete_record($event,'events');
+			$json_request['status'] = TRUE;
+			$json_request['message'] = '<img src="'.site_url('img/check.png').'" alt="" /> Мероприятие удалено';
+		else:
+			$json_request['message'] = '<img src="'.site_url('img/no-check.png').'" alt="" /> Ошибка при удалении<hr/>';
+		endif;
+		echo json_encode($json_request);
+	}
+	
+	public function updateEventPhoto(){
+		
+		if(!$this->input->is_ajax_request()):
+			show_error('В доступе отказано');
+		endif;
+		$json_request = array('status'=>FALSE,'responseText'=>'','responsePhotoSrc'=>'');
+		if($_FILES['photo']['error'] != 4):
+			$this->image_manupulation($_FILES['photo']['tmp_name'],'width',TRUE,200,200);
+			$photo = file_get_contents($_FILES['photo']['tmp_name']);
+			if($photo):
+				$this->load->model('events');
+				$event_id = $this->session->userdata('current_item');
+				if($event_id):
+					$this->events->update_field($event_id,'photo',$photo,'events');
+					$this->load->helper('string');
+					$json_request['responsePhotoSrc'] = site_url('loadimage/events/'.$event_id.'?'.random_string('alpha',5));
+					$json_request['status'] = TRUE;
+				endif;
+			endif;
+		endif;
+		if($json_request['status']):
+			$json_request['responseText'] = 'Файл загружен';
+		else:
+			$json_request['responseText'] = 'Ошибка при загрузке';
+		endif;
+		echo json_encode($json_request);
+	}
+	
+	/************************************************* projects ************************************************************/
+	public function insertProject(){
+		
+		if(!$this->input->is_ajax_request()):
+			show_error('В доступе отказано');
+		endif;
+		$insert = $this->input->post();
+		if($insert):
+			$this->load->model('projects');
+			$insert['translit'] = $this->translite($insert['title']);
+			$project_id = $this->projects->insert_record($insert);
+			if($project_id):
+				if(isset($_FILES['photo'])):
+					if($_FILES['photo']['error'] != 4):
+						$this->image_manupulation($_FILES['photo']['tmp_name'],'width',TRUE,200,200);
+						$photo = file_get_contents($_FILES['photo']['tmp_name']);
+						if($photo):
+							$this->projects->update_field($project_id,'photo',$photo,'projects');
+						endif;
+					endif;
+				endif;
+				$text = '<img src="'.site_url('img/check.png').'" alt="" /> Проект добавлен<hr/>';
+				$text .= '<ul><li><a href="'.site_url('administrator/projects/add').'">Добавить проект</a>';
+				if($project_id):
+					$text .= '<li><a href="'.site_url('administrator/projects/edit/'.$project_id).'">Редактировать созданный проект</a></li>';
+					$text .= '<li><a href="'.site_url('projects').'" target="_blank">Просмотреть проекты</a></li>';
+				endif;
+				$text .= '<li><a href="'.site_url('administrator/projects').'">К списку проектов</a></li></ul>';
+				echo $text;
+			endif;
+		endif;
+	}
+	
+	public function updateProject(){
+		
+		if(!$this->input->is_ajax_request()):
+			show_error('В доступе отказано');
+		endif;
+		$update = $this->input->post();
+		if($update && $this->session->userdata('current_item')):
+			$this->load->model('projects');
+			$update['id'] = $this->session->userdata('current_item');
+			$update['translit'] = $this->translite($update['title']);
+			$this->projects->update_record($update);
+			$this->session->unset_userdata('current_item');
+			$text = '<img src="'.site_url('img/check.png').'" alt="" /> Проект сохранен<hr/>';
+			$text .= '<li><a href="'.site_url('projects').'" target="_blank">Просмотреть проекты</a></li>';
+			$text .= '<li><a href="'.site_url('administrator/projects').'">К списку проектов</a></li></ul>';
+			echo $text;
+		else:
+			$text = '<img src="'.site_url('img/no-check.png').'" alt="" /> Ошибка при сохранении<hr/>';
+		endif;
+	}
+	
+	public function deleteProject(){
+		
+		if(!$this->input->is_ajax_request()):
+			show_error('В доступе отказано');
+		endif;
+		$project = $this->input->post('parameter');
+		$json_request = array('status'=>FALSE,'message'=>'');
+		if($project):
+			$this->load->model('projects');
+			$this->projects->delete_record($project,'projects');
+			$json_request['status'] = TRUE;
+			$json_request['message'] = '<img src="'.site_url('img/check.png').'" alt="" /> Проект удален';
+		else:
+			$json_request['message'] = '<img src="'.site_url('img/no-check.png').'" alt="" /> Ошибка при удалении<hr/>';
+		endif;
+		echo json_encode($json_request);
+	}
+	
+	public function updateProjectPhoto(){
+		
+		if(!$this->input->is_ajax_request()):
+			show_error('В доступе отказано');
+		endif;
+		$json_request = array('status'=>FALSE,'responseText'=>'','responsePhotoSrc'=>'');
+		if($_FILES['photo']['error'] != 4):
+			$this->image_manupulation($_FILES['photo']['tmp_name'],'width',TRUE,200,200);
+			$photo = file_get_contents($_FILES['photo']['tmp_name']);
+			if($photo):
+				$this->load->model('projects');
+				$project_id = $this->session->userdata('current_item');
+				if($project_id):
+					$this->projects->update_field($project_id,'photo',$photo,'projects');
+					$this->load->helper('string');
+					$json_request['responsePhotoSrc'] = site_url('loadimage/project/'.$project_id.'?'.random_string('alpha',5));
+					$json_request['status'] = TRUE;
+				endif;
+			endif;
+		endif;
+		if($json_request['status']):
+			$json_request['responseText'] = 'Файл загружен';
+		else:
+			$json_request['responseText'] = 'Ошибка при загрузке';
+		endif;
+		echo json_encode($json_request);
+	}
+	
 	/*********************************************** profiles **********************************************************/
 	public function saveProfileAvatar(){
 		

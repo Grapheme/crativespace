@@ -39,7 +39,8 @@ define('PATH_PAGE_VARIABLE',					getcwd().'/variables/page_variables.php');
 define('PATH_SMILEYS',							getcwd().'/img/smileys');
 
 define('TOOLTIP_FIELD_BLANK',					'data-trigger="focus" data-placement="right" role="tooltip" data-original-title="Поле не заполнено"');
-define('TOOLTIP_FIELD_IMAGE_UPLOAD',			'data-trigger="hover" data-placement="top" role="tooltip" data-original-title="Управление фотографиями"');
+define('TOOLTIP_FIELD_IMAGE_UPLOAD',			'data-trigger="hover" data-placement="top" role="tooltip" data-original-title="Нажмите для загрузки"');
+define('TOOLTIP_FIELD_IMAGE_MANAGE',			'data-trigger="hover" data-placement="top" role="tooltip" data-original-title="Управление изображениями"');
 define('TOOLTIP_BUTTON_EDIT',					'data-trigger="hover" data-placement="bottom" role="tooltip" data-original-title="Редактировать"');
 define('TOOLTIP_BUTTON_DELETE',					'data-trigger="hover" data-placement="bottom" role="tooltip" data-original-title="Удалить"');
 

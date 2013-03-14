@@ -7,7 +7,7 @@
 	<?=form_open('administrator/news/update',array('id'=>'update-news-form')); ?>
 		<div class="control-group">
 			<input type="text" name="title" class="span7 valid-required" value="<?=$news['title'];?>" placeholder="Название" <?=TOOLTIP_FIELD_BLANK;?> />
-			<input type="text" class="input-small input-small datepicker" name="date" autocomplete="off" placeholder="Введите дату" readonly="readonly" value="<?=$news['date_publish'];?>">
+			<input type="text" class="input-small datepicker" name="date" autocomplete="off" placeholder="Введите дату" readonly="readonly" value="<?=$news['date_publish'];?>">
 		</div>
 		<div class="control-group">
 			<textarea rows="10" class="span9 ckeditor" name="content"><?=$news['content'];?></textarea>

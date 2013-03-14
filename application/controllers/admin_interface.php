@@ -38,15 +38,15 @@ class Admin_interface extends MY_Controller{
 		$offset = intval($this->uri->segment(4));
 		$pagevar = array(
 			'news' => $this->news->read_limit_records($per_page,$offset,'news','date_publish','DESC'),
-			'pagination' => $this->pagination('administrator/news',4,$this->news->counNews(),$per_page),
+			'pagination' => $this->pagination('administrator/news',4,$this->news->count_all_records('news'),$per_page),
 		);
 		$this->session->unset_userdata('current_item');
-		$this->load->view("admin_interface/news-list",$pagevar);
+		$this->load->view("admin_interface/news/news-list",$pagevar);
 	}
 	
 	public function insertNews(){
 		$this->session->unset_userdata('current_item');
-		$this->load->view("admin_interface/insert-news");
+		$this->load->view("admin_interface/news/insert-news");
 	}
 
 	public function editNews(){
@@ -66,7 +66,7 @@ class Admin_interface extends MY_Controller{
 		if(!$pagevar['news']):
 			show_error('В доступе отказано');
 		endif;
-		$this->load->view("admin_interface/update-news",$pagevar);
+		$this->load->view("admin_interface/news/update-news",$pagevar);
 	}
 	
 	public function editNewsImages(){
@@ -82,8 +82,86 @@ class Admin_interface extends MY_Controller{
 		$pagevar = array(
 			'images' => $this->news_images->photoNews($current_item),
 		);
-		$this->load->view("admin_interface/manage-news-images",$pagevar);
+		$this->load->view("admin_interface/news/manage-news-images",$pagevar);
+	}
+	
+	/********************************************** events ********************************************************/
+	
+	public function listEvents(){
+		
+		$this->load->helper('text');
+		$this->load->model('events');
+		$per_page = 7;
+		$offset = intval($this->uri->segment(4));
+		$pagevar = array(
+			'events' => $this->events->read_limit_records($per_page,$offset,'events','id','DESC'),
+			'pagination' => $this->pagination('administrator/events',4,$this->events->count_all_records('events'),$per_page),
+		);
+		$this->session->unset_userdata('current_item');
+		$this->load->view("admin_interface/events/events-list",$pagevar);
+	}
+	
+	public function insertEvent(){
+		$this->session->unset_userdata('current_item');
+		$this->load->view("admin_interface/events/insert-event");
 	}
 
+	public function editEvent(){
+		$current_item = $this->session->userdata('current_item');
+		if(!$current_item && $this->uri->total_segments() == 4):
+			$this->session->set_userdata('current_item',$this->uri->segment(4));
+			redirect('administrator/events/edit');
+		elseif(!$current_item && $this->uri->total_segments() == 3):
+			redirect('administrator/events');
+		endif;
+		$this->load->model('events');
+		$pagevar = array(
+			'event' => $this->events->eventInformation($current_item),
+		);
+		if(!$pagevar['event']):
+			show_error('В доступе отказано');
+		endif;
+		$this->load->view("admin_interface/events/update-event",$pagevar);
+	}
+	
+	/********************************************** projects ********************************************************/
+	
+	public function listProjects(){
+		
+		$this->load->helper('text');
+		$this->load->model('projects');
+		$per_page = 7;
+		$offset = intval($this->uri->segment(4));
+		$pagevar = array(
+			'projects' => $this->projects->read_limit_records($per_page,$offset,'projects','id','DESC'),
+			'pagination' => $this->pagination('administrator/projects',4,$this->projects->count_all_records('projects'),$per_page),
+		);
+		$this->session->unset_userdata('current_item');
+		$this->load->view("admin_interface/projects/projects-list",$pagevar);
+	}
+	
+	public function insertProject(){
+		$this->session->unset_userdata('current_item');
+		$this->load->view("admin_interface/projects/insert-project");
+	}
+
+	public function editProject(){
+		$current_item = $this->session->userdata('current_item');
+		if(!$current_item && $this->uri->total_segments() == 4):
+			$this->session->set_userdata('current_item',$this->uri->segment(4));
+			redirect('administrator/projects/edit');
+		elseif(!$current_item && $this->uri->total_segments() == 3):
+			redirect('administrator/projects');
+		endif;
+		$this->load->model('projects');
+		$pagevar = array(
+			'project' => $this->projects->projectInformation($current_item),
+		);
+		if(!$pagevar['project']):
+			show_error('В доступе отказано');
+		endif;
+		$this->load->view("admin_interface/projects/update-project",$pagevar);
+	}
+	
 	/***********************************************************************************************************/
 }

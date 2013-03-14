@@ -36,24 +36,6 @@ class News extends MY_Model{
 		return $this->db->affected_rows();
 	}
 	
-	function listNews($count,$offset){
-		
-		$query = "SELECT news.id,news.title,news.content,news.date_publish FROM news LEFT JOIN news_images ON news.id = news_images.news ORDER BY news.date_publish DESC,news.id DESC LIMIT $offset,$count";
-		$query = $this->db->query($query);
-		$data = $query->result_array();
-		if($data) return $data;
-		return NULL;
-	}
-	
-	function counNews($params = '0,1'){
-		
-		$query = "SELECT COUNT(*) AS cnt FROM news";
-		$query = $this->db->query($query);
-		$data = $query->result_array();
-		if($data) return $data[0]['cnt'];
-		return 0;
-	}
-	
 	function newsInformation($news){
 		
 		$this->db->select('id,title,content,date_publish');

@@ -10,4 +10,4 @@
 <![endif]-->
 <script type="text/javascript" src="<?=site_url('js/admin/base.js');?>"></script>
 <script type="text/javascript" src="<?=site_url('js/admin/scripts.js');?>"></script>
-<script type="text/javascript">$("header a[data-active='<?=$this->uri->segment(1);?>']").addClass('linked');</script>
+<script type="text/javascript">$("ul.nav li[data-active='<?=$this->uri->segment(2);?>']").addClass('active');</script>
