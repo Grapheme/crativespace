@@ -1,26 +1,34 @@
-<header>
-	<div class="grid_1"><a href="<?=site_url('');?>"><img class="index_img" src="<?=site_url('img/index.jpg');?>"></a></div>
-	<div class="grid_11">
-		<nav>
-			<ul>
-				<li><a href="<?=site_url('contacts');?>" data-active="contacts" class="menu_option">КОНТАКТЫ</a></li>
-				<li><a href="<?=site_url('people');?>"  data-active="people" class="menu_option">ЛЮДИ</a></li>
-				<li><a href="<?=site_url('object/partners');?>" data-active="object" class="menu_option">ОБЪЕКТ</a></li>
-				<li><a href="<?=site_url('projects');?>"  data-active="projects" class="menu_option">ПРОЕКТЫ</a></li>
-				<li><a href="<?=site_url('events');?>"  data-active="events" class="menu_option">МЕРОПРИЯТИЯ</a></li>
-			</ul>
-		</nav>
-	</div>
-	<div class="clear"></div>
-<?php if(uri_string() == ''):?>
-	<div class="main_img_div grid_12">
-		<div class="main_img_text_container">
-			<div class="main_img_text_div">
-				<span class="main_img_text">МЫ СОЗДАЕМ КРЕАТИВНУЮ СРЕДУ</span><br>
-				<span class="main_img_text">МЫ ПРЕДОСТАВЛЯЕМ ВОЗМОЖНОСТИ ДЛЯ САМОРЕАЛИЗАЦИИ</span>
+<div class="row demo-row">
+	<div class="span12">
+		<div class="navbar navbar-inverse">
+			<div class="navbar-inner">
+				<div class="container">
+					<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<div class="span9 nav-collapse collapse">
+						<ul class="nav">
+							<li><a class="none" href="">Администирование<span class="navbar-unread">1</span></a></li>
+							<li class="active"><a href="<?=site_url('administrator/news')?>">Новости</a></li>
+							<li><a class="none" href="">Мероприятия</a></li>
+							<li><a class="none" href="">Проекты</a></li>
+							<li><a class="none" href="">Объект</a>
+								<ul>
+									<li><a href="<?=site_url('administrator/news/add');?>">Партнеры</a></li>
+									<li><a href="<?=site_url('administrator/news/add');?>">Фотографии</a></li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+					<select id="admin-operation" value="Администратор" class="span" tabindex="1" name="operation">
+						<option value="<?=site_url(ADM_START_PAGE);?>" <?=(uri_string() == ADM_START_PAGE)?'selected="selected"':'';?> >Контрольная панель</option>
+						<option value="<?=site_url('administrator/profile');?>" <?=($this->uri->segment(2) == 'profile')?'selected="selected"':'';?>>Мой профиль</option>
+						<option value="<?=site_url('logoff');?>">Завершить сеанс</option>
+					</select>
+				</div>
 			</div>
 		</div>
 	</div>
-	<div class="clear"></div>
-<?php endif;?>
-</header>
+</div>

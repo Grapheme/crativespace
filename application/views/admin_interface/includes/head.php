@@ -5,4 +5,5 @@
 <meta name="viewport" content="width=device-width" />
 <link rel="stylesheet" href="<?=site_url('css/bootstrap.css');?>" />
 <link rel="stylesheet" href="<?=site_url('css/flat-ui.css');?>" />
+<link rel="stylesheet" href="<?=site_url('css/cabinet.css');?>" />
 <link rel="shortcut icon" href="<?=site_url('images/favicon.ico')?>" />

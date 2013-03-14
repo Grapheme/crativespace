@@ -74,8 +74,9 @@ $(function(){
 	$("#forgot-password").click(function(){
 
 	});
-	
 	$("#insert-news-form").submit(function(){
+		var ckdata = CKEDITOR.instances.content.getData();
+		$(this).find("textarea.ckeditor").html(ckdata);
 		var newsOptions = options;
 		newsOptions.success = function(responseText,statusText,xhr,jqForm){
 			mt.ajaxSuccessSubmit(responseText,statusText,xhr,jqForm);
@@ -87,5 +88,57 @@ $(function(){
 		}
 		$(this).ajaxSubmit(newsOptions);
 		return false;
+	});
+	$("#update-news-form").submit(function(){
+		var ckdata = CKEDITOR.instances.content.getData();
+		$(this).find("textarea.ckeditor").html(ckdata);
+		var newsOptions = options;
+		newsOptions.success = function(responseText,statusText,xhr,jqForm){
+			mt.ajaxSuccessSubmit(responseText,statusText,xhr,jqForm);
+			$("#div-update-news").slideUp(500,function(){
+				$(this).remove();
+				$("#form-request").html(responseText);
+			})
+		}
+		$(this).ajaxSubmit(newsOptions);
+		return false;
+	});
+	$("#btn-modal-confirm-user").click(function(){
+		if(mt.currentElement){
+			var url = $("a.link-operation-account[data-src='"+mt.currentElement+"']").attr('data-url');
+			$.post(url,{'parameter':mt.currentElement},function(data){
+				if(data.status){$("div.list-item-block[data-src="+mt.currentElement+"]").parents(".media").height(100).css('border','1px dashed black').html(data.message);}
+				$("#confirm-user").modal('hide');
+			},"json");
+		}
+	});
+	$("#add-news-images").click(function(){
+		$(this).addClass('disabled');
+		$("#delete-news-images").removeClass('disabled');
+		$("#div-delete-news-images").addClass('hidden');
+		$("#div-insert-news-images").removeClass('hidden');
+	});
+	$("#delete-news-images").click(function(){
+		$(this).addClass('disabled');
+		$("#add-news-images").removeClass('disabled');
+		$("#div-delete-news-images").removeClass('hidden');
+		$("#div-insert-news-images").addClass('hidden');
+	});
+	$("#btn-delete-images").click(function(event){
+		event.preventDefault();
+		var postdata = mt.formSerialize($("#form-delete-images input:checkbox:checked"));
+		if(postdata == ''){
+			$("#form-request").html("Не выбраны изображения");
+			return false;
+		}
+		$("#form-delete-images").find(".wait-request").removeClass('hidden');
+		$.post(mt.baseURL+"administrator/news/images/delete",{'postdata':postdata},
+			function(data){
+				if(data.status){
+					$("#form-delete-images").find(".wait-request").addClass('hidden');
+					$("#form-delete-images input:checkbox:checked").parents('div.news-image-item').remove();
+				}
+				$("#form-request").html(data.message);
+			},"json");
 	});
 });

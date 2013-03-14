@@ -4,7 +4,7 @@
 </div>
 <div class="span9">
 	<div class="login-form span9">
-		<form id="upload" action="<?=site_url('multi-upload');?>" method="POST" enctype="multipart/form-data">
+		<form id="upload" action="<?=site_url('administrator/news/insert/images');?>" method="POST" enctype="multipart/form-data">
 			<p id="photos-block-message"></p>
 			<div class="clear"></div>
 			<fieldset>

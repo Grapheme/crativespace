@@ -1,0 +1,11 @@
+/* ==========================================================================
+   Author's custom styles
+   Grapheme
+   ========================================================================== */
+
+.clear {clear: both;display: block;overflow: hidden;visibility: hidden;width: 0;height: 0}
+.hover-item-block:hover{background-color: #DDDDDD;cursor: pointer;}
+.loading {
+	height: 48px;
+	background: url('../img/loading.gif') center center no-repeat;
+}

@@ -55,7 +55,7 @@ class Ajax_interface extends MY_Controller{
 	}
 	
 	/************************************************* news ************************************************************/
-	public function saveNews(){
+	public function insertNews(){
 		
 		if(!$this->input->is_ajax_request()):
 			show_error('В доступе отказано');
@@ -66,6 +66,7 @@ class Ajax_interface extends MY_Controller{
 			$insert['date'] = preg_replace("/(\d+)\.(\w+)\.(\d+)/i","\$3-\$2-\$1",$insert['date']);
 			$news_id = $this->news->insert_record($insert);
 			if($news_id):
+				$this->session->set_userdata('current_item',$news_id);
 				if(isset($insert['publish'])):
 					$this->news->update_field($news_id,'publish',1,'news');
 				endif;
@@ -73,7 +74,7 @@ class Ajax_interface extends MY_Controller{
 				$text .= '<ul><li><a id="load-images" href="#">Добавить изображения к созданной новости</a>';
 				if($news_id):
 					$text .= '<li><a href="'.site_url('administrator/news/edit/'.$news_id).'">Редактировать созданную новость</a></li>';
-					$text .= '<li><a href="'.site_url('news').'" target="_blank">Читать созданную новость</a></li>';
+					$text .= '<li><a href="'.site_url('news').'" target="_blank">Просмотреть созданную новость</a></li>';
 				endif;
 				$text .= '<li><a href="'.site_url('administrator/news').'">К списку новостей</a></li></ul>';
 				echo $text;
@@ -81,6 +82,116 @@ class Ajax_interface extends MY_Controller{
 		endif;
 	}
 	
+	public function updateNews(){
+		
+		if(!$this->input->is_ajax_request()):
+			show_error('В доступе отказано');
+		endif;
+		$update = $this->input->post();
+		if($update && $this->session->userdata('current_item')):
+			$this->load->model('news');
+			$update['date'] = preg_replace("/(\d+)\.(\w+)\.(\d+)/i","\$3-\$2-\$1",$update['date']);
+			$update['id'] = $this->session->userdata('current_item');
+			$this->news->update_record($update);
+			$text = '<img src="'.site_url('img/check.png').'" alt="" /> Новость сохранена<hr/>';
+			$text .= '<ul><li><a href="'.site_url('administrator/news/edit/images/'.$update['id']).'">Управлять изображеними к текущей новости</a>';
+			$text .= '<li><a href="'.site_url('news').'" target="_blank">Просмотреть созданную новость</a></li>';
+			$text .= '<li><a href="'.site_url('administrator/news').'">К списку новостей</a></li></ul>';
+			echo $text;
+			$this->session->unset_userdata('current_item');
+		else:
+			$text = '<img src="'.site_url('img/no-check.png').'" alt="" /> Ошибка при сохранении<hr/>';
+		endif;
+	}
+	
+	public function deleteNews(){
+		
+		if(!$this->input->is_ajax_request()):
+			show_error('В доступе отказано');
+		endif;
+		$news = $this->input->post('parameter');
+		$json_request = array('status'=>FALSE,'message'=>'');
+		if($news):
+			$this->load->model('news_images');
+			$images = $this->news_images->photoNews($news);
+			for($i=0;$i<count($images);$i++):
+				$this->filedelete(getcwd().'/'.$images[$i]['src']);
+			endfor;
+			$this->news_images->delete_records($news,'news_images');
+			$this->load->model('news');
+			$this->news->delete_record($news,'news');
+			$json_request['status'] = TRUE;
+			$json_request['message'] = '<img src="'.site_url('img/check.png').'" alt="" /> Новость удалена';
+		else:
+			$json_request['message'] = '<img src="'.site_url('img/no-check.png').'" alt="" /> Ошибка при удалении<hr/>';
+		endif;
+		echo json_encode($json_request);
+	}
+	
+	public function saveNewsPhoto(){
+		
+		$this->load->model('news_images');
+		$randomNumber = mt_rand(1,1000);
+		$insert = array('news'=>0,'src'=>'');
+		$insert['news'] = $this->session->userdata('current_item');
+		if(!$insert['news']):
+			show_error('Missing data');
+		endif;
+		$fn = (isset($_SERVER['HTTP_X_FILENAME'])?$_SERVER['HTTP_X_FILENAME']:false);
+		if($fn):
+			$newFileName = preg_replace('/.+(.)(\.)+/','news_'.$randomNumber."\$2",$fn);
+			file_put_contents(getcwd().'/upload_images/'.$newFileName,file_get_contents('php://input'));
+			echo "$fn uploaded";
+			$insert['src'] = 'upload_images/'.$newFileName;
+			$this->news_images->insert_record($insert);
+			exit();
+		else:
+			if(isset($_FILES['fileselect'])):
+				$files = $_FILES['fileselect'];
+				$i = 0;
+				foreach($files['error'] as $id => $err):
+					if($err == UPLOAD_ERR_OK):
+						$fn = $files['name'][$id];
+						$newFileName = preg_replace('/.+(.)(\.)+/','property_'.$randomNumber."\$2",$fn);
+						move_uploaded_file($files['tmp_name'][$id],getcwd().'/upload_images/'.$newFileName);
+						$insert['src'] = 'upload_images/'.$newFileName;
+						$this->news_images->insert_record($insert);
+						echo "<p>File $fn uploaded.</p>";
+						$i++;
+					endif;
+				endforeach;
+			else:
+				show_404();
+			endif;
+		endif;
+	}
+	
+	public function deleteNewsPhoto(){
+		
+		if(!$this->input->is_ajax_request()):
+			show_error('Аccess denied');
+		endif;
+		$json_request = array('status'=>FALSE,'message'=>'');
+		$data = trim($this->input->post('postdata'));
+		if($data):
+			$data = preg_split("/&/",$data);
+			for($i=0;$i<count($data);$i++):
+				$dataid = preg_split("/=/",$data[$i]);
+				$dataval[$i] = trim($dataid[1]);
+			endfor;
+			if($dataval):
+				$this->load->model('news_images');
+				for($i=0;$i<count($dataval);$i++):
+					$image = $this->news_images->read_record($dataval[$i],'news_images');
+					$this->filedelete(getcwd().'/'.$image['src']);
+					$this->news_images->delete_record($image['id'],'news_images');
+				endfor;
+				$json_request['status'] = TRUE;
+				$json_request['message'] = "Изображений удалено: ".count($dataval);
+			endif;
+		endif;
+		echo json_encode($json_request);
+	}
 	/*********************************************** profiles **********************************************************/
 	public function saveProfileAvatar(){
 		

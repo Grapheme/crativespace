@@ -5,6 +5,7 @@
 var mt = mt || {};
 mt.baseURL = 'http://'+window.location.hostname+'/';
 mt.currentURL = window.location.href;
+mt.currentElement = 0;
 mt.isValidEmailAddress = function(emailAddress){
 	var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
 	return pattern.test(emailAddress);
@@ -109,6 +110,6 @@ $(function(){
 	$(":input[role='tooltip']").change(function(){$(this).tooltip("destroy");});
 	$("div.hover-item-block").mouseenter(function(){$(this).find("a.btn-item-block").removeClass('hidden');});
 	$("div.hover-item-block").mouseleave(function(){$("a.btn-item-block").addClass('hidden');});
-	$("a.link-operation-account").click(function(){$.cookie('active_item',$(this).parents("div.list-item-block").attr("data-src"));$.cookie('operation',$(this).attr("data-operation"));});
+	$("a.link-operation-account").click(function(){mt.currentElement = $(this).parents("div.list-item-block").attr("data-src")});
 	$("a[data-toggle='popover']").popover();
 });
