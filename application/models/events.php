@@ -2,7 +2,7 @@
 
 class Events extends MY_Model{
 
-	var $id = 0;
+	var $id = 0;var $liked = 0;
 	var $title = ''; var $content = ''; var $date_begin = ''; var $photo = '';
 
 	function __construct(){

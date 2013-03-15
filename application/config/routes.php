@@ -32,6 +32,11 @@ $route['administrator/object/partner/save/photo'] = "ajax_interface/updatePartne
 $route['administrator/object/insert/images'] = "ajax_interface/saveObjectPhoto";
 $route['administrator/object/images/delete'] = "ajax_interface/deleteObjectPhoto";
 $route['administrator/object/images/title/save'] = "ajax_interface/titleObjectPhoto";
+/*********** people ***************/
+$route['administrator/people/insert'] = "ajax_interface/insertPeople";
+$route['administrator/people/update'] = "ajax_interface/updatePeople";
+$route['administrator/people/delete'] = "ajax_interface/deletePeople";
+$route['administrator/people/save/photo'] = "ajax_interface/updatePeoplePhoto";
 /*************************************************** USERS INTRERFACE ***********************************************/
 /********** loading image *************/
 $route['loadimage/:any/:num'] = "users_interface/loadimage";
@@ -82,3 +87,10 @@ $route['administrator/object/partners/edit/:num'] = "admin_interface/editPartner
 $route['administrator/object/partners/edit'] = "admin_interface/editPartner";
 /*********** photos ***************/
 $route['administrator/object/photos'] = "admin_interface/objectPhotos";
+/*********** people ***************/
+$route['administrator/people'] = "admin_interface/listPeople";
+$route['administrator/people/offset'] = "admin_interface/listPeople";
+$route['administrator/people/offset/:num'] = "admin_interface/listPeople";
+$route['administrator/people/add'] = "admin_interface/insertPeople";
+$route['administrator/people/edit/:num'] = "admin_interface/editPeople";
+$route['administrator/people/edit'] = "admin_interface/editPeople";

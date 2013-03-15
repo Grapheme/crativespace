@@ -15,18 +15,19 @@
 		<div class="navigation_border"></div>
 		<div class="container_12">
 			<?php $this->load->view("users_interface/includes/header");?>
-		
+		<?php if(count($events)):?>
 			<div class="event_title_div grid_20">
 				<a href="#"><img src="<?=site_url('img/left.jpg');?>" class="left"></a>МЕРОПРИЯТИЯ<a href="#"><img src="<?=site_url('img/right.jpg');?>" class="right"></a>
 			</div>
 			<div class="clear"></div>
 			<div class="event_container">
+			<?php for($i=0;$i<count($events);$i++):?>
 				<div class="grid_4">
 					<div class="event">
 						<div>
-							<img src="<?=site_url('img/event.jpg');?>" class="ievent">
+							<img src="<?=site_url('loadimage/events/'.$events[$i]['id']);?>" class="ievent">
 							<div class="event_div_text">
-								<span class="event_index_date">25 Декабря / Начало 18.00</span><br><span class="event_index_text">Cеминар: "Cоздание устойчивых сообществ"</span>
+								<span class="event_index_date"><?=$events[$i]['date_begin']?></span><br><span class="event_index_text"><?=$events[$i]['title']?></span>
 								<div class="like">
 									<a href="#">
 										<img src="<?=site_url('img/liked.jpg');?>" class="liked">
@@ -37,48 +38,27 @@
 						</div>
 					</div>
 				</div>
-				<div class="grid_4">
-					<div class="event">
-						<div>
-							<img src="<?=site_url('img/event.jpg');?>" class="ievent">
-							<div class="event_div_text">
-								<span class="event_index_date">25 Декабря / Начало 18.00</span><br><span class="event_index_text">Cеминар: "Cоздание устойчивых сообществ"</span>
-								<div class="like"><a href="#"><img src="<?=site_url('img/liked.jpg');?>" class="liked"><img src="<?=site_url('img/like.jpg');?>">25</a></div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="grid_4">
-					<div class="event">
-						<div>
-							<img src="<?=site_url('img/event.jpg');?>" class="ievent">
-							<div class="event_div_text">
-								<span class="event_index_date">25 Декабря / Начало 18.00</span><br><span class="event_index_text">Cеминар: "Cоздание устойчивых сообществ"</span>
-								<div class="like"><a href="#"><img src="<?=site_url('img/liked.jpg');?>" class="liked"><img src="<?=site_url('img/like.jpg');?>">25</a></div>
-							</div>
-						</div>
-					</div>
-				</div>
+			<?php endfor;?>
 			</div>
+		<?php endif;?>
 			<div class="clear"></div>
 			<div class="grid_8 prefix_1"><p class="center">НОВОСТИ</p>
 				<div class="news_hr"></div>
+			<?php for($i=0;$i<count($news);$i++):?>
 				<div class="news_div">
-					<p><span class="news_title">Мертвые деревья зомби</span><br><span class="news_date">25 дек</span></p>
-					<span class="news_text">До самого нового года вы сможете приобрести ели у нас в пространстве. Очень большой выбор для украшения вашего праздника. Друзья, в воскресенье 16 числа в Креативном Пространстве пройдет семинар "Создание Устойчивых сообществ". Ребята поделятся опытом, который получили в эко-поселении Тамера (Испания). Также в рамках семинара пройдет ярмарка секонд-хэнд, будут веганские угощения и отличная музыка!</span>
+					<p><span class="news_title"><?=$events[$i]['title']?></span><br><span class="news_date"><?=month_date_with_time($news[$i]['date_publish']);?></span></p>
+					<span class="news_text"><?=word_limiter($news[$i]['content'],50);?></span>
+					<span class="hidden_text hidden"><?=$news[$i]['content'];?></span>
 					<a class="expand" href="#">показать полностью</a>
+			<?php if(count($news[$i]['photos'])):?>
 					<p class="number_photo"><a href="#"><img src="<?=site_url('img/left.jpg');?>" class="left"></a>1 / 25<a href="#"><img src="<?=site_url('img/right.jpg');?>" class="right"></a></p>
-					<div class="news_img_div"><img class="news_img" src="<?=site_url('img/news_img.jpg');?>"></div>
+				<?php for($j=0;$j<count($news[$i]['photos']);$j++):?>
+					<div class="news_img_div"><img class="news_img" src="<?=site_url($news[$i]['photos'][$j]['src']);?>"></div>
+				<?php endfor;?>
+			<?php endif;?>
 					<div class="like"><a href="#"><img src="<?=site_url('img/like.jpg');?>">25</a></div>
 				</div>
-				<div class="news_div last">
-					<p><span class="news_title">Мертвые деревья зомби</span><br><span class="news_date">25 дек</span></p>
-					<span class="news_text">До самого нового года вы сможете приобрести ели у нас в пространстве. Очень большой выбор для украшения вашего праздника. Друзья, в воскресенье 16 числа в Креативном Пространстве пройдет семинар "Создание Устойчивых сообществ". Ребята поделятся опытом, который получили в эко-поселении Тамера (Испания). Также в рамках семинара пройдет ярмарка секонд-хэнд, будут веганские угощения и отличная музыка!</span>
-					<a class="expand" href="#">показать полностью</a>
-					<p class="number_photo"><a href="#"><img src="<?=site_url('img/left.jpg');?>" class="left"></a>1 / 25<a href="#"><img src="<?=site_url('img/right.jpg');?>" class="right"></a></p>
-					<div class="news_img_div"><img class="news_img" src="<?=site_url('img/news_img.jpg');?>"></div>
-					<div class="like"><a href="#"><img src="<?=site_url('img/like.jpg');?>">25</a></div>
-				</div>
+			<?php endfor;?>
 			</div>
 			<div class="follow grid_3">
 				<p class="center">FOLLOW US</p>

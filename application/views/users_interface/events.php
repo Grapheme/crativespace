@@ -16,11 +16,13 @@
 			<?php $this->load->view("users_interface/includes/header");?>
 			<div class="empty grid_12"></div>
 			<div class="clear"></div>
+		<?php for($i=0;$i<count($events);$i++):?>
 			<div class="event_page_div">
 				<div class="grid_6 prefix_1">
-					<span class="event_date">25 Декабря / Начало 18.00</span>
-					<p class="event_title">Cеминар: создание устойчивых сообществ</p>
-					<span class="event_text">Друзья, в креативном пространстве открываем вторую точку сбора. Собираем подарки детям в детский дом на Вятской 37/4. Надеемся на помощь творческих коллективов города, которые могут создать праздник для детей. Детям нужны 2 телевизора, если у кого-нибудь есть ненужные работающие телевизоры, ребята будут счастливы принять их...<br>
+					<span class="event_date"><?=$events[$i]['date_begin']?></span>
+					<p class="event_title"><?=$events[$i]['title']?></p>
+					<span class="event_text"><?=word_limiter($events[$i]['content'],50);?><br>
+					<span class="hidden_text hidden"><?=$events[$i]['content'];?><br>
 					<a class="expand" href="#">показать полностью</a></span>
 					<div class="like">
 						<a href="#">
@@ -30,43 +32,10 @@
 					</div>
 				</div>
 				<div class="grid_5">
-					<div class="event_page_image"><img src="<?=site_url('img/event.jpg');?>"></div>
+					<div class="event_page_image"><img src="<?=site_url('loadimage/events/'.$events[$i]['id']);?>" class="ievent"></div>
 				</div>
 			</div>
-			<div class="event_page_div">
-				<div class="grid_6 prefix_1">
-					<span class="event_date">25 Декабря / Начало 18.00</span>
-					<p class="event_title">Cеминар: создание устойчивых сообществ</p>
-					<span class="event_text">Друзья, в креативном пространстве открываем вторую точку сбора. Собираем подарки детям в детский дом на Вятской 37/4. Надеемся на помощь творческих коллективов города, которые могут создать праздник для детей. Детям нужны 2 телевизора, если у кого-нибудь есть ненужные работающие телевизоры, ребята будут счастливы принять их...<br>
-					<a class="expand" href="#">показать полностью</a></span>
-					<div class="like">
-						<a href="#">
-							<img src="<?=site_url('img/liked.jpg');?>" class="liked">
-							<img src="<?=site_url('img/like.jpg');?>">25
-						</a>
-					</div>
-				</div>
-				<div class="grid_5">
-					<div class="event_page_image"><img src="<?=site_url('img/event.jpg');?>"></div>
-				</div>
-			</div>
-			<div class="event_page_div last">
-				<div class="grid_6 prefix_1">
-					<span class="event_date">25 Декабря / Начало 18.00</span>
-					<p class="event_title">Cеминар: создание устойчивых сообществ</p>
-					<span class="event_text">Друзья, в креативном пространстве открываем вторую точку сбора. Собираем подарки детям в детский дом на Вятской 37/4. Надеемся на помощь творческих коллективов города, которые могут создать праздник для детей. Детям нужны 2 телевизора, если у кого-нибудь есть ненужные работающие телевизоры, ребята будут счастливы принять их...<br>
-					<a class="expand" href="#">показать полностью</a></span>
-					<div class="like">
-						<a href="#">
-							<img src="<?=site_url('img/liked.jpg');?>" class="liked">
-							<img src="<?=site_url('img/like.jpg');?>">25
-						</a>
-					</div>
-				</div>
-				<div class="grid_5">
-					<div class="event_page_image"><img src="<?=site_url('img/event.jpg');?>"></div>
-				</div>
-			</div>
+		<?php endfor;?>
 			<div class="clear"></div>
 		</div>
 	</div>

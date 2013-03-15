@@ -21,27 +21,26 @@
 			<div class="projects_container">
 				<div class="grid_12 empty35"></div>
 				<div class="grid_2">
+				<?php if($projects):?>
 					<nav>
 						<ul>
-							<li><a href="#" class="projects_nav linked">DOBROCOWORK</a></li>
-							<li><a href="#" class="projects_nav">CREATIVE RADIO</a></li>
-							<li><a href="#" class="projects_nav">ГАЛЕРЕЯ</a></li>
-							<li><a href="#" class="projects_nav">ВЕЛОПРОКАТ</a></li>
-							<li><a href="#" class="projects_nav">ТИПОГРАФИЯ</a></li>
-							<li><a href="#" class="projects_nav">BAZA</a></li>
-							<li><a href="#" class="projects_nav">ФЛОРАРИУМ</a></li>
+						<?php for($i=0;$i<count($projects);$i++):?>
+							<li><a href="<?=site_url('projects');?>" class="projects_nav linked"><?=$projects[$i]['title'];?></a></li>
+						<?php endfor;?>
 						</ul>
 					</nav>
+				<?php endif;?>
 				</div>
 				<div class="grid_8 prefix_1">
 					<div class="projects_main_div">
-						<img src="<?=site_url('img/dobroco.jpg');?>">
-						<p class="dobrocoworkru_explain">Dobrocowork - это лучшие условия для аренды комфортных мест в специально подготовленном лофт-пространстве в центре города, площадью 170 квадратных метров с возможностью организации рабочих групп до 6-ти человек.<br>
-						Ковокеры получают возможность работать в удобном офисе, принимать участие в интересных и перспективных проектах, влиться в профессиональную команду и познакомится с единомышленниками, проще говоря стать частью команды проекта dobrocowork, не имеющего аналогов на юге России</p>
+					<?php if(isset($projects[0])):?>
+						<img src="<?=site_url('loadimage/project/'.$projects[0]['id']);?>">
+						<p class="dobrocoworkru_explain"><?=$projects[0]['content'];?></p>
 						<div class="projects_people">
-							<p class="dobrocoworkru_people">ЛЮДИ: <a class="dobrocoworkru_person" href="#">Александр Кулешов</a>, <a class="dobrocoworkru_person" href="#">Павел Юдин</a>, <a class="dobrocoworkru_person" href="#">Андрей Герцен</a></p>
-							<a class="dobrocoworkru" href="#">dobrocowork.ru</a>
+							<p class="dobrocoworkru_people">ЛЮДИ: <?=$projects[0]['people'];?></p>
+							<a class="dobrocoworkru" href="#"><?=$projects[0]['site'];?></a>
 						</div>
+					<?php endif;?>
 					</div>
 				</div>
 				<div class="clear"></div>

@@ -54,6 +54,10 @@
 		event.preventDefault();
 		updateSingleImage(this,"administrator/object/partner/save/photo",$("#input-partner-photo"));
 	});
+	$("#upload-people-photo").click(function(event){
+		event.preventDefault();
+		updateSingleImage(this,"administrator/people/save/photo",$("#input-people-photo"));
+	});
 	$("input.input-select-photo").change(function(){
 		$("button.btn-upload").removeClass('hidden');
 		$("button.btn-upload").tooltip('show');

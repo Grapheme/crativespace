@@ -30,15 +30,9 @@
 					</nav>
 				</div>
 				<div class="grid_10 object_photo_container">
-					<a href="#"><img class="object_photo" src="<?=site_url('img/photo_1.jpg');?>"></a>
-					<a href="#"><img class="object_photo" src="<?=site_url('img/photo_2.jpg');?>"></a>
-					<a href="#"><img class="object_photo" src="<?=site_url('img/photo_3.jpg');?>"></a>
-					<a href="#"><img class="object_photo" src="<?=site_url('img/photo_1.jpg');?>"></a>
-					<a href="#"><img class="object_photo" src="<?=site_url('img/photo_2.jpg');?>"></a>
-					<a href="#"><img class="object_photo" src="<?=site_url('img/photo_3.jpg');?>"></a>
-					<a href="#"><img class="object_photo" src="<?=site_url('img/photo_1.jpg');?>"></a>
-					<a href="#"><img class="object_photo" src="<?=site_url('img/photo_2.jpg');?>"></a>
-					<a href="#"><img class="object_photo" src="<?=site_url('img/photo_3.jpg');?>"></a>
+				<?php for($i=0;$i<count($images);$i++):?>
+					<a href="#"><img class="object_photo" src="<?=site_url($images[$i]['src']);?>"></a>
+				<?php endfor;?>
 				</div>
 				<div class="clear"></div>
 			</div>

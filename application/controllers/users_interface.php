@@ -13,40 +13,59 @@ class Users_interface extends MY_Controller{
 	
 	public function index(){
 		
+		$this->load->helper('date');
+		$this->load->helper('text');
+		$this->load->model('events');
+		$this->load->model('news');
+		$this->load->model('news_images');
+		
 		$pagevar = array(
-
+			'events' => $this->events->read_limit_records(3,0,'events','id','DESC'),
+			'news' => $this->news->read_limit_records(2,0,'news','date_publish','DESC'),
+			
 		);
+		for($i=0;$i<count($pagevar['news']);$i++):
+			$pagevar['news'][$i]['photos'] = $this->news_images->photoNews($pagevar['news'][$i]['id']);
+		endfor;
 		$this->load->view("users_interface/index",$pagevar);
 	}
 	
 	public function events(){
 		
+		$this->load->helper('date');
+		$this->load->helper('text');
+		$this->load->model('events');
 		$pagevar = array(
-
+			'events' => $this->events->read_records('events','id','DESC')
 		);
 		$this->load->view("users_interface/events",$pagevar);
 	}
 	
 	public function projects(){
 		
+		$this->load->helper('text');
+		$this->load->model('projects');
 		$pagevar = array(
-
+			'projects' => $this->projects->read_records('projects','title','ASC'),
 		);
 		$this->load->view("users_interface/projects",$pagevar);
 	}
 	
 	public function objectPartners(){
 		
+		$this->load->helper('text');
+		$this->load->model('partners');
 		$pagevar = array(
-
+			'partners' => $this->partners->read_records('partners','title','ASC'),
 		);
 		$this->load->view("users_interface/object-partners",$pagevar);
 	}
 	
 	public function objectPhotos(){
 		
+		$this->load->model('object_images');
 		$pagevar = array(
-
+			'images' => $this->object_images->read_records('object_images','id','DESC'),
 		);
 		$this->load->view("users_interface/object-photos",$pagevar);
 	}
@@ -61,8 +80,10 @@ class Users_interface extends MY_Controller{
 	
 	public function people(){
 		
+		$this->load->helper('text');
+		$this->load->model('people');
 		$pagevar = array(
-
+			'people' => $this->people->read_records('people','name','ASC'),
 		);
 		$this->load->view("users_interface/people",$pagevar);
 	}

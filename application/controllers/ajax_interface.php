@@ -390,7 +390,7 @@ class Ajax_interface extends MY_Controller{
 		echo json_encode($json_request);
 	}
 	
-	/************************************************* projects ************************************************************/
+	/************************************************* pertner ************************************************************/
 	public function insertPartner(){
 		
 		if(!$this->input->is_ajax_request()):
@@ -568,6 +568,104 @@ class Ajax_interface extends MY_Controller{
 				$this->object_images->update_field($dataval[0],'title',$dataval[1],'object_images');
 				$json_request['status'] = TRUE;
 			endif;
+		endif;
+		echo json_encode($json_request);
+	}
+	
+	/************************************************* people ************************************************************/
+	public function insertPeople(){
+		
+		if(!$this->input->is_ajax_request()):
+			show_error('В доступе отказано');
+		endif;
+		$insert = $this->input->post();
+		if($insert):
+			$this->load->model('people');
+			$people = $this->people->insert_record($insert);
+			if($people):
+				if(isset($_FILES['photo'])):
+					if($_FILES['photo']['error'] != 4):
+						$this->image_manupulation($_FILES['photo']['tmp_name'],'width',TRUE,200,200);
+						$photo = file_get_contents($_FILES['photo']['tmp_name']);
+						if($photo):
+							$this->people->update_field($people,'photo',$photo,'people');
+						endif;
+					endif;
+				endif;
+				$text = '<img src="'.site_url('img/check.png').'" alt="" /> Человек добавлен<hr/>';
+				$text .= '<ul><li><a href="'.site_url('administrator/people/add').'">Добавить человека</a>';
+				if($people):
+					$text .= '<li><a href="'.site_url('administrator/people/edit/'.$people).'">Редактировать созданного человека</a></li>';
+					$text .= '<li><a href="'.site_url('people').'" target="_blank">Просмотреть людей</a></li>';
+				endif;
+				$text .= '<li><a href="'.site_url('administrator/people').'">К списку людей</a></li></ul>';
+				echo $text;
+			endif;
+		endif;
+	}
+	
+	public function updatePeople(){
+		
+		if(!$this->input->is_ajax_request()):
+			show_error('В доступе отказано');
+		endif;
+		$update = $this->input->post();
+		if($update && $this->session->userdata('current_item')):
+			$this->load->model('people');
+			$update['id'] = $this->session->userdata('current_item');
+			$this->people->update_record($update);
+			$this->session->unset_userdata('current_item');
+			$text = '<img src="'.site_url('img/check.png').'" alt="" /> Человек сохранен<hr/>';
+			$text .= '<li><a href="'.site_url('people').'" target="_blank">Просмотреть людей</a></li>';
+			$text .= '<li><a href="'.site_url('administrator/people').'">К списку людей</a></li></ul>';
+			echo $text;
+		else:
+			$text = '<img src="'.site_url('img/no-check.png').'" alt="" /> Ошибка при сохранении<hr/>';
+		endif;
+	}
+	
+	public function deletePeople(){
+		
+		if(!$this->input->is_ajax_request()):
+			show_error('В доступе отказано');
+		endif;
+		$partner = $this->input->post('parameter');
+		$json_request = array('status'=>FALSE,'message'=>'');
+		if($partner):
+			$this->load->model('people');
+			$this->people->delete_record($partner,'people');
+			$json_request['status'] = TRUE;
+			$json_request['message'] = '<img src="'.site_url('img/check.png').'" alt="" /> Человек удален';
+		else:
+			$json_request['message'] = '<img src="'.site_url('img/no-check.png').'" alt="" /> Ошибка при удалении<hr/>';
+		endif;
+		echo json_encode($json_request);
+	}
+	
+	public function updatePeoplePhoto(){
+		
+		if(!$this->input->is_ajax_request()):
+			show_error('В доступе отказано');
+		endif;
+		$json_request = array('status'=>FALSE,'responseText'=>'','responsePhotoSrc'=>'');
+		if($_FILES['photo']['error'] != 4):
+			$this->image_manupulation($_FILES['photo']['tmp_name'],'width',TRUE,200,200);
+			$photo = file_get_contents($_FILES['photo']['tmp_name']);
+			if($photo):
+				$this->load->model('people');
+				$people = $this->session->userdata('current_item');
+				if($people):
+					$this->people->update_field($people,'photo',$photo,'people');
+					$this->load->helper('string');
+					$json_request['responsePhotoSrc'] = site_url('loadimage/people/'.$people.'?'.random_string('alpha',5));
+					$json_request['status'] = TRUE;
+				endif;
+			endif;
+		endif;
+		if($json_request['status']):
+			$json_request['responseText'] = 'Файл загружен';
+		else:
+			$json_request['responseText'] = 'Ошибка при загрузке';
 		endif;
 		echo json_encode($json_request);
 	}

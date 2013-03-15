@@ -30,17 +30,14 @@
 					</nav>
 				</div>
 				<div class="grid_10 partner_photo_container">
-					<div class="partner_div"><a href="#"><div class="partner_black_div"></div><img class="partner_photo" src="<?=site_url('img/partner_2.jpg');?>"></a></div>
-					<div class="partner_div"><a href="#"><div class="partner_black_div"></div><img class="partner_photo" src="<?=site_url('img/partner_1.jpg');?>"></a></div>
-					<div class="partner_div"><a href="#"><div class="partner_black_div"></div><img class="partner_photo" src="<?=site_url('img/partner_2.jpg');?>"></a></div>
-					<div class="partner_div"><a href="#"><div class="partner_black_div"></div><img class="partner_photo" src="<?=site_url('img/partner_1.jpg');?>"></a></div>
-					<div class="partner_div"><a href="#"><div class="partner_black_div"></div><img class="partner_photo" src="<?=site_url('img/partner_2.jpg');?>"></a></div>
-					<div class="partner_div"><a href="#"><div class="partner_black_div"></div><img class="partner_photo" src="<?=site_url('img/partner_1.jpg');?>"></a></div>
-					<div class="partner_div"><a href="#"><div class="partner_black_div"></div><img class="partner_photo" src="<?=site_url('img/partner_2.jpg');?>"></a></div>
-					<div class="partner_div"><a href="#"><div class="partner_black_div"></div><img class="partner_photo" src="<?=site_url('img/partner_1.jpg');?>"></a></div>
-					<div class="partner_div"><a href="#"><div class="partner_black_div"></div><img class="partner_photo" src="<?=site_url('img/partner_2.jpg');?>"></a></div>
-					<div class="partner_div"><a href="#"><div class="partner_black_div"></div><img class="partner_photo" src="<?=site_url('img/partner_1.jpg');?>"></a></div>
-					<div class="partner_div"><a href="#"><div class="partner_black_div"></div><img class="partner_photo" src="<?=site_url('img/partner_2.jpg');?>"></a></div>
+				<?php for($i=0;$i<count($partners);$i++):?>
+					<div class="partner_div">
+						<a href="#">
+							<div class="partner_black_div"></div>
+							<img class="partner_photo" src="<?=site_url('loadimage/partner/'.$partners[$i]['id']);?>">
+						</a>
+					</div>
+				<?php endfor;?>
 				</div>
 				<div class="clear"></div>
 			</div>

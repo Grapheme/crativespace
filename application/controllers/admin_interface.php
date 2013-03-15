@@ -204,7 +204,6 @@ class Admin_interface extends MY_Controller{
 	}
 	
 	/********************************************** photos ********************************************************/
-	
 	public function objectPhotos(){
 		
 		$this->load->model('object_images');
@@ -215,6 +214,44 @@ class Admin_interface extends MY_Controller{
 			'multi_title_photos_url' => 'administrator/object/images/title/save'
 		);
 		$this->load->view("admin_interface/photos",$pagevar);
+	}
+	
+	/********************************************** people ********************************************************/
+	public function listPeople(){
+		
+		$this->load->helper('text');
+		$this->load->model('people');
+		$per_page = 7;
+		$offset = intval($this->uri->segment(5));
+		$pagevar = array(
+			'people' => $this->people->read_limit_records($per_page,$offset,'people','id','DESC'),
+			'pagination' => $this->pagination('administrator/people',5,$this->people->count_all_records('people'),$per_page),
+		);
+		$this->session->unset_userdata('current_item');
+		$this->load->view("admin_interface/people/people-list",$pagevar);
+	}
+	
+	public function insertPeople(){
+		$this->session->unset_userdata('current_item');
+		$this->load->view("admin_interface/people/insert-people");
+	}
+
+	public function editPeople(){
+		$current_item = $this->session->userdata('current_item');
+		if(!$current_item && $this->uri->total_segments() == 4):
+			$this->session->set_userdata('current_item',$this->uri->segment(4));
+			redirect('administrator/people/edit');
+		elseif(!$current_item && $this->uri->total_segments() == 3):
+			redirect('administrator/people');
+		endif;
+		$this->load->model('people');
+		$pagevar = array(
+			'people' => $this->people->projectInformation($current_item),
+		);
+		if(!$pagevar['people']):
+			show_error('В доступе отказано');
+		endif;
+		$this->load->view("admin_interface/people/update-people",$pagevar);
 	}
 	/***********************************************************************************************************/
 }

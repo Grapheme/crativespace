@@ -239,4 +239,21 @@ $(function(){
 				}
 			},"json");
 	});
+	$("#insert-people-form").submit(function(){
+		$(this).ajaxSubmit(singlePhotoOption);
+		return false;
+	});
+	$("#update-people-form").submit(function(){
+		var peopleOptions = options;
+		peopleOptions.target = null;
+		peopleOptions.success = function(responseText,statusText,xhr,jqForm){
+			mt.ajaxSuccessSubmit(responseText,statusText,xhr,jqForm);
+			$("#div-update-people").slideUp(500,function(){
+				$(this).remove();
+				$("#form-request").html(responseText);
+			})
+		}
+		$(this).ajaxSubmit(peopleOptions);
+		return false;
+	});
 });
