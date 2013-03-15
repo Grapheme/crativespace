@@ -1,4 +1,4 @@
-<?=form_open('administrator/news/images/delete',array('class'=>'form-horizontal','id'=>'form-delete-images')); ?>
+<?=form_open($multi_delete_photo_url,array('class'=>'form-horizontal','id'=>'form-delete-images')); ?>
 	<div class="media">
 	<?php for($i=0;$i<count($images);$i++):?>
 		<div class="span3 news-image-item">

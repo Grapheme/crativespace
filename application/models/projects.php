@@ -31,10 +31,10 @@ class Projects extends MY_Model{
 		return $this->db->affected_rows();
 	}
 	
-	function projectInformation($event){
+	function projectInformation($project){
 		
 		$this->db->select('id,translit,title,content,people,site');
-		$query = $this->db->get_where('projects',array('id'=>$event),1);
+		$query = $this->db->get_where('projects',array('id'=>$project),1);
 		$data = $query->result_array();
 		if(isset($data[0])) return $data[0];
 		return FALSE;

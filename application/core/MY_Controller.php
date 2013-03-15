@@ -83,6 +83,7 @@ class MY_Controller extends CI_Controller{
 		switch ($section):
 			case 'events': $this->load->model('events');$image = $this->events->read_field($id,'events','photo'); break;
 			case 'project': $this->load->model('projects');$image = $this->projects->read_field($id,'projects','photo'); break;
+			case 'partner': $this->load->model('partners');$image = $this->partners->read_field($id,'partners','photo'); break;
 			default : show_error('Рисунок не найден');break;
 		endswitch;
 		if(!$image):

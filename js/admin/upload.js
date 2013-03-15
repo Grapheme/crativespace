@@ -50,6 +50,10 @@
 		event.preventDefault();
 		updateSingleImage(this,"administrator/projects/save/photo",$("#input-project-photo"));
 	});
+	$("#upload-partner-photo").click(function(event){
+		event.preventDefault();
+		updateSingleImage(this,"administrator/object/partner/save/photo",$("#input-partner-photo"));
+	});
 	$("input.input-select-photo").change(function(){
 		$("button.btn-upload").removeClass('hidden');
 		$("button.btn-upload").tooltip('show');

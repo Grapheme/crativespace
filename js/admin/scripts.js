@@ -118,13 +118,14 @@ $(function(){
 	});
 	$("#btn-delete-images").click(function(event){
 		event.preventDefault();
+		var url = $("#form-delete-images").attr('action');
 		var postdata = mt.formSerialize($("#form-delete-images input:checkbox:checked"));
 		if(postdata == ''){
 			$("#form-request").html("Не выбраны изображения");
 			return false;
 		}
 		$("#form-delete-images").find(".wait-request").removeClass('hidden');
-		$.post(mt.baseURL+"administrator/news/images/delete",{'postdata':postdata},
+		$.post(url,{'postdata':postdata},
 			function(data){
 				if(data.status){
 					$("#form-delete-images").find(".wait-request").addClass('hidden');
@@ -163,16 +164,45 @@ $(function(){
 	$("#update-project-form").submit(function(){
 		var ckdata = CKEDITOR.instances.content.getData();
 		$(this).find("textarea.ckeditor").html(ckdata);
-		var eventOptions = options;
-		eventOptions.target = null;
-		eventOptions.success = function(responseText,statusText,xhr,jqForm){
+		var projectOptions = options;
+		projectOptions.target = null;
+		projectOptions.success = function(responseText,statusText,xhr,jqForm){
 			mt.ajaxSuccessSubmit(responseText,statusText,xhr,jqForm);
 			$("#div-update-project").slideUp(500,function(){
 				$(this).remove();
 				$("#form-request").html(responseText);
 			})
 		}
-		$(this).ajaxSubmit(eventOptions);
+		$(this).ajaxSubmit(projectOptions);
 		return false;
+	});
+	$("#insert-partner-form").submit(function(){
+		$(this).ajaxSubmit(singlePhotoOption);
+		return false;
+	});
+	$("#update-partner-form").submit(function(){
+		var partnerOptions = options;
+		partnerOptions.target = null;
+		partnerOptions.success = function(responseText,statusText,xhr,jqForm){
+			mt.ajaxSuccessSubmit(responseText,statusText,xhr,jqForm);
+			$("#div-update-partner").slideUp(500,function(){
+				$(this).remove();
+				$("#form-request").html(responseText);
+			})
+		}
+		$(this).ajaxSubmit(partnerOptions);
+		return false;
+	});
+	$("#add-object-images").click(function(){
+		$(this).addClass('disabled');
+		$("#delete-object-images").removeClass('disabled');
+		$("#div-delete-object-images").addClass('hidden');
+		$("#div-insert-object-images").removeClass('hidden');
+	});
+	$("#delete-object-images").click(function(){
+		$(this).addClass('disabled');
+		$("#add-object-images").removeClass('disabled');
+		$("#div-delete-object-images").removeClass('hidden');
+		$("#div-insert-object-images").addClass('hidden');
 	});
 });

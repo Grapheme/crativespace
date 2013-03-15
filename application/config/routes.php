@@ -11,21 +11,26 @@ $route['administrator/profile/save'] = "ajax_interface/profileSave";
 $route['administrator/news/insert'] = "ajax_interface/insertNews";
 $route['administrator/news/update'] = "ajax_interface/updateNews";
 $route['administrator/news/delete'] = "ajax_interface/deleteNews";
-
 $route['administrator/news/insert/images'] = "ajax_interface/saveNewsPhoto";
 $route['administrator/news/images/delete'] = "ajax_interface/deleteNewsPhoto";
 /*********** news ***************/
 $route['administrator/event/insert'] = "ajax_interface/insertEvent";
 $route['administrator/event/update'] = "ajax_interface/updateEvent";
 $route['administrator/event/delete'] = "ajax_interface/deleteEvent";
-
 $route['administrator/events/save/photo'] = "ajax_interface/updateEventPhoto";
 /*********** projects ***************/
 $route['administrator/project/insert'] = "ajax_interface/insertProject";
 $route['administrator/project/update'] = "ajax_interface/updateProject";
 $route['administrator/project/delete'] = "ajax_interface/deleteProject";
-
 $route['administrator/projects/save/photo'] = "ajax_interface/updateProjectPhoto";
+/*********** partners ***************/
+$route['administrator/object/partner/insert'] = "ajax_interface/insertPartner";
+$route['administrator/object/partner/update'] = "ajax_interface/updatePartner";
+$route['administrator/object/partner/delete'] = "ajax_interface/deletePartner";
+$route['administrator/object/partner/save/photo'] = "ajax_interface/updatePartnerPhoto";
+/*********** photos ***************/
+$route['administrator/object/insert/images'] = "ajax_interface/saveObjectPhoto";
+$route['administrator/object/images/delete'] = "ajax_interface/deleteObjectPhoto";
 /*************************************************** USERS INTRERFACE ***********************************************/
 /********** loading image *************/
 $route['loadimage/:any/:num'] = "users_interface/loadimage";
@@ -67,3 +72,12 @@ $route['administrator/projects/offset/:num'] = "admin_interface/listProjects";
 $route['administrator/projects/add'] = "admin_interface/insertProject";
 $route['administrator/projects/edit/:num'] = "admin_interface/editProject";
 $route['administrator/projects/edit'] = "admin_interface/editProject";
+/*********** partners ***************/
+$route['administrator/object/partners'] = "admin_interface/listPartners";
+$route['administrator/object/partners/offset'] = "admin_interface/listPartners";
+$route['administrator/object/partners/offset/:num'] = "admin_interface/listPartners";
+$route['administrator/object/partners/add'] = "admin_interface/insertPartner";
+$route['administrator/object/partners/edit/:num'] = "admin_interface/editPartner";
+$route['administrator/object/partners/edit'] = "admin_interface/editPartner";
+/*********** photos ***************/
+$route['administrator/object/photos'] = "admin_interface/objectPhotos";

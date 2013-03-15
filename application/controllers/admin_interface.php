@@ -81,6 +81,7 @@ class Admin_interface extends MY_Controller{
 		$this->load->model('news_images');
 		$pagevar = array(
 			'images' => $this->news_images->photoNews($current_item),
+			'multi_upload_form_url' => 'administrator/news/insert/images'
 		);
 		$this->load->view("admin_interface/news/manage-news-images",$pagevar);
 	}
@@ -163,5 +164,56 @@ class Admin_interface extends MY_Controller{
 		$this->load->view("admin_interface/projects/update-project",$pagevar);
 	}
 	
+	/********************************************** partners ********************************************************/
+	
+	public function listPartners(){
+		
+		$this->load->helper('text');
+		$this->load->model('partners');
+		$per_page = 7;
+		$offset = intval($this->uri->segment(5));
+		$pagevar = array(
+			'partners' => $this->partners->read_limit_records($per_page,$offset,'partners','id','DESC'),
+			'pagination' => $this->pagination('administrator/object/partners',5,$this->partners->count_all_records('partners'),$per_page),
+		);
+		$this->session->unset_userdata('current_item');
+		$this->load->view("admin_interface/partners/partners-list",$pagevar);
+	}
+	
+	public function insertPartner(){
+		$this->session->unset_userdata('current_item');
+		$this->load->view("admin_interface/partners/insert-partner");
+	}
+
+	public function editPartner(){
+		$current_item = $this->session->userdata('current_item');
+		if(!$current_item && $this->uri->total_segments() == 5):
+			$this->session->set_userdata('current_item',$this->uri->segment(5));
+			redirect('administrator/object/partners/edit');
+		elseif(!$current_item && $this->uri->total_segments() == 4):
+			redirect('administrator/object/partners');
+		endif;
+		$this->load->model('partners');
+		$pagevar = array(
+			'partner' => $this->partners->projectInformation($current_item),
+		);
+		if(!$pagevar['partner']):
+			show_error('В доступе отказано');
+		endif;
+		$this->load->view("admin_interface/partners/update-partner",$pagevar);
+	}
+	
+	/********************************************** photos ********************************************************/
+	
+	public function objectPhotos(){
+		
+		$this->load->model('object_images');
+		$pagevar = array(
+			'images' => $this->object_images->read_records('object_images','id','DESC'),
+			'multi_upload_photos_url' => 'administrator/object/insert/images',
+			'multi_delete_photo_url' => 'administrator/object/images/delete'
+		);
+		$this->load->view("admin_interface/photos",$pagevar);
+	}
 	/***********************************************************************************************************/
 }
