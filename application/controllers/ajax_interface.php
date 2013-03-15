@@ -550,6 +550,28 @@ class Ajax_interface extends MY_Controller{
 		echo json_encode($json_request);
 	}
 	
+	public function titleObjectPhoto(){
+		
+		if(!$this->input->is_ajax_request()):
+			show_error('Аccess denied');
+		endif;
+		$json_request = array('status'=>FALSE);
+		$data = trim($this->input->post('postdata'));
+		if($data):
+			$data = preg_split("/&/",$data);
+			for($i=0;$i<count($data);$i++):
+				$dataid = preg_split("/=/",$data[$i]);
+				$dataval[$i] = trim($dataid[1]);
+			endfor;
+			if($dataval):
+				$this->load->model('object_images');
+				$this->object_images->update_field($dataval[0],'title',$dataval[1],'object_images');
+				$json_request['status'] = TRUE;
+			endif;
+		endif;
+		echo json_encode($json_request);
+	}
+	
 	/************************************************* profiles ***********************************************************/
 	public function profileSave(){
 		

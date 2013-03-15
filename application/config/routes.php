@@ -31,6 +31,7 @@ $route['administrator/object/partner/save/photo'] = "ajax_interface/updatePartne
 /*********** photos ***************/
 $route['administrator/object/insert/images'] = "ajax_interface/saveObjectPhoto";
 $route['administrator/object/images/delete'] = "ajax_interface/deleteObjectPhoto";
+$route['administrator/object/images/title/save'] = "ajax_interface/titleObjectPhoto";
 /*************************************************** USERS INTRERFACE ***********************************************/
 /********** loading image *************/
 $route['loadimage/:any/:num'] = "users_interface/loadimage";

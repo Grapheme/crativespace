@@ -211,7 +211,8 @@ class Admin_interface extends MY_Controller{
 		$pagevar = array(
 			'images' => $this->object_images->read_records('object_images','id','DESC'),
 			'multi_upload_photos_url' => 'administrator/object/insert/images',
-			'multi_delete_photo_url' => 'administrator/object/images/delete'
+			'multi_delete_photo_url' => 'administrator/object/images/delete',
+			'multi_title_photos_url' => 'administrator/object/images/title/save'
 		);
 		$this->load->view("admin_interface/photos",$pagevar);
 	}

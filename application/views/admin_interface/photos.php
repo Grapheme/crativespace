@@ -12,11 +12,15 @@
 		<?$this->load->view("admin_interface/includes/header")?>
 		<div class="clear"></div>
 		<a class="none btn btn-info disabled" id="add-object-images">Добавление изображений</a>
+		<a class="none btn btn-info" id="title-object-images">Подписи к изображениям</a>
 		<a class="none btn btn-info" id="delete-object-images">Удаление изображений</a>
 		<hr/>
 		<div class="clear"></div>
 		<div id="div-insert-object-images">
 		<?=$this->load->view('admin_interface/forms/multi-insert-photo')?>
+		</div>
+		<div id="div-title-object-images" class="hidden">
+		<?=$this->load->view('admin_interface/forms/multi-title-photo')?>
 		</div>
 		<div id="div-delete-object-images" class="hidden">
 		<?=$this->load->view('admin_interface/forms/multi-delete-photo')?>

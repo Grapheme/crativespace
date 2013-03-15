@@ -129,7 +129,14 @@ $(function(){
 			function(data){
 				if(data.status){
 					$("#form-delete-images").find(".wait-request").addClass('hidden');
+					if($("#form-title-images").exists()){
+						$("#form-delete-images input:checkbox:checked").each(function(i,element){
+							var imgID = $(element).parents('div.news-image-item').attr("data-src");
+							$("#form-title-images div.news-image-item[data-src='"+imgID+"']").remove();
+						})
+					}
 					$("#form-delete-images input:checkbox:checked").parents('div.news-image-item').remove();
+					
 				}
 				$("#form-request").html(data.message);
 			},"json");
@@ -196,13 +203,40 @@ $(function(){
 	$("#add-object-images").click(function(){
 		$(this).addClass('disabled');
 		$("#delete-object-images").removeClass('disabled');
+		$("#title-object-images").removeClass('disabled');
 		$("#div-delete-object-images").addClass('hidden');
+		$("#div-title-object-images").addClass('hidden');
 		$("#div-insert-object-images").removeClass('hidden');
+	});
+	$("#title-object-images").click(function(){
+		$(this).addClass('disabled');
+		$("#add-object-images").removeClass('disabled');
+		$("#delete-object-images").removeClass('disabled');
+		$("#div-delete-object-images").addClass('hidden');
+		$("#div-title-object-images").removeClass('hidden');
+		$("#div-insert-object-images").addClass('hidden');
 	});
 	$("#delete-object-images").click(function(){
 		$(this).addClass('disabled');
 		$("#add-object-images").removeClass('disabled');
+		$("#title-object-images").removeClass('disabled');
 		$("#div-delete-object-images").removeClass('hidden');
+		$("#div-title-object-images").addClass('hidden');
 		$("#div-insert-object-images").addClass('hidden');
+	});
+	$("#form-title-images :button.btn-save-title-images").click(function(event){
+		event.preventDefault();
+		var _this = $(this);
+		var url = $("#form-title-images").attr('action');
+		var postdata = 'id='+$(this).attr('data-src')+'&title='+$(this).siblings(":text").val();
+		_this.addClass('hidden').after('<div class="span1 loading pull-right"></div>')
+		$.post(url,{'postdata':postdata},
+			function(data){
+				if(data.status){
+					_this.removeClass('hidden').addClass('btn-success').siblings("div.loading").remove();
+				}else{
+					_this.removeClass('hidden').addClass('btn-danger').siblings("div.loading").remove();
+				}
+			},"json");
 	});
 });
