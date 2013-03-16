@@ -41,6 +41,7 @@
 			<?php endfor;?>
 			</div>
 		<?php endif;?>
+		<?php if(count($news)):?>
 			<div class="clear"></div>
 			<div class="grid_8 prefix_1"><p class="center">НОВОСТИ</p>
 				<div class="news_hr"></div>
@@ -75,6 +76,7 @@
 				</div>
 			</div>
 			<div class="clear"></div>
+		<?php endif;?>
 		</div>
 	</div>
 <?php $this->load->view("users_interface/includes/footer");?>
