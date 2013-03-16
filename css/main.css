@@ -1247,3 +1247,7 @@ footer {
 .floors .linked {
 	color:#ffffff;
 }
+
+.hidden{
+	display: none;
+}

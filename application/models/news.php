@@ -22,7 +22,7 @@ class News extends MY_Model{
 		return $this->db->insert_id();
 	}
 	
- 	function update_record($data){
+	function update_record($data){
 		
 		if(!empty($data['title'])):
 			$this->db->set('title',$data['title']);
@@ -44,5 +44,5 @@ class News extends MY_Model{
 		if(isset($data[0])) return $data[0];
 		return FALSE;
 	}
-	
+
 }

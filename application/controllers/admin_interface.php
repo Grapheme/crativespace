@@ -46,7 +46,7 @@ class Admin_interface extends MY_Controller{
 	
 	public function insertNews(){
 		$this->session->unset_userdata('current_item');
-		$this->load->view("admin_interface/news/insert-news");
+		$this->load->view("admin_interface/news/insert-news",array('multi_upload_photos_url'=>'administrator/news/insert/images',));
 	}
 
 	public function editNews(){

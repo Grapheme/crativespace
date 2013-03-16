@@ -25,20 +25,20 @@
 					<nav>
 						<ul>
 						<?php for($i=0;$i<count($projects);$i++):?>
-							<li><a href="<?=site_url('projects');?>" class="projects_nav linked"><?=$projects[$i]['title'];?></a></li>
+							<li><a href="<?=site_url('projects');?>" data-item="<?=$projects[$i]['id'];?>" class="change-project projects_nav<?=(!$i)?' linked':''?>"><?=$projects[$i]['title'];?></a></li>
 						<?php endfor;?>
 						</ul>
 					</nav>
 				<?php endif;?>
 				</div>
 				<div class="grid_8 prefix_1">
-					<div class="projects_main_div">
+					<div class="projects_main_div" id="project-information">
 					<?php if(isset($projects[0])):?>
 						<img src="<?=site_url('loadimage/project/'.$projects[0]['id']);?>">
 						<p class="dobrocoworkru_explain"><?=$projects[0]['content'];?></p>
 						<div class="projects_people">
 							<p class="dobrocoworkru_people">ЛЮДИ: <?=$projects[0]['people'];?></p>
-							<a class="dobrocoworkru" href="#"><?=$projects[0]['site'];?></a>
+							<a class="dobrocoworkru none" href=""><?=$projects[0]['site'];?></a>
 						</div>
 					<?php endif;?>
 					</div>

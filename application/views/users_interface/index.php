@@ -28,10 +28,10 @@
 							<img src="<?=site_url('loadimage/events/'.$events[$i]['id']);?>" class="ievent">
 							<div class="event_div_text">
 								<span class="event_index_date"><?=$events[$i]['date_begin']?></span><br><span class="event_index_text"><?=$events[$i]['title']?></span>
-								<div class="like">
+								<div class="like" data-type="events" data-item="<?=$events[$i]['id'];?>">
 									<a href="#">
-										<img src="<?=site_url('img/liked.jpg');?>" class="liked">
-										<img src="<?=site_url('img/like.jpg');?>">25
+										<img src="<?=site_url('img/liked.jpg');?>" class="liked" />
+										<img src="<?=site_url('img/like.jpg');?>" /><span class="liked-value"><?=$events[$i]['liked'];?></span>
 									</a>
 								</div>
 							</div>
@@ -43,24 +43,43 @@
 		<?php endif;?>
 		<?php if(count($news)):?>
 			<div class="clear"></div>
-			<div class="grid_8 prefix_1"><p class="center">НОВОСТИ</p>
+			<div class="grid_8 prefix_1 infinite-scroll">
+				<p class="center">НОВОСТИ</p>
 				<div class="news_hr"></div>
 			<?php for($i=0;$i<count($news);$i++):?>
 				<div class="news_div">
-					<p><span class="news_title"><?=$events[$i]['title']?></span><br><span class="news_date"><?=month_date_with_time($news[$i]['date_publish']);?></span></p>
-					<span class="news_text"><?=word_limiter($news[$i]['content'],50);?></span>
-					<span class="hidden_text hidden"><?=$news[$i]['content'];?></span>
-					<a class="expand" href="#">показать полностью</a>
+					<p>
+						<span class="news_title">
+							<?=$news[$i]['title']?>
+						</span><br>
+						<span class="news_date">
+							<?=month_date_with_time($news[$i]['date_publish']);?>
+						</span>
+					</p>
+					<div class="news_text view-text"><?=word_limiter($news[$i]['content'],50);?></div>
+					<div class="news_text hidden-text hidden"><?=$news[$i]['content'];?></div>
+					<a class="expand advanced" href="">показать полностью</a>
 			<?php if(count($news[$i]['photos'])):?>
 					<p class="number_photo"><a href="#"><img src="<?=site_url('img/left.jpg');?>" class="left"></a>1 / 25<a href="#"><img src="<?=site_url('img/right.jpg');?>" class="right"></a></p>
 				<?php for($j=0;$j<count($news[$i]['photos']);$j++):?>
 					<div class="news_img_div"><img class="news_img" src="<?=site_url($news[$i]['photos'][$j]['src']);?>"></div>
 				<?php endfor;?>
 			<?php endif;?>
-					<div class="like"><a href="#"><img src="<?=site_url('img/like.jpg');?>">25</a></div>
+					<div class="like set-like" data-type="news" data-item="<?=$news[$i]['id'];?>">
+						<a href="">
+							<img src="<?=site_url('img/liked.jpg');?>" class="liked">
+							<img src="<?=site_url('img/like.jpg');?>"><span class="liked-value"><?=$news[$i]['liked'];?></span>
+						</a>
+					</div>
 				</div>
 			<?php endfor;?>
+			<?php if($next_items):?>
+				<?php $offset = $this->per_page+$this->offset;?>
+				<div class="next">
+					<a href="<?=site_url("text-load/news/from/$offset");?>">&nbsp;</a>
+				</div>
 			</div>
+		<?php endif;?>
 			<div class="follow grid_3">
 				<p class="center">FOLLOW US</p>
 				<div class="follow_hr"></div>

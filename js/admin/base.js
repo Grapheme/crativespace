@@ -45,7 +45,11 @@ mt.exist_email = function(emailInput){
 mt.redirect = function(path){window.location=path;}
 mt.ShowCut = function(element,event){
 	event.preventDefault();
-	$(element).next('cut').fadeIn('slow');$(element).remove();
+	var element = this;
+	$(element).addClass('hidden').siblings('div.view-text').remove();
+	$(element).siblings('div.hidden-text').hide().removeClass('hidden').fadeIn(500,function(){
+		$(element).remove();
+	});
 }
 mt.minLength = function(string,Len){if(string != ''){if(string.length < Len){return false;}else{return true;}}}
 mt.FieldsIsNotNumeric = function(formObject){

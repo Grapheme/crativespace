@@ -2,6 +2,9 @@
 
 class Ajax_interface extends MY_Controller{
 	
+	var $per_page = 5;
+	var $offset = 0;
+	
 	function __construct(){
 		
 		parent::__construct();
@@ -54,6 +57,105 @@ class Ajax_interface extends MY_Controller{
 		echo json_encode($json_request);
 	}
 	
+	public function setItemLike(){
+		
+		if(!$this->input->is_ajax_request()):
+			show_error('В доступе отказано');
+		endif;
+		$json_request = array('status'=>FALSE,'liked'=>0);
+		$data = trim($this->input->post('postdata'));
+		if($data):
+			$data = preg_split("/&/",$data);
+			for($i=0;$i<count($data);$i++):
+				$dataid = preg_split("/=/",$data[$i]);
+				$dataval[$i] = trim($dataid[1]);
+			endfor;
+			if($dataval):
+				$this->load->model($dataval[1]);
+				$json_request['liked'] = $this->$dataval[1]->read_field($dataval[0],$dataval[1],'liked') + 1;
+				$this->$dataval[1]->update_field($dataval[0],'liked',$json_request['liked'],$dataval[1]);
+				$json_request['status'] = TRUE;
+			endif;
+		endif;
+		echo json_encode($json_request);
+	}
+
+	public function textScrollLoad(){
+		
+		if(!$this->input->is_ajax_request()):
+			show_error('Аccess denied');
+		endif;
+		$this->offset = $this->uri->segment(4);
+		$table = $this->uri->segment(2);
+		$this->load->helper('date');
+		$this->load->helper('text');
+		$next_items = FALSE;
+		if($table == 'news'):
+			$this->load->model($table);
+			$content = $this->$table->read_limit_records($this->per_page,$this->offset,$table,'date_publish','DESC');
+			$next_items = $this->$table->exist_next_records($this->offset,$table);
+		endif;
+		if($table == 'events'):
+			$this->load->model($table);
+			$content = $this->$table->read_limit_records($this->per_page,$this->offset,$table,'id','DESC');
+			$next_items = $this->$table->exist_next_records($this->offset,$table);
+		endif;
+		
+		$html = '';
+		for($i=0;$i<count($content);$i++):
+			if($table == 'news'):
+				$html .= '<div class="news_div">';
+				$html .= '<p><span class="news_title">'.$content[$i]['title'].'</span><br>';
+				$html .= '<span class="news_date">'.month_date_with_time($content[$i]['date_publish']).'</span></p>';
+				$html .= '<div class="news_text view-text">'.word_limiter($content[$i]['content'],50).'</div>';
+				$html .= '<div class="news_text hidden-text hidden">'.$content[$i]['content'].'</div>';
+				$html .= '<a class="expand advanced" href="">показать полностью</a>';
+				$html .= '<div class="like set-like" data-type="news" data-item="'.$content[$i]['id'].'">';
+				$html .= '<a href=""><img src="'.site_url('img/liked.jpg').'" class="liked">';
+				$html .= '<img src="'.site_url('img/like.jpg').'"><span class="liked-value">'.$content[$i]['liked'].'</span></a></div>';
+			endif;
+			if($table == 'events'):
+				$html .= '<div class="event_page_div"><div class="grid_6 prefix_1">';
+				$html .= '<span class="event_date">'.$content[$i]['date_begin'].'</span>';
+				$html .= '<p class="event_title">'.$content[$i]['title'].'</p>';
+				$html .= '<div class="event_text view-text">'.word_limiter($content[$i]['content'],50).'</div>';
+				$html .= '<div class="clear"></div>';
+				$html .= '<div class="hidden_text hidden-text hidden">'.$content[$i]['content'].'</div>';
+				$html .= '<a class="expand advanced" href="#">показать полностью</a>';
+				$html .= '<div class="like set-like" data-type="events" data-item="'.$content[$i]['id'].'">';
+				$html .= '<a href="#"><img src="'.site_url('img/liked.jpg').'" class="liked">';
+				$html .= '<img src="'.site_url('img/like.jpg').'"><span class="liked-value">'.$content[$i]['liked'].'</span>';
+				$html .= '</a></div></div><div class="grid_5">';
+				$html .= '<div class="event_page_image"><img src="'.site_url('loadimage/events/'.$content[$i]['id']).'" class="ievent"></div>';
+				$html .= '</div></div>';
+			endif;
+		endfor;
+		if($next_items):
+			$offset = $this->per_page+$this->offset;
+			$html .= '<div class="next"><a href="'.site_url("text-load/$table/from/$offset").'">Еще ...</a></div>';
+		endif;
+		echo $html;
+	}
+
+	public function projectLoad(){
+		
+		if(!$this->input->is_ajax_request()):
+			show_error('Аccess denied');
+		endif;
+		$project = $this->input->post('parameter');
+		$html = '';
+		if($project):
+			$this->load->model('projects');
+			$content = $this->projects->read_record($project,'projects');
+			$html .= '<img src="'.site_url('loadimage/project/'.$content['id']).'">';
+			$html .= '<p class="dobrocoworkru_explain">'.$content['content'].'</p>';
+			$html .= '<div class="projects_people"><p class="dobrocoworkru_people">ЛЮДИ: '.$content['people'].'</p>';
+			$html .= '<a class="dobrocoworkru none" href="">'.$content['site'].'</a></div>';
+			echo $html;
+		else:
+			echo 'Данные отсутствуют';
+		endif;
+	}
 	/************************************************* news ************************************************************/
 	public function insertNews(){
 		
@@ -68,7 +170,8 @@ class Ajax_interface extends MY_Controller{
 			if($news_id):
 				$this->session->set_userdata('current_item',$news_id);
 				$text = '<img src="'.site_url('img/check.png').'" alt="" /> Новость добавлена<hr/>';
-				$text .= '<ul><li><a id="load-images" href="#">Добавить изображения к созданной новости</a>';
+				$text .= '<ul><li><a href="'.site_url('administrator/news/add').'">Добавить новость</a></li>';
+				$text .= '<li><a id="load-images" href="#">Добавить изображения к созданной новости</a></li>';
 				if($news_id):
 					$text .= '<li><a href="'.site_url('administrator/news/edit/'.$news_id).'">Редактировать созданную новость</a></li>';
 					$text .= '<li><a href="'.site_url('news').'" target="_blank">Просмотреть созданную новость</a></li>';
@@ -92,7 +195,7 @@ class Ajax_interface extends MY_Controller{
 			$this->news->update_record($update);
 			$this->session->unset_userdata('current_item');
 			$text = '<img src="'.site_url('img/check.png').'" alt="" /> Новость сохранена<hr/>';
-			$text .= '<ul><li><a href="'.site_url('administrator/news/edit/images/'.$update['id']).'">Управлять изображеними к текущей новости</a>';
+			$text .= '<ul><li><a href="'.site_url('administrator/news/edit/images/'.$update['id']).'">Управлять изображеними к текущей новости</a></li>';
 			$text .= '<li><a href="'.site_url('news').'" target="_blank">Просмотреть новость</a></li>';
 			$text .= '<li><a href="'.site_url('administrator/news').'">К списку новостей</a></li></ul>';
 			echo $text;
@@ -212,7 +315,7 @@ class Ajax_interface extends MY_Controller{
 					endif;
 				endif;
 				$text = '<img src="'.site_url('img/check.png').'" alt="" /> Мероприятие добавлено<hr/>';
-				$text .= '<ul><li><a href="'.site_url('administrator/events/add').'">Добавить мероприятие</a>';
+				$text .= '<ul><li><a href="'.site_url('administrator/events/add').'">Добавить мероприятие</a></li>';
 				if($event_id):
 					$text .= '<li><a href="'.site_url('administrator/events/edit/'.$event_id).'">Редактировать созданное мероприятие</a></li>';
 					$text .= '<li><a href="'.site_url('events').'" target="_blank">Просмотреть созданное мероприятие</a></li>';
@@ -236,7 +339,7 @@ class Ajax_interface extends MY_Controller{
 			$this->events->update_record($update);
 			$this->session->unset_userdata('current_item');
 			$text = '<img src="'.site_url('img/check.png').'" alt="" /> Мероприятие сохранено<hr/>';
-			$text .= '<li><a href="'.site_url('events').'" target="_blank">Просмотреть мероприятие</a></li>';
+			$text .= '<ul><li><a href="'.site_url('events').'" target="_blank">Просмотреть мероприятие</a></li>';
 			$text .= '<li><a href="'.site_url('administrator/events').'">К списку меропритий</a></li></ul>';
 			echo $text;
 		else:
@@ -312,7 +415,7 @@ class Ajax_interface extends MY_Controller{
 					endif;
 				endif;
 				$text = '<img src="'.site_url('img/check.png').'" alt="" /> Проект добавлен<hr/>';
-				$text .= '<ul><li><a href="'.site_url('administrator/projects/add').'">Добавить проект</a>';
+				$text .= '<ul><li><a href="'.site_url('administrator/projects/add').'">Добавить проект</a></li>';
 				if($project_id):
 					$text .= '<li><a href="'.site_url('administrator/projects/edit/'.$project_id).'">Редактировать созданный проект</a></li>';
 					$text .= '<li><a href="'.site_url('projects').'" target="_blank">Просмотреть проекты</a></li>';
@@ -336,7 +439,7 @@ class Ajax_interface extends MY_Controller{
 			$this->projects->update_record($update);
 			$this->session->unset_userdata('current_item');
 			$text = '<img src="'.site_url('img/check.png').'" alt="" /> Проект сохранен<hr/>';
-			$text .= '<li><a href="'.site_url('projects').'" target="_blank">Просмотреть проекты</a></li>';
+			$text .= '<ul><li><a href="'.site_url('projects').'" target="_blank">Просмотреть проекты</a></li>';
 			$text .= '<li><a href="'.site_url('administrator/projects').'">К списку проектов</a></li></ul>';
 			echo $text;
 		else:
@@ -411,7 +514,7 @@ class Ajax_interface extends MY_Controller{
 					endif;
 				endif;
 				$text = '<img src="'.site_url('img/check.png').'" alt="" /> Партнер добавлен<hr/>';
-				$text .= '<ul><li><a href="'.site_url('administrator/object/partners/add').'">Добавить партнера</a>';
+				$text .= '<ul><li><a href="'.site_url('administrator/object/partners/add').'">Добавить партнера</a></li>';
 				if($partner_id):
 					$text .= '<li><a href="'.site_url('administrator/object/partners/edit/'.$partner_id).'">Редактировать созданного партнера</a></li>';
 					$text .= '<li><a href="'.site_url('object/partners').'" target="_blank">Просмотреть партнеров</a></li>';
@@ -434,7 +537,7 @@ class Ajax_interface extends MY_Controller{
 			$this->partners->update_record($update);
 			$this->session->unset_userdata('current_item');
 			$text = '<img src="'.site_url('img/check.png').'" alt="" /> Партнер сохранен<hr/>';
-			$text .= '<li><a href="'.site_url('projects').'" target="_blank">Просмотреть партнеров</a></li>';
+			$text .= '<ul><li><a href="'.site_url('projects').'" target="_blank">Просмотреть партнеров</a></li>';
 			$text .= '<li><a href="'.site_url('administrator/object/partners').'">К списку партнеров</a></li></ul>';
 			echo $text;
 		else:
@@ -593,7 +696,7 @@ class Ajax_interface extends MY_Controller{
 					endif;
 				endif;
 				$text = '<img src="'.site_url('img/check.png').'" alt="" /> Человек добавлен<hr/>';
-				$text .= '<ul><li><a href="'.site_url('administrator/people/add').'">Добавить человека</a>';
+				$text .= '<ul><li><a href="'.site_url('administrator/people/add').'">Добавить человека</a></li>';
 				if($people):
 					$text .= '<li><a href="'.site_url('administrator/people/edit/'.$people).'">Редактировать созданного человека</a></li>';
 					$text .= '<li><a href="'.site_url('people').'" target="_blank">Просмотреть людей</a></li>';
@@ -616,7 +719,7 @@ class Ajax_interface extends MY_Controller{
 			$this->people->update_record($update);
 			$this->session->unset_userdata('current_item');
 			$text = '<img src="'.site_url('img/check.png').'" alt="" /> Человек сохранен<hr/>';
-			$text .= '<li><a href="'.site_url('people').'" target="_blank">Просмотреть людей</a></li>';
+			$text .= '<ul><li><a href="'.site_url('people').'" target="_blank">Просмотреть людей</a></li>';
 			$text .= '<li><a href="'.site_url('administrator/people').'">К списку людей</a></li></ul>';
 			echo $text;
 		else:

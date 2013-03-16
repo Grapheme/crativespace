@@ -16,26 +16,35 @@
 			<?php $this->load->view("users_interface/includes/header");?>
 			<div class="empty grid_12"></div>
 			<div class="clear"></div>
-		<?php for($i=0;$i<count($events);$i++):?>
-			<div class="event_page_div">
-				<div class="grid_6 prefix_1">
-					<span class="event_date"><?=$events[$i]['date_begin']?></span>
-					<p class="event_title"><?=$events[$i]['title']?></p>
-					<span class="event_text"><?=word_limiter($events[$i]['content'],50);?><br>
-					<span class="hidden_text hidden"><?=$events[$i]['content'];?><br>
-					<a class="expand" href="#">показать полностью</a></span>
-					<div class="like">
-						<a href="#">
-							<img src="<?=site_url('img/liked.jpg');?>" class="liked">
-							<img src="<?=site_url('img/like.jpg');?>">25
-						</a>
+			<div class="infinite-scroll">
+			<?php for($i=0;$i<count($events);$i++):?>
+				<div class="event_page_div">
+					<div class="grid_6 prefix_1">
+						<span class="event_date"><?=$events[$i]['date_begin']?></span>
+						<p class="event_title"><?=$events[$i]['title']?></p>
+						<div class="event_text view-text"><?=word_limiter($events[$i]['content'],50);?></div>
+						<div class="clear"></div>
+						<div class="hidden_text hidden-text hidden"><?=$events[$i]['content'];?></div>
+						<a class="expand advanced" href="#">показать полностью</a>
+						<div class="like set-like" data-type="events" data-item="<?=$events[$i]['id'];?>">
+							<a href="#">
+								<img src="<?=site_url('img/liked.jpg');?>" class="liked">
+								<img src="<?=site_url('img/like.jpg');?>"><span class="liked-value"><?=$events[$i]['liked'];?></span>
+							</a>
+						</div>
+					</div>
+					<div class="grid_5">
+						<div class="event_page_image"><img src="<?=site_url('loadimage/events/'.$events[$i]['id']);?>" class="ievent"></div>
 					</div>
 				</div>
-				<div class="grid_5">
-					<div class="event_page_image"><img src="<?=site_url('loadimage/events/'.$events[$i]['id']);?>" class="ievent"></div>
+			<?php endfor;?>
+			<?php if($next_items):?>
+				<?php $offset = $this->per_page+$this->offset;?>
+				<div class="next">
+					<a href="<?=site_url("text-load/events/from/$offset");?>">&nbsp;</a>
 				</div>
+			<?php endif;?>
 			</div>
-		<?php endfor;?>
 			<div class="clear"></div>
 		</div>
 	</div>

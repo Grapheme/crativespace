@@ -2,6 +2,9 @@
 
 class Users_interface extends MY_Controller{
 	
+	var $per_page = 3;
+	var $offset = 0;
+	
 	function __construct(){
 		
 		parent::__construct();
@@ -20,9 +23,9 @@ class Users_interface extends MY_Controller{
 		$this->load->model('news_images');
 		
 		$pagevar = array(
-			'events' => $this->events->read_limit_records(3,0,'events','id','DESC'),
-			'news' => $this->news->read_limit_records(2,0,'news','date_publish','DESC'),
-			
+			'events' => $this->events->read_limit_records($this->per_page,$this->offset,'events','id','DESC'),
+			'news' => $this->news->read_limit_records($this->per_page,$this->offset,'news','date_publish','DESC'),
+			'next_items' => $this->news->exist_next_records($this->per_page+$this->offset+1,'news')
 		);
 		for($i=0;$i<count($pagevar['news']);$i++):
 			$pagevar['news'][$i]['photos'] = $this->news_images->photoNews($pagevar['news'][$i]['id']);
@@ -36,7 +39,8 @@ class Users_interface extends MY_Controller{
 		$this->load->helper('text');
 		$this->load->model('events');
 		$pagevar = array(
-			'events' => $this->events->read_records('events','id','DESC')
+			'events' => $this->events->read_limit_records($this->per_page,$this->offset,'events','id','DESC'),
+			'next_items' => $this->events->exist_next_records($this->per_page+$this->offset+1,'events')
 		);
 		$this->load->view("users_interface/events",$pagevar);
 	}

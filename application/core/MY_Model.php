@@ -158,4 +158,12 @@ class MY_Model extends CI_Model{
 		if(isset($data[0])) return $data[0]['name'].' '.$data[0]['surname'];
 		return NULL;
 	}
+
+	function exist_next_records($offset,$table){
+
+		$query = $this->db->get($table,1,$offset);
+		$data = $query->result_array();
+		if($data) return TRUE;
+		return FALSE;
+	}
 }
