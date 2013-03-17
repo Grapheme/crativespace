@@ -161,17 +161,64 @@ class Ajax_interface extends MY_Controller{
 		$partner = $this->input->post('parameter');
 		$html = '';
 		if($partner):
-			/*$this->load->model('partners');
+			$this->load->model('partners');
 			$content = $this->partners->read_record($partner,'partners');
-			$html .= '<img  src="'.site_url('loadimage/partner/'.$partner[$i]['id']).'"><div class="popup_partner_div"><div class="popup_contacts">';
-			$html .= '<p><span class="popup_mast">'.$partner[$i]['title'].'<br>офис № '.$partner[$i]['title'].'</span></p>';
-			$html .= '<span class="popup_desc"><a href="'.$partner[$i]['title'].'" target="_blank">'.$partner[$i]['title'].'</a></span><br>';
-			$html .= '<span class="popup_desc"><a href="mailto:'.$partner[$i]['title'].'">'.$partner[$i]['title'].'</a></span>';
+			$html .= '<img  src="'.site_url('loadimage/partner/'.$content['id']).'"><div class="popup_partner_div"><div class="popup_contacts">';
+			$html .= '<p><span class="popup_mast">'.$content['title'].'<br>офис № '.$content['office'].'</span></p>';
+			$html .= '<span class="popup_desc"><a href="http://'.$content['site'].'/" target="_blank">'.$content['site'].'</a></span><br>';
+			$html .= '<span class="popup_desc"><a href="mailto:'.$content['email'].'">'.$content['email'].'</a></span>';
 			$html .= '<p>';
-			if(empty())
-						<a href="'.$partner[$i]['facebook'].'"><img src="'.site_url('img/facebook_button.jpg').'"></a><a href="'.$partner[$i]['twitter'].'"><img src="'.site_url('img/twitter_button.jpg').'"></a>';
-			$html .= '<a href="'.$partner[$i]['vk'].'><img src="'.site_url('img/vk_button.jpg').'"></a><a href="'.$partner[$i]['google'].'"><img src="'.site_url('img/gplus_button.jpg').'"></a></p></div></div>';
-			echo $html;*/
+			if(!empty($content['facebook'])):
+				$html .= '<a target="_blank" href="http://'.$content['facebook'].'/"><img src="'.site_url('img/facebook_button.jpg').'"></a>';
+			endif;
+			if(!empty($content['twitter'])):
+				$html .= '<a target="_blank" href="http://'.$content['twitter'].'/"><img src="'.site_url('img/twitter_button.jpg').'"></a>';
+			endif;
+			if(!empty($content['vk'])):
+				$html .= '<a target="_blank" href="http://'.$content['vk'].'/"><img src="'.site_url('img/vk_button.jpg').'"></a>';
+			endif;
+			if(!empty($content['google'])):
+				$html .= '<a target="_blank" href="http://'.$content['google'].'/"><img src="'.site_url('img/gplus_button.jpg').'"></a>';
+			endif;
+			$html .= '</p></div></div>';
+			echo $html;
+		else:
+			echo 'Данные отсутствуют';
+		endif;
+	}
+
+	public function peopleLoad(){
+		
+		if(!$this->input->is_ajax_request()):
+			show_error('Аccess denied');
+		endif;
+		$people = $this->input->post('parameter');
+		$html = '';
+		if($people):
+			$this->load->model('people');
+			$content = $this->people->read_record($people,'people');
+			$html .= '<img class="popup_person_img" src="'.site_url('loadimage/people/'.$content['id']).'">';
+			$html .= '<div class="popup_text_div"><div class="popup_border top">';
+			$html .= '<span class="popup_name">'.$content['name'].'</span><br>';
+			$html .= '<span class="popup_pos">'.$content['position'].'</span></div><div class="popup_border middle">';
+			$html .= '<span class="popup_desc"><a href="#">'.$content['company'].'</a></span></div>';
+			$html .= '<div class="popup_contacts"><span class="popup_desc">'.$content['phone'].'</span><br>';
+			$html .= '<span class="popup_desc"><a href="#">'.$content['email'].'</a></span>';
+			$html .= '<p>';
+			if(!empty($content['facebook'])):
+				$html .= '<a target="_blank" href="http://'.$content['facebook'].'/"><img src="'.site_url('img/facebook_button.jpg').'"></a>';
+			endif;
+			if(!empty($content['twitter'])):
+				$html .= '<a target="_blank" href="http://'.$content['twitter'].'/"><img src="'.site_url('img/twitter_button.jpg').'"></a>';
+			endif;
+			if(!empty($content['vk'])):
+				$html .= '<a target="_blank" href="http://'.$content['vk'].'/"><img src="'.site_url('img/vk_button.jpg').'"></a>';
+			endif;
+			if(!empty($content['google'])):
+				$html .= '<a target="_blank" href="http://'.$content['google'].'/"><img src="'.site_url('img/gplus_button.jpg').'"></a>';
+			endif;
+			$html .= '</p></div></div>';
+			echo $html;
 		else:
 			echo 'Данные отсутствуют';
 		endif;

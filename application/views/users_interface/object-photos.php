@@ -5,6 +5,7 @@
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
 <head>
 <?php $this->load->view("users_interface/includes/head");?>
+<link rel="stylesheet" href="<?=site_url('js/fancybox/jquery.fancybox.css?v=2.1.4');?>" type="text/css" media="screen" />
 </head>
 <noscript>
 <style>.objects{visibility:visible;}</style>
@@ -31,7 +32,12 @@
 				</div>
 				<div class="grid_10 object_photo_container">
 				<?php for($i=0;$i<count($images);$i++):?>
-					<a href="#"><img class="object_photo" src="<?=site_url($images[$i]['src']);?>"></a>
+					<a class="fancy" rel="gallery1" href="<?=site_url($images[$i]['src']);?>">
+						<div class="esc_hover"></div>
+						<div class="photo_text"><?=$images[$i]['title']?></div>
+						<img class="photo_fulls" src="<?=site_url('img/photo_fulls.png');?>">
+						<img class="object_photo" src="<?=site_url($images[$i]['src']);?>">
+					</a>
 				<?php endfor;?>
 				</div>
 				<div class="clear"></div>
@@ -40,5 +46,6 @@
 	</div>
 <?php $this->load->view("users_interface/includes/footer");?>
 <?php $this->load->view("users_interface/includes/scripts");?>
+<script type="text/javascript" src="<?=site_url('js/fancybox/jquery.fancybox.pack.js?v=2.1.4');?>"></script>
 </body>
 </html>

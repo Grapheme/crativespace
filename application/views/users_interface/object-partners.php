@@ -45,18 +45,8 @@
 	</div>
 	<div class="overlay hidden"></div>
 	<div class="popup hidden partner">
-		<div id="div-popup">
-			<img  src="<?=site_url('img/partner_2.jpg');?>">
-			<div class="popup_partner_div">
-				<div class="popup_contacts">
-					<p><span class="popup_mast">Мастерская<br>офис № 311</span></p>
-					<span class="popup_desc"><a href="#">voodoobooks.ru</a></span><br>
-					<span class="popup_desc"><a href="mailto:alkuleshov@gmail.com">alkuleshov@gmail.com</a></span>
-					<p><a href="#"><img src="img/facebook_button.jpg"></a><a href="#"><img src="img/twitter_button.jpg"></a><a href="#"><img src="img/vk_button.jpg"></a><a href="#"><img src="img/gplus_button.jpg"></a></p>
-				</div>
-			</div>
-		</div>
-		<div class="esc"><div class="esc_hover"></div><img src="img/people_esc.jpg"></a></div>
+		<div id="div-popup"></div>
+		<div class="esc"><div class="esc_hover"></div><img src="<?=site_url('img/people_esc.jpg');?>"></a></div>
 	</div>
 <?php $this->load->view("users_interface/includes/footer");?>
 <?php $this->load->view("users_interface/includes/scripts");?>

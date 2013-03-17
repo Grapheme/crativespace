@@ -10,6 +10,7 @@ $route['set-item-like'] = "ajax_interface/setItemLike";
 $route['text-load/:any/from/:num'] = "ajax_interface/textScrollLoad";
 $route['project-load'] = "ajax_interface/projectLoad";
 $route['partner-load'] = "ajax_interface/partnerLoad";
+$route['people-load'] = "ajax_interface/peopleLoad";
 /*********** news ***************/
 $route['administrator/news/insert'] = "ajax_interface/insertNews";
 $route['administrator/news/update'] = "ajax_interface/updateNews";

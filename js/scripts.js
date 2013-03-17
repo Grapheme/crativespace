@@ -31,4 +31,9 @@ $(function(){
 		var parameter = $(_this).attr('data-item');
 		$("#div-popup").load(mt.baseURL+"partner-load",{'parameter':parameter},function(){popup('in');});
 	});
+	$("div.people_div").click(function(){
+		var _this = this;
+		var parameter = $(_this).attr('data-item');
+		$("#div-popup").load(mt.baseURL+"people-load",{'parameter':parameter},function(){popup('in');});
+	});
 });

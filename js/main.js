@@ -34,10 +34,8 @@ jQuery(document).ready(function(){
 			if(eventObject.which == 27)
 			popup('out');
 		});
-		if($("body").hasClass('fancy')){$(".fancy").attr('rel','gallery').fancybox({padding:0});}
+		if($("div.object_photo_container a").hasClass('fancy')){$(".fancy").attr('rel','gallery').fancybox({padding:0});}
 	});
 $("a.def").click(function(event){event.preventDefault();});
-$('.people_plus').click(function(){popup('in');});
-/*$('.partner_div').click(function(){popup('in');});*/
 $('.esc').click(function(){popup('out');});
 $('.overlay').click(function(){popup('out');});

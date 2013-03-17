@@ -16,17 +16,22 @@
 			<?php $this->load->view("users_interface/includes/header");?>
 			<div class="empty35 grid_12"></div>
 			<div class="clear"></div>
-		<?php for($i=0;$i<count($people);$i++):?>
-			<div class="grid_2 people_div">
-				<div class="people_img_div">
-					<div class="people_black_div"></div>
-					<a href="#"><img class="people_plus" src="<?=site_url('img/people_plus.png');?>"></a>
+			<?php for($i=0;$i<count($people);$i++):?>
+				<div class="grid_2 people_div" data-item="<?=$people[$i]['id']?>">
+					<div class="people_img_div">
+						<div class="people_black_div"></div>
+						<a class="def" href="#"><img class="people_plus" src="<?=site_url('img/people_plus.png');?>"></a>
+					</div>
+					<img class="people_img" src="<?=site_url('loadimage/people/'.$people[$i]['id']);?>">
+					<p class="people_name"><?=$people[$i]['name'];?></p>
 				</div>
-				<img class="people_img" src="<?=site_url('loadimage/people/'.$people[$i]['id']);?>">
-				<p class="people_name"><a href="#"><?=$people[$i]['name'];?></a></p>
-			</div>
-		<?php endfor;?>
+			<?php endfor;?>
 		</div>
+	</div>
+	<div class="overlay hidden"></div>
+	<div class="popup hidden people">
+		<div id="div-popup"></div>
+		<div class="esc"><div class="esc_hover"></div><img src="<?=site_url('img/people_esc.jpg');?>"></div>
 	</div>
 <?php $this->load->view("users_interface/includes/footer");?>
 <?php $this->load->view("users_interface/includes/scripts");?>
