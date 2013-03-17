@@ -106,7 +106,6 @@ $(function(){
 	$.fn.emptyValue = function(){if($(this).val() == ''){return true;}else{return false;}}
 	$("a[role='tooltip']").tooltip();
 	$(".none").click(function(event){event.preventDefault();});
-	$(".advanced").click(function(event){mt.ShowCut(this,event);});
 	$(":input.unique-email").blur(function(){mt.exist_email(this);});
 	$(":input.valid-email").blur(function(){
 		var email = $(this).val();
@@ -115,8 +114,6 @@ $(function(){
 		};
 	});
 	$(":input[role='tooltip']").change(function(){$(this).tooltip("destroy");});
-	$("div.hover-item-block").mouseenter(function(){$(this).find("a.btn-item-block").removeClass('hidden');});
-	$("div.hover-item-block").mouseleave(function(){$("a.btn-item-block").addClass('hidden');});
 	$("a.link-operation-account").click(function(){mt.currentElement = $(this).parents("div.list-item-block").attr("data-src")});
 	$("a[data-toggle='popover']").popover();
 });

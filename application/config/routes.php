@@ -9,7 +9,7 @@ $route['administrator/profile/save'] = "ajax_interface/profileSave";
 $route['set-item-like'] = "ajax_interface/setItemLike";
 $route['text-load/:any/from/:num'] = "ajax_interface/textScrollLoad";
 $route['project-load'] = "ajax_interface/projectLoad";
-
+$route['partner-load'] = "ajax_interface/partnerLoad";
 /*********** news ***************/
 $route['administrator/news/insert'] = "ajax_interface/insertNews";
 $route['administrator/news/update'] = "ajax_interface/updateNews";

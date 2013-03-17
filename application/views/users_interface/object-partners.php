@@ -20,7 +20,7 @@
 			<?php $this->load->view("users_interface/includes/header");?>
 			<div class="projects_container">
 				<div class="grid_2">
-				<div class="empty35"></div>
+					<div class="empty35"></div>
 					<nav>
 						<ul>
 							<li><a href="<?=site_url('object/partners');?>" class="projects_nav linked">ПАРТНЕРЫ</a></li>
@@ -31,7 +31,7 @@
 				</div>
 				<div class="grid_10 partner_photo_container">
 				<?php for($i=0;$i<count($partners);$i++):?>
-					<div class="partner_div">
+					<div class="partner_div" data-item="<?=$partners[$i]['id']?>">
 						<a href="#">
 							<div class="partner_black_div"></div>
 							<img class="partner_photo" src="<?=site_url('loadimage/partner/'.$partners[$i]['id']);?>">
@@ -42,6 +42,21 @@
 				<div class="clear"></div>
 			</div>
 		</div>
+	</div>
+	<div class="overlay hidden"></div>
+	<div class="popup hidden partner">
+		<div id="div-popup">
+			<img  src="<?=site_url('img/partner_2.jpg');?>">
+			<div class="popup_partner_div">
+				<div class="popup_contacts">
+					<p><span class="popup_mast">Мастерская<br>офис № 311</span></p>
+					<span class="popup_desc"><a href="#">voodoobooks.ru</a></span><br>
+					<span class="popup_desc"><a href="mailto:alkuleshov@gmail.com">alkuleshov@gmail.com</a></span>
+					<p><a href="#"><img src="img/facebook_button.jpg"></a><a href="#"><img src="img/twitter_button.jpg"></a><a href="#"><img src="img/vk_button.jpg"></a><a href="#"><img src="img/gplus_button.jpg"></a></p>
+				</div>
+			</div>
+		</div>
+		<div class="esc"><div class="esc_hover"></div><img src="img/people_esc.jpg"></a></div>
 	</div>
 <?php $this->load->view("users_interface/includes/footer");?>
 <?php $this->load->view("users_interface/includes/scripts");?>

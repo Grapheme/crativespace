@@ -100,34 +100,30 @@ class Ajax_interface extends MY_Controller{
 			$content = $this->$table->read_limit_records($this->per_page,$this->offset,$table,'id','DESC');
 			$next_items = $this->$table->exist_next_records($this->offset,$table);
 		endif;
-		
+		$this->load->model('news_images');
 		$html = '';
 		for($i=0;$i<count($content);$i++):
 			if($table == 'news'):
-				$html .= '<div class="news_div">';
-				$html .= '<p><span class="news_title">'.$content[$i]['title'].'</span><br>';
-				$html .= '<span class="news_date">'.month_date_with_time($content[$i]['date_publish']).'</span></p>';
-				$html .= '<div class="news_text view-text">'.word_limiter($content[$i]['content'],50).'</div>';
-				$html .= '<div class="news_text hidden-text hidden">'.$content[$i]['content'].'</div>';
-				$html .= '<a class="expand advanced" href="">показать полностью</a>';
-				$html .= '<div class="like set-like" data-type="news" data-item="'.$content[$i]['id'].'">';
-				$html .= '<a href=""><img src="'.site_url('img/liked.jpg').'" class="liked">';
-				$html .= '<img src="'.site_url('img/like.jpg').'"><span class="liked-value">'.$content[$i]['liked'].'</span></a></div>';
+				$photos = $this->news_images->photoNews($content[$i]['id']);
+				$html .= '<div class="news_div"><p><span class="news_title">'.$content[$i]['title'].'</span><br><span class="news_date">'.month_date_with_time($content[$i]['date_publish']).'</span>';
+				$html .= '</p><span class="news_text view-text">'.word_limiter($content[$i]['content'],50,' ...</p>').'</span><div class="clear"></div>';
+				$html .= '<span class="news_text hidden-text hidden">'.$content[$i]['content'].'</span><a class="expand def advanced" href="#">показать полностью</a>';
+				if(count($photos)):
+					$html .= '<p class="number_photo"><a href="#" class="prev"><img src="'.site_url('img/left.jpg').'" class="left"></a>1 / '.count($photos).'<a href="#" class="next"><img src="'.site_url('img/right.jpg').'" class="right"></a></p>';
+					$html .= '<div class="news_img_div cycle-slideshow" data-cycle-prev=".prev" data-cycle-next=".next" data-cycle-fx="fade" data-cycle-timeout=0>';
+					for($j=0;$j<count($photos);$j++):
+						$html .= '<img class="news_img" src="'.site_url($photos[$j]['src']).'">';
+					endfor;
+					$html .= '</div>';
+				endif;
+				$html .= '<div class="like_div"><a href="#" class="def"><div class="like"><img src="'.site_url('img/like.jpg').'"></div>25</a></div></div>';
 			endif;
 			if($table == 'events'):
-				$html .= '<div class="event_page_div"><div class="grid_6 prefix_1">';
-				$html .= '<span class="event_date">'.$content[$i]['date_begin'].'</span>';
-				$html .= '<p class="event_title">'.$content[$i]['title'].'</p>';
-				$html .= '<div class="event_text view-text">'.word_limiter($content[$i]['content'],50).'</div>';
-				$html .= '<div class="clear"></div>';
-				$html .= '<div class="hidden_text hidden-text hidden">'.$content[$i]['content'].'</div>';
-				$html .= '<a class="expand advanced" href="#">показать полностью</a>';
-				$html .= '<div class="like set-like" data-type="events" data-item="'.$content[$i]['id'].'">';
-				$html .= '<a href="#"><img src="'.site_url('img/liked.jpg').'" class="liked">';
-				$html .= '<img src="'.site_url('img/like.jpg').'"><span class="liked-value">'.$content[$i]['liked'].'</span>';
-				$html .= '</a></div></div><div class="grid_5">';
-				$html .= '<div class="event_page_image"><img src="'.site_url('loadimage/events/'.$content[$i]['id']).'" class="ievent"></div>';
-				$html .= '</div></div>';
+				$html .= '<div class="event_page_div"><div class="grid_6 prefix_1"><span class="event_date">'.$content[$i]['date_begin'].'</span>';
+				$html .= '<p class="event_title">'.$content[$i]['title'].'</p><span class="event_text view-text">'.word_limiter($content[$i]['content'],50,' ...</p>').'</span>';
+				$html .= '<span class="event_text hidden-text hidden">'.$content[$i]['content'].'</span><a class="expand def advanced" href="#">показать полностью</a>';
+				$html .= '<div class="like_div"><a href="#" class="def"><div class="like"><img src="'.site_url('img/like.jpg').'"></div>25</a></div>';
+				$html .= '</div><div class="grid_5"><div class="event_page_image"><img src="'.site_url('loadimage/events/'.$content[$i]['id']).'"></div></div></div>';
 			endif;
 		endfor;
 		if($next_items):
@@ -152,6 +148,30 @@ class Ajax_interface extends MY_Controller{
 			$html .= '<div class="projects_people"><p class="dobrocoworkru_people">ЛЮДИ: '.$content['people'].'</p>';
 			$html .= '<a class="dobrocoworkru none" href="">'.$content['site'].'</a></div>';
 			echo $html;
+		else:
+			echo 'Данные отсутствуют';
+		endif;
+	}
+	
+	public function partnerLoad(){
+		
+		if(!$this->input->is_ajax_request()):
+			show_error('Аccess denied');
+		endif;
+		$partner = $this->input->post('parameter');
+		$html = '';
+		if($partner):
+			/*$this->load->model('partners');
+			$content = $this->partners->read_record($partner,'partners');
+			$html .= '<img  src="'.site_url('loadimage/partner/'.$partner[$i]['id']).'"><div class="popup_partner_div"><div class="popup_contacts">';
+			$html .= '<p><span class="popup_mast">'.$partner[$i]['title'].'<br>офис № '.$partner[$i]['title'].'</span></p>';
+			$html .= '<span class="popup_desc"><a href="'.$partner[$i]['title'].'" target="_blank">'.$partner[$i]['title'].'</a></span><br>';
+			$html .= '<span class="popup_desc"><a href="mailto:'.$partner[$i]['title'].'">'.$partner[$i]['title'].'</a></span>';
+			$html .= '<p>';
+			if(empty())
+						<a href="'.$partner[$i]['facebook'].'"><img src="'.site_url('img/facebook_button.jpg').'"></a><a href="'.$partner[$i]['twitter'].'"><img src="'.site_url('img/twitter_button.jpg').'"></a>';
+			$html .= '<a href="'.$partner[$i]['vk'].'><img src="'.site_url('img/vk_button.jpg').'"></a><a href="'.$partner[$i]['google'].'"><img src="'.site_url('img/gplus_button.jpg').'"></a></p></div></div>';
+			echo $html;*/
 		else:
 			echo 'Данные отсутствуют';
 		endif;
@@ -307,7 +327,6 @@ class Ajax_interface extends MY_Controller{
 			if($event_id):
 				if(isset($_FILES['photo'])):
 					if($_FILES['photo']['error'] != 4):
-						$this->image_manupulation($_FILES['photo']['tmp_name'],'width',TRUE,200,200);
 						$photo = file_get_contents($_FILES['photo']['tmp_name']);
 						if($photo):
 							$this->events->update_field($event_id,'photo',$photo,'events');
@@ -372,7 +391,6 @@ class Ajax_interface extends MY_Controller{
 		endif;
 		$json_request = array('status'=>FALSE,'responseText'=>'','responsePhotoSrc'=>'');
 		if($_FILES['photo']['error'] != 4):
-			$this->image_manupulation($_FILES['photo']['tmp_name'],'width',TRUE,200,200);
 			$photo = file_get_contents($_FILES['photo']['tmp_name']);
 			if($photo):
 				$this->load->model('events');
@@ -407,7 +425,6 @@ class Ajax_interface extends MY_Controller{
 			if($project_id):
 				if(isset($_FILES['photo'])):
 					if($_FILES['photo']['error'] != 4):
-						$this->image_manupulation($_FILES['photo']['tmp_name'],'width',TRUE,200,200);
 						$photo = file_get_contents($_FILES['photo']['tmp_name']);
 						if($photo):
 							$this->projects->update_field($project_id,'photo',$photo,'projects');
@@ -472,7 +489,6 @@ class Ajax_interface extends MY_Controller{
 		endif;
 		$json_request = array('status'=>FALSE,'responseText'=>'','responsePhotoSrc'=>'');
 		if($_FILES['photo']['error'] != 4):
-			$this->image_manupulation($_FILES['photo']['tmp_name'],'width',TRUE,200,200);
 			$photo = file_get_contents($_FILES['photo']['tmp_name']);
 			if($photo):
 				$this->load->model('projects');
@@ -506,7 +522,6 @@ class Ajax_interface extends MY_Controller{
 			if($partner_id):
 				if(isset($_FILES['photo'])):
 					if($_FILES['photo']['error'] != 4):
-						$this->image_manupulation($_FILES['photo']['tmp_name'],'width',TRUE,200,200);
 						$photo = file_get_contents($_FILES['photo']['tmp_name']);
 						if($photo):
 							$this->partners->update_field($partner_id,'photo',$photo,'partners');
@@ -570,7 +585,6 @@ class Ajax_interface extends MY_Controller{
 		endif;
 		$json_request = array('status'=>FALSE,'responseText'=>'','responsePhotoSrc'=>'');
 		if($_FILES['photo']['error'] != 4):
-			$this->image_manupulation($_FILES['photo']['tmp_name'],'width',TRUE,200,200);
 			$photo = file_get_contents($_FILES['photo']['tmp_name']);
 			if($photo):
 				$this->load->model('partners');
@@ -688,7 +702,6 @@ class Ajax_interface extends MY_Controller{
 			if($people):
 				if(isset($_FILES['photo'])):
 					if($_FILES['photo']['error'] != 4):
-						$this->image_manupulation($_FILES['photo']['tmp_name'],'width',TRUE,200,200);
 						$photo = file_get_contents($_FILES['photo']['tmp_name']);
 						if($photo):
 							$this->people->update_field($people,'photo',$photo,'people');
@@ -752,7 +765,6 @@ class Ajax_interface extends MY_Controller{
 		endif;
 		$json_request = array('status'=>FALSE,'responseText'=>'','responsePhotoSrc'=>'');
 		if($_FILES['photo']['error'] != 4):
-			$this->image_manupulation($_FILES['photo']['tmp_name'],'width',TRUE,200,200);
 			$photo = file_get_contents($_FILES['photo']['tmp_name']);
 			if($photo):
 				$this->load->model('people');

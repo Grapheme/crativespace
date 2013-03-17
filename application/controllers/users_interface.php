@@ -23,7 +23,7 @@ class Users_interface extends MY_Controller{
 		$this->load->model('news_images');
 		
 		$pagevar = array(
-			'events' => $this->events->read_limit_records($this->per_page,$this->offset,'events','id','DESC'),
+			'events' => $this->events->read_records('events','id','DESC'),
 			'news' => $this->news->read_limit_records($this->per_page,$this->offset,'news','date_publish','DESC'),
 			'next_items' => $this->news->exist_next_records($this->per_page+$this->offset+1,'news')
 		);

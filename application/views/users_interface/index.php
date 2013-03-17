@@ -10,37 +10,69 @@
 <!--[if lt IE 7]>
 	<p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
 <![endif]-->
+	
 	<div class="page">
 		<div class="main_img_container"></div>
 		<div class="navigation_border"></div>
 		<div class="container_12">
-			<?php $this->load->view("users_interface/includes/header");?>
-		<?php if(count($events)):?>
+		<?php $this->load->view("users_interface/includes/header");?>
+	<?php if(count($events)):?>
 			<div class="event_title_div grid_20">
-				<a href="#"><img src="<?=site_url('img/left.jpg');?>" class="left"></a>МЕРОПРИЯТИЯ<a href="#"><img src="<?=site_url('img/right.jpg');?>" class="right"></a>
+				<a href="#" class="prev-e"><img src="<?=site_url('img/left.jpg');?>" class="left"></a>МЕРОПРИЯТИЯ<a href="#" class="next-e"><img src="<?=site_url('img/right.jpg');?>" class="right"></a>
 			</div>
 			<div class="clear"></div>
-			<div class="event_container">
-			<?php for($i=0;$i<count($events);$i++):?>
-				<div class="grid_4">
-					<div class="event">
-						<div>
+			<div class="cycle-slideshow" data-cycle-prev=".prev-e" data-cycle-next=".next-e" data-cycle-fx="scrollHorz" data-cycle-speed="300" data-cycle-timeout=0 data-cycle-slides="> div">
+				<div class="event_container first">
+			<?php for($i=0;$i<3;$i++):?>
+				<?php if(isset($events[$i]['id'])):?>
+					<div class="grid_4">
+						<div class="event">
 							<img src="<?=site_url('loadimage/events/'.$events[$i]['id']);?>" class="ievent">
 							<div class="event_div_text">
-								<span class="event_index_date"><?=$events[$i]['date_begin']?></span><br><span class="event_index_text"><?=$events[$i]['title']?></span>
-								<div class="like" data-type="events" data-item="<?=$events[$i]['id'];?>">
-									<a href="#">
-										<img src="<?=site_url('img/liked.jpg');?>" class="liked" />
-										<img src="<?=site_url('img/like.jpg');?>" /><span class="liked-value"><?=$events[$i]['liked'];?></span>
+								<span class="event_index_date"><?=$events[$i]['date_begin']?></span><br>
+								<span class="event_index_text"><?=$events[$i]['title']?></span>
+								<div class="like_div" data-type="events" data-item="<?=$events[$i]['id'];?>">
+									<a href="#" class="def">
+										<div class="like">
+											<img src="<?=site_url('img/like.jpg');?>">
+										</div>
+										<span class="liked-value"><?=$events[$i]['liked'];?></span>
 									</a>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
+				<?php endif;?>
 			<?php endfor;?>
-			</div>
+				</div>
+		<?php if(isset($events[3]['id'])):?>
+			<?php for($i=3;$i<count($events);$i+=3):?>
+				<div class="event_container">
+				<?php for($j=0;$j<3;$j++):?>
+					<?php if(isset($events[$i+$j]['id'])):?>
+					<div class="grid_4">
+						<div class="event">
+							<img src="<?=site_url('loadimage/events/'.$events[$i+$j]['id']);?>" class="ievent">
+							<div class="event_div_text">
+								<span class="event_index_date"><?=$events[$i+$j]['date_begin'];?></span><br>
+								<span class="event_index_text"><?=$events[$i+$j]['title'];?></span>
+								<div class="like_div">
+									<a href="#" class="def">
+										<div class="like">
+											<img src="<?=site_url('img/like.jpg');?>">
+										</div>
+										25
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+					<?php endif;?>
+				<?php endfor;?>
+					</div>
+			<?php endfor;?>
 		<?php endif;?>
+			</div>
 		<?php if(count($news)):?>
 			<div class="clear"></div>
 			<div class="grid_8 prefix_1 infinite-scroll">
@@ -49,28 +81,23 @@
 			<?php for($i=0;$i<count($news);$i++):?>
 				<div class="news_div">
 					<p>
-						<span class="news_title">
-							<?=$news[$i]['title']?>
-						</span><br>
-						<span class="news_date">
-							<?=month_date_with_time($news[$i]['date_publish']);?>
-						</span>
+						<span class="news_title"><?=$news[$i]['title']?></span><br>
+						<span class="news_date"><?=month_date_with_time($news[$i]['date_publish']);?></span>
 					</p>
-					<div class="news_text view-text"><?=word_limiter($news[$i]['content'],50);?></div>
-					<div class="news_text hidden-text hidden"><?=$news[$i]['content'];?></div>
-					<a class="expand advanced" href="">показать полностью</a>
-			<?php if(count($news[$i]['photos'])):?>
-					<p class="number_photo"><a href="#"><img src="<?=site_url('img/left.jpg');?>" class="left"></a>1 / 25<a href="#"><img src="<?=site_url('img/right.jpg');?>" class="right"></a></p>
-				<?php for($j=0;$j<count($news[$i]['photos']);$j++):?>
-					<div class="news_img_div"><img class="news_img" src="<?=site_url($news[$i]['photos'][$j]['src']);?>"></div>
-				<?php endfor;?>
-			<?php endif;?>
-					<div class="like set-like" data-type="news" data-item="<?=$news[$i]['id'];?>">
-						<a href="">
-							<img src="<?=site_url('img/liked.jpg');?>" class="liked">
-							<img src="<?=site_url('img/like.jpg');?>"><span class="liked-value"><?=$news[$i]['liked'];?></span>
-						</a>
+					<span class="news_text view-text"><?=word_limiter($news[$i]['content'],50,' ...</p>');?></span>
+					<span class="news_text hidden-text hidden"><?=$news[$i]['content'];?></span>
+					<a class="expand def advanced" href="#">показать полностью</a>
+				<?php if(count($news[$i]['photos'])):?>
+					<p class="number_photo">
+						<a href="#" class="prev<?=$i;?>"><img src="<?=site_url('img/left.jpg');?>" class="left"></a>1 / <?=count($news[$i]['photos']);?><a href="#" class="next<?=$i;?>"><img src="<?=site_url('img/right.jpg');?>" class="right"></a>
+					</p>
+					<div class="news_img_div cycle-slideshow" data-cycle-prev=".prev<?=$i;?>" data-cycle-next=".next<?=$i;?>" data-cycle-fx="fade" data-cycle-timeout=0>
+					<?php for($j=0;$j<count($news[$i]['photos']);$j++):?>
+						<img class="news_img" src="<?=site_url($news[$i]['photos'][$j]['src']);?>">
+					<?php endfor;?>
 					</div>
+				<?php endif;?>
+					<div class="like_div"><a href="#" class="def"><div class="like"><img src="<?=site_url('img/like.jpg');?>"></div>25</a></div>
 				</div>
 			<?php endfor;?>
 			<?php if($next_items):?>
@@ -78,12 +105,13 @@
 				<div class="next">
 					<a href="<?=site_url("text-load/news/from/$offset");?>">&nbsp;</a>
 				</div>
+			<?php endif;?>
 			</div>
 		<?php endif;?>
 			<div class="follow grid_3">
 				<p class="center">FOLLOW US</p>
-				<div class="follow_hr"></div>
-				<p>
+					<div class="follow_hr"></div>
+					<p>
 					<a href="#"><img src="<?=site_url('img/facebook_button.jpg');?>"></a>
 					<a href="#"><img src="<?=site_url('img/twitter_button.jpg');?>"></a>
 					<a href="#"><img src="<?=site_url('img/vk_button.jpg');?>"></a>
@@ -100,5 +128,7 @@
 	</div>
 <?php $this->load->view("users_interface/includes/footer");?>
 <?php $this->load->view("users_interface/includes/scripts");?>
+<script type="text/javascript" src="<?=site_url('js/vendor/jquery.jscroll.min.js');?>"></script>
+<script type="text/javascript" src="<?=site_url('js/infinite-loop.js');?>"></script>
 </body>
 </html>

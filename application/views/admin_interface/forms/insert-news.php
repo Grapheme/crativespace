@@ -11,5 +11,6 @@
 			</div>
 			<button type="submit" value="" name="submit" class="btn btn-primary btn-large btn-block">Создать новость</button>
 			<span class="wait-request hidden"><img src="<?=site_url('img/loading.gif');?>" alt="" /></span>
+		<?= form_close(); ?>
 	</div>
 </div>

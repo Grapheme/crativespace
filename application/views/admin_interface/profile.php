@@ -8,7 +8,7 @@
 </head>
 <body>
 	<div class="container">
-		<?$this->load->view("admin_interface/includes/menu")?>
+		<?$this->load->view("admin_interface/includes/header")?>
 		<div class="clear"></div>
 		<?=$this->load->view('admin_interface/forms/profile')?>
 	</div>
