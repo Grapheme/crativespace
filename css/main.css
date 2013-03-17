@@ -693,8 +693,6 @@ a {
 
 .event_container {
 	overflow: hidden;
-	padding-top:5px;
-	padding-bottom:5px;
 }
 
 .event_index_date {
@@ -776,6 +774,8 @@ a {
 	background:#ffffff;
 }
 .menu_option.linked {
+	padding-left:29px;
+	padding-right:29px;
 	border-left:1px #ebebeb solid;
 	border-right:1px #ebebeb solid;
 }
@@ -791,25 +791,23 @@ ul, li {
  }
  
 .like {
+	height:14px;
+	width:15px;
+	overflow:hidden;
+	float:left;
+ }
+ 
+ .like_div {
 	margin-top:5px;
 	margin-bottom:5px;
+	overflow:hidden;
 	height:14px;
-	width:30px;
 	line-height:14px;
-	font-size: 8pt;
+	font-size:12px;
 	color:#aeaeae;
  }
  
- .like:hover .liked {
-	display:inline;
- }
- 
- .liked {
-	position:absolute;
-	display:none;
- }
- 
- .like a {
+ .like_div a {
 	color:#aeaeae;
  }
  
@@ -819,11 +817,12 @@ ul, li {
  }
  
 .news_img_div {
-	text-align:center;
+	height:400px;
  }
  
 .news_img {
-	padding:10px;
+	height:400px;
+	max-width:620px;
  }
  
 .news_title {
@@ -1105,7 +1104,8 @@ footer {
 	height:180px;
 	text-align:center;
 }
-.people_div:hover a{
+.people_div:hover .people_name{
+	cursor: default;
 	color:#000000;
 }
 .people_div:hover .people_black_div{
@@ -1124,7 +1124,7 @@ footer {
 	position:absolute;
 }
 
-.people_name  a{
+.people_name  {
 	font-size:14px;
 	color:#8b928b;
 }
@@ -1150,14 +1150,14 @@ footer {
 }
 
 .people_plus:hover{
--moz-transform: rotate(360deg); /* Для Firefox */
-    -ms-transform: rotate(360deg); /* Для IE */
-    -webkit-transform: rotate(360deg); /* Для Safari, Chrome, iOS */
-    -o-transform: rotate(360deg); /* Для Opera */
-    transform: rotate(360deg);
+-moz-transform: rotate(180deg); /* Для Firefox */
+    -ms-transform: rotate(180deg); /* Для IE */
+    -webkit-transform: rotate(180deg); /* Для Safari, Chrome, iOS */
+    -o-transform: rotate(180deg); /* Для Opera */
+    transform: rotate(180deg);
 }
 
-.left,.right,.people_black_div,.menu_option ,.projects_nav,.partner_black_div,.expand,.plan_company,.liked,.like{
+.left,.right,.people_black_div,.menu_option ,.projects_nav,.partner_black_div,.expand,.plan_company,.liked,.like,.esc_hover,.photo_text,.photo_fulls{
    -webkit-transition-duration: 0.3s;
       -moz-transition-duration: 0.3s;
         -o-transition-duration: 0.3s;
@@ -1175,12 +1175,12 @@ footer {
 }
 
 .partner_photo_container {
-	margin-top:5px;
+	position:relative;
+	margin-top:1px;
 	margin-left:1px;
 }
 
 .object_photo {
-	float:left;
 	max-width:260px;
 }
 
@@ -1248,6 +1248,142 @@ footer {
 	color:#ffffff;
 }
 
-.hidden{
-	display: none;
+.overlay {
+	position:fixed;
+	top:0;left:0;
+	bottom:0;
+	right:0;
+	opacity:0.5;
+	background:url('../img/overlay.png');
+}
+
+.popup {
+	position:fixed;
+	margin:auto;
+	top:50%;
+	left:50%;
+	background:#ffffff;
+	-moz-box-shadow: 0 0 30px rgba(0,0,0,0.5); /* Для Firefox */
+    -webkit-box-shadow: 0 0 30px rgba(0,0,0,0.5); /* Для Safari и Chrome */
+    box-shadow: 0 0 30px rgba(0,0,0,0.5); /* Параметры тени */
+}
+
+.popup.people {
+	height:200px;
+	width:480px;
+	margin-left:-240px;
+	margin-top:-100px;
+}
+
+.popup.partner {
+	text-align:center;
+	height:350px;
+	width:450px;
+	margin-left:-225px;
+	margin-top:-175px;
+}
+
+.popup_person_img {
+	float:left;
+	max-width:140px;
+	min-width:140px;
+}
+
+.popup_text_div {
+	float:left;
+	margin-left:20px;
+	margin-top:10px;
+	width:320px;
+}
+
+.popup_name {
+	font-size:14px;
+}
+
+.popup_pos {
+	font-size:10px;
+	color:#8b928b;
+}
+
+.popup_border {
+	line-height:18px;
+	border-bottom:1px solid #efefef;
+	width:auto;
+}
+
+.popup_border.middle {
+	height:50px;
+	line-height:30px;
+}
+
+.popup_desc {
+	font-size:14px;
+	color:#666666;
+}
+
+.popup_contacts img{
+	padding:1px;
+}
+.popup_mast{
+	font-size:14px;
+	color:#8b928b;
+}
+
+.esc {
+	position:absolute;
+	bottom:0;right:0;
+	cursor: pointer;
+}
+
+.esc:hover .esc_hover{
+	opacity:0.1;
+}
+.fancy:hover .esc_hover {
+	opacity:0.5;
+}
+.fancy:hover .photo_text {
+	opacity:1;
+}
+.fancy:hover .photo_fulls{
+	opacity:1;
+}
+
+.esc_hover {
+	position:absolute;
+	width:100%;
+	height:100%;
+	background:#000000;
+	opacity:0;
+}
+
+.fancy {
+	float:left;
+	position:relative;
+	font-size:14px;
+}
+
+.photo_text {
+	position:absolute;
+	text-align:center;
+	color:#ffffff;
+	width:100%;
+	bottom:10px;
+	opacity:0;
+}
+
+.photo_fulls {
+	position:absolute;
+	top:50%;
+	left:50%;
+	margin-left:-8px;
+	margin-top:-8px;
+	opacity:0;
+}
+
+.cycle-slideshow .event_container{
+	display:none;
+}
+
+.cycle-slideshow  .event_container.first{
+	display:block;
 }
