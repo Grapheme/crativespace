@@ -1,9 +1,6 @@
-<div class="span2">
-	<img src="<?=site_url('img/people_3.jpg');?>" alt="Creative Space" />
-	<h4>Редактирование информации о человеке</h4>
-</div>
-<div class="span9">
-	<div class="login-form span9">
+<div class="row">
+	<div class="span9">
+	<h2>Редактирование информации о человеке</h2>
 	<?=form_open('administrator/people/update',array('id'=>'update-people-form')); ?>
 		<div class="control-group">
 			<input type="text" name="name" class="span5 valid-required" value="<?=$people['name'];?>" placeholder="Имя" <?=TOOLTIP_FIELD_BLANK;?> />

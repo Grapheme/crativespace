@@ -8,23 +8,19 @@
 		<?php $this->load->view("admin_interface/includes/header");?>
 		<div class="row">
 			<div class="span12">
-				<div class="span3">
-					<a class="btn btn-small btn-block btn-primary" href="<?=site_url('administrator/projects/add')?>"><span class="fui-plus-16"></span> Добавить проект</a>
-				</div>
-				<div class="clear"></div>
+				<a class="btn btn-primary" href="<?=site_url('administrator/projects/add')?>"><span class="fui-plus-16"></span> Добавить проект</a>
 			<?php for($i=0;$i<count($projects);$i++):?>
 				<div class="media hover-item-block">
 					<div class="media-body list-item-block" data-src="<?=$projects[$i]['id'];?>">
-						<h4 class="media-heading">
+						<h3 class="media-heading">
 							<?=$projects[$i]['title'];?>
-							<br/>
-							<?=$projects[$i]['people'];?>
-						</h4>
+							<p class="palette-paragraph"><?=$projects[$i]['people'];?></p>
+						</h3>
 						<div class="media">
 							<p><?=word_limiter($projects[$i]['content'],50);?></p>
 						</div>
-						<a class="btn btn-small btn-success btn-item-block hidden" href="<?=site_url('administrator/projects/edit/'.$projects[$i]['id']);?>" <?=TOOLTIP_BUTTON_EDIT;?>><i class="icon-edit"></i></a>
-						<a class="btn btn-small btn-danger btn-item-block hidden link-operation-account" href="#confirm-user" data-toggle="modal" data-src="<?=$projects[$i]['id'];?>" data-url="<?=site_url('administrator/project/delete');?>" <?=TOOLTIP_BUTTON_DELETE;?>><i class="icon-remove"></i></a>
+						<a href="<?=site_url('administrator/projects/edit/'.$projects[$i]['id']);?>">Редактировать</a>
+						<a class="link-operation-account" href="#confirm-user" data-toggle="modal" data-src="<?=$projects[$i]['id'];?>" data-url="<?=site_url('administrator/project/delete');?>">Удалить</a>
 					</div>
 					<div class="clear"></div>
 				</div>

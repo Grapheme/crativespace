@@ -8,23 +8,20 @@
 		<?php $this->load->view("admin_interface/includes/header");?>
 		<div class="row">
 			<div class="span12">
-				<div class="span3">
-					<a class="btn btn-small btn-block btn-primary" href="<?=site_url('administrator/object/partners/add')?>"><span class="fui-plus-16"></span> Добавить партнера</a>
-				</div>
-				<div class="clear"></div>
+				<a class="btn btn-primary" href="<?=site_url('administrator/object/partners/add')?>"><span class="fui-plus-16"></span> Добавить партнера</a>
 			<?php for($i=0;$i<count($partners);$i++):?>
 				<div class="media hover-item-block">
 					<div class="media-body list-item-block" data-src="<?=$partners[$i]['id'];?>">
-						<h4 class="media-heading">
+						<h3 class="media-heading">
 							<?=$partners[$i]['title'];?>
-						</h4>
+						</h3>
 						<div class="media">
-							<?=$partners[$i]['office'];?>
-							<?=$partners[$i]['site'];?>
+							<?=$partners[$i]['office'];?> <br/>
+							<?=$partners[$i]['site'];?> <br/>
 							<?=$partners[$i]['email'];?>
 						</div>
-						<a class="btn btn-small btn-success btn-item-block hidden" href="<?=site_url('administrator/object/partners/edit/'.$partners[$i]['id']);?>" <?=TOOLTIP_BUTTON_EDIT;?>><i class="icon-edit"></i></a>
-						<a class="btn btn-small btn-danger btn-item-block hidden link-operation-account" href="#confirm-user" data-toggle="modal" data-src="<?=$partners[$i]['id'];?>" data-url="<?=site_url('administrator/object/partner/delete');?>" <?=TOOLTIP_BUTTON_DELETE;?>><i class="icon-remove"></i></a>
+						<a href="<?=site_url('administrator/object/partners/edit/'.$partners[$i]['id']);?>">Редактировать</a>
+						<a class="link-operation-account" href="#confirm-user" data-toggle="modal" data-src="<?=$partners[$i]['id'];?>" data-url="<?=site_url('administrator/object/partner/delete');?>">Удалить</a>
 					</div>
 					<div class="clear"></div>
 				</div>

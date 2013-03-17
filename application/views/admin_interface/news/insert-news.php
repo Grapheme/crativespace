@@ -20,7 +20,8 @@
 		</div>
 		<div id="form-request"></div>
 	</div>
-<?php $this->load->view("admin_interface/includes/scripts");?>
+	
+	<?php $this->load->view("admin_interface/includes/scripts");?>
 	<script type="text/javascript" src="<?=site_url('ckeditor/ckeditor.js');?>"></script>
 	<script type="text/javascript" src="<?=site_url('js/admin/multi-upload.js');?>"></script>
 	<script type="text/javascript" src="<?=site_url('js/datepicker/jquery.ui.core.js');?>"></script>

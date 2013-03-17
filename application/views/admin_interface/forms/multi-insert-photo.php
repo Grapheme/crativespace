@@ -1,9 +1,6 @@
-<div class="span2">
-	<img src="<?=site_url('img/people_3.jpg');?>" alt="Creative Space" />
-	<h4>Добавление изображений</h4>
-</div>
-<div class="span9">
-	<div class="login-form span9">
+<div class="row">
+	<div class="span9">
+		<h2>Добавление изображений</h2>
 		<form id="upload" action="<?=site_url($multi_upload_photos_url);?>" method="POST" enctype="multipart/form-data">
 			<p id="photos-block-message"></p>
 			<div class="clear"></div>

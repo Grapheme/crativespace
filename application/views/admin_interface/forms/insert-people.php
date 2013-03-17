@@ -1,9 +1,6 @@
-<div class="span2">
-	<img src="<?=site_url('img/people_3.jpg');?>" alt="Creative Space" />
-	<h4>Добавление информации о человеке</h4>
-</div>
-<div class="span9">
-	<div class="login-form span9">
+<div class="row">
+	<div class="span9">
+	<h2>Добавление информации о человеке</h2>
 	<?=form_open_multipart('administrator/people/insert',array('id'=>'insert-people-form')); ?>
 		<div class="control-group">
 			<input type="text" name="name" class="span5 valid-required" value="" placeholder="Имя" <?=TOOLTIP_FIELD_BLANK;?> />

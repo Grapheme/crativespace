@@ -1,4 +1,4 @@
-<div class="row demo-row">
+<div class="row">
 	<div class="span12">
 		<div class="navbar navbar-inverse">
 			<div class="navbar-inner">
@@ -10,7 +10,7 @@
 					</button>
 					<div class="span9 nav-collapse collapse">
 						<ul class="nav">
-							<li class="active"><a href="<?=site_url(ADM_START_PAGE);?>">Контр.панель</a></li>
+							<!--<li class="active"><a href="<?=site_url(ADM_START_PAGE);?>">Контр.панель</a></li>-->
 							<li data-active="news"><a href="<?=site_url('administrator/news')?>">Новости</a></li>
 							<li data-active="events"><a href="<?=site_url('administrator/events')?>">Мероприятия</a></li>
 							<li data-active="projects"><a href="<?=site_url('administrator/projects')?>">Проекты</a></li>

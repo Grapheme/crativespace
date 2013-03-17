@@ -4,8 +4,16 @@
    ========================================================================== */
 
 .clear {clear: both;display: block;overflow: hidden;visibility: hidden;width: 0;height: 0}
-.hover-item-block:hover{background-color: #DDDDDD;cursor: pointer;}
+/*.hover-item-block:hover{background-color: #DDDDDD;cursor: pointer;} */
 .loading {
 	height: 48px;
 	background: url('../img/loading.gif') center center no-repeat;
 }
+
+body { font: 14px/1.231 'Open Sans', sans-serif; }
+a, .btn { font-size: 14px !important; }
+.dk_container[class*="span"] { margin: 0.4em 0 0 0; }
+ul { list-style: none; margin: 0; padding: 0; }
+.navbar { font-size: 14px; margin-bottom: 15px; }
+h2 { margin-bottom: 0.5em; }
+.list-item-block a { margin-right: 0.5em; }
