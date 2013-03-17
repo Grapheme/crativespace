@@ -4,7 +4,7 @@
 		<h3>Внимание!</h3>
 	</div>
 	<div class="modal-body">
-		Удалить текущий елемент?
+		Удалить текущий элемент?
 	</div>
 	<div class="modal-footer">
 		<a class="btn btn-primary" id="btn-modal-confirm-user">Продолжить</a>

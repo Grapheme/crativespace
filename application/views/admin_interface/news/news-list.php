@@ -8,24 +8,21 @@
 		<?php $this->load->view("admin_interface/includes/header");?>
 		<div class="row">
 			<div class="span12">
-				<div class="span3">
-					<a class="btn btn-small btn-block btn-primary" href="<?=site_url('administrator/news/add')?>"><span class="fui-plus-16"></span> Добавить новость</a>
-				</div>
-				<div class="clear"></div>
+				<a class="btn btn-primary" href="<?=site_url('administrator/news/add')?>"><span class="fui-plus-16"></span> Добавить новость</a>
+
 			<?php for($i=0;$i<count($news);$i++):?>
 				<div class="media hover-item-block">
 					<div class="media-body list-item-block" data-src="<?=$news[$i]['id'];?>">
-						<h4 class="media-heading">
-							<?=month_date_with_time($news[$i]['date_publish']);?>
-							<br/>
+						<h3 class="media-heading">
 							<?=$news[$i]['title'];?>
-						</h4>
+							<p class="palette-paragraph"><?=month_date_with_time($news[$i]['date_publish']);?></p>
+						</h3>
 						<div class="media">
 							<p><?=word_limiter($news[$i]['content'],50);?></p>
 						</div>
-						<a class="btn btn-small btn-success btn-item-block hidden" href="<?=site_url('administrator/news/edit/'.$news[$i]['id']);?>" <?=TOOLTIP_BUTTON_EDIT;?>><i class="icon-edit"></i></a>
-						<a class="btn btn-small btn-primary btn-item-block hidden" href="<?=site_url('administrator/news/edit/images/'.$news[$i]['id']);?>" <?=TOOLTIP_FIELD_IMAGE_UPLOAD;?>><i class="icon-edit"></i></a>
-						<a class="btn btn-small btn-danger btn-item-block hidden link-operation-account" href="#confirm-user" data-toggle="modal" data-src="<?=$news[$i]['id'];?>" data-url="<?=site_url('administrator/news/delete');?>" <?=TOOLTIP_BUTTON_DELETE;?>><i class="icon-remove"></i></a>
+						<a href="<?=site_url('administrator/news/edit/'.$news[$i]['id']);?>">Редактировать</a>
+						<a href="<?=site_url('administrator/news/edit/images/'.$news[$i]['id']);?>">Добавить изображения</a>
+						<a class="link-operation-account" href="#confirm-user" data-toggle="modal" data-src="<?=$news[$i]['id'];?>" data-url="<?=site_url('administrator/news/delete');?>">Удалить</a>
 					</div>
 					<div class="clear"></div>
 				</div>

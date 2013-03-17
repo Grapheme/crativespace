@@ -1,9 +1,6 @@
-<div class="span2">
-	<img src="<?=site_url('img/people_3.jpg');?>" alt="Creative Space" />
-	<h4>Редактирование партнера</h4>
-</div>
-<div class="span9">
-	<div class="login-form span9">
+<div class="row">
+	<div class="span9">
+	<h2>Редактирование информации о партнере</h2>
 	<?=form_open('administrator/object/partner/update',array('id'=>'update-partner-form')); ?>
 		<div class="control-group">
 			<input type="text" name="title" class="span5 valid-required" value="<?=$partner['title'];?>" placeholder="Название" <?=TOOLTIP_FIELD_BLANK;?> />
