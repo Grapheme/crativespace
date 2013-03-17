@@ -902,6 +902,7 @@ ul, li {
 	margin-right:60px;
 	max-width:380px;
  }
+.event_page_image img { max-width: 380px; }
 
 .navigation_border {
 	border-bottom:1px #e7e6e4 solid;
@@ -932,6 +933,7 @@ ul, li {
 	margin-top:20px;
 	border-bottom: 1px #e7e6e4 solid;
 	overflow:hidden;
+	padding-bottom: 20px;
 }
 
 .nav {
@@ -1387,3 +1389,7 @@ footer {
 .cycle-slideshow  .event_container.first{
 	display:block;
 }
+
+.cs__logo { position: relative; line-height: 3.1em; padding-left: 0.75em; }
+.cs__logo img { position: absolute; left: -0.75em; }
+.social_widget { margin: 1em 0 1em 1.25em; }

@@ -110,8 +110,27 @@
 		<?php endif;?>
 			<div class="follow grid_3">
 				<p class="center">FOLLOW US</p>
-					<div class="follow_hr"></div>
-					<p>
+				<div class="follow_hr"></div>
+				<div class="social_widget">
+					<script type="text/javascript" src="//vk.com/js/api/openapi.js?82"></script>
+					<!-- VK Widget -->
+					<div id="vk_groups"></div>
+					<script type="text/javascript">
+					VK.Widgets.Group("vk_groups", {mode: 0, width: "200", height: "290"}, 832945);
+					</script>
+				</div>
+				<div class="social_widget">
+					<div id="fb-root"></div>
+					<script>(function(d, s, id) {
+					  var js, fjs = d.getElementsByTagName(s)[0];
+					  if (d.getElementById(id)) return;
+					  js = d.createElement(s); js.id = id;
+					  js.src = "//connect.facebook.net/ru_RU/all.js#xfbml=1&appId=118650518205495";
+					  fjs.parentNode.insertBefore(js, fjs);
+					}(document, 'script', 'facebook-jssdk'));</script>
+					<div class="fb-like-box" data-href="https://www.facebook.com/CreativeSpace.PRO" data-width="200" data-show-faces="true" data-stream="false" data-header="true"></div>
+				</div>
+				<p>
 					<a href="#"><img src="<?=site_url('img/facebook_button.jpg');?>"></a>
 					<a href="#"><img src="<?=site_url('img/twitter_button.jpg');?>"></a>
 					<a href="#"><img src="<?=site_url('img/vk_button.jpg');?>"></a>

@@ -2,7 +2,7 @@
  *  http://grapheme.ru/
  */
 var mt = mt || {};
-mt.baseURL = 'http://'+window.location.hostname+'/';
+mt.baseURL = 'http://creativespace.pro/';
 mt.ShowCut = function(element,event){
 	event.preventDefault();
 	$(element).addClass('hidden').siblings('span.view-text').remove();
