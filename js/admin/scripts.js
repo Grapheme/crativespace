@@ -41,6 +41,7 @@ $(function(){
 		}
 	}
 	$("#login-form").submit(function(){
+		$("#form-request").html('');
 		var loginOptions = options;
 		loginOptions.target = null;
 		loginOptions.dataType = 'json';
@@ -49,7 +50,7 @@ $(function(){
 				mt.redirect(response.cabinet_path);
 			}else{
 				mt.ajaxSuccessSubmit(response,status,xhr,jqForm);
-				$("#form-request").html();
+				$("#form-request").html(response.message);
 			}
 		}
 		$(this).ajaxSubmit(loginOptions);

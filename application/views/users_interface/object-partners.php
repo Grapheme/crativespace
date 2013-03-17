@@ -20,7 +20,7 @@
 			<?php $this->load->view("users_interface/includes/header");?>
 			<div class="projects_container">
 				<div class="grid_2">
-				<div class="empty35"></div>
+					<div class="empty35"></div>
 					<nav>
 						<ul>
 							<li><a href="<?=site_url('object/partners');?>" class="projects_nav linked">ПАРТНЕРЫ</a></li>
@@ -31,7 +31,7 @@
 				</div>
 				<div class="grid_10 partner_photo_container">
 				<?php for($i=0;$i<count($partners);$i++):?>
-					<div class="partner_div">
+					<div class="partner_div" data-item="<?=$partners[$i]['id']?>">
 						<a href="#">
 							<div class="partner_black_div"></div>
 							<img class="partner_photo" src="<?=site_url('loadimage/partner/'.$partners[$i]['id']);?>">
@@ -42,6 +42,11 @@
 				<div class="clear"></div>
 			</div>
 		</div>
+	</div>
+	<div class="overlay hidden"></div>
+	<div class="popup hidden partner">
+		<div id="div-popup"></div>
+		<div class="esc"><div class="esc_hover"></div><img src="<?=site_url('img/people_esc.jpg');?>"></a></div>
 	</div>
 <?php $this->load->view("users_interface/includes/footer");?>
 <?php $this->load->view("users_interface/includes/scripts");?>

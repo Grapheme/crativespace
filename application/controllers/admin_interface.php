@@ -45,11 +45,13 @@ class Admin_interface extends MY_Controller{
 	}
 	
 	public function insertNews(){
+		
 		$this->session->unset_userdata('current_item');
 		$this->load->view("admin_interface/news/insert-news",array('multi_upload_photos_url'=>'administrator/news/insert/images',));
 	}
 
 	public function editNews(){
+		
 		$current_item = $this->session->userdata('current_item');
 		if(!$current_item && $this->uri->total_segments() == 4):
 			$this->session->set_userdata('current_item',$this->uri->segment(4));
@@ -81,7 +83,8 @@ class Admin_interface extends MY_Controller{
 		$this->load->model('news_images');
 		$pagevar = array(
 			'images' => $this->news_images->photoNews($current_item),
-			'multi_upload_form_url' => 'administrator/news/insert/images'
+			'multi_upload_photos_url' => 'administrator/news/insert/images',
+			'multi_delete_photo_url' => 'administrator/news/images/delete'
 		);
 		$this->load->view("admin_interface/news/manage-news-images",$pagevar);
 	}

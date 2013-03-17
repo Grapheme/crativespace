@@ -14,10 +14,9 @@
 				<input type="password" name="password" class="login-field valid-required sendField" value="" placeholder="Пароль" <?=TOOLTIP_FIELD_BLANK;?> id="login-pass" />
 				<label class="login-field-icon fui-lock-16" for="login-pass"></label>
 			</div>
-			<div id="form-request"></div>
 			<button type="submit" value="" name="submit" class="btn btn-primary btn-large btn-block">Вход на сайт</button>
+			<div class="login-link" id="form-request"></div>
 			<span class="wait-request hidden"><img src="<?=site_url('img/loading.gif');?>" alt="" /></span>
-			<a class="login-link" id="forgot-password" href="#">Забыли пароль?</a>
 		<?= form_close(); ?>
 		</div>
 	</div>
