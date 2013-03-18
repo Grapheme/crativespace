@@ -6,8 +6,8 @@
 			<input type="text" name="name" class="span5 valid-required" value="" placeholder="Имя" <?=TOOLTIP_FIELD_BLANK;?> />
 			<br/><input type="text" class="span5" name="company" placeholder="Место работы" value="">
 			<br/><input type="text" class="span5" name="position" placeholder="Должность" value="">
-			<br/><input type="text" class="span5 valid-required valid-email" name="email" placeholder="Email" value="">
-			<br/><input type="text" class="span5 valid-required" name="phone" placeholder="Телефон" value="">
+			<br/><input type="text" class="span5 valid-email" <?=TOOLTIP_FIELD_BLANK;?> name="email" placeholder="Email" value="">
+			<br/><input type="text" class="span5" name="phone" placeholder="Телефон" value="">
 		</div>
 		<div class="control-group">
 			<input type="text" class="span5" name="facebook" placeholder="Facebook" value="">

@@ -1049,7 +1049,8 @@ footer {
 }
 
 .left , .right {
-	opacity:0.5;
+/*	opacity:0.5;*/
+	opacity: 1;
 }
 
 .left:hover{

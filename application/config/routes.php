@@ -52,7 +52,7 @@ $route['object/photos'] = "users_interface/objectPhotos";
 $route['object/project'] = "users_interface/objectProject";
 $route['people'] = "users_interface/people";
 $route['contacts'] = "users_interface/contacts";
-
+$route['news/:any'] = "users_interface/viewNews";
 $route['admin'] = "users_interface/login";
 $route['logoff'] = "users_interface/logoff";
 /*************************************************** ADMIN INTRERFACE ***********************************************/

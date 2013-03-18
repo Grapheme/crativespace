@@ -251,6 +251,7 @@ class Ajax_interface extends MY_Controller{
 		if($insert):
 			$this->load->model('news');
 			$insert['date'] = preg_replace("/(\d+)\.(\w+)\.(\d+)/i","\$3-\$2-\$1",$insert['date']);
+			$insert['translit'] = $this->translite($insert['title']);
 			$news_id = $this->news->insert_record($insert);
 			if($news_id):
 				$this->session->set_userdata('current_item',$news_id);
@@ -277,6 +278,7 @@ class Ajax_interface extends MY_Controller{
 			$this->load->model('news');
 			$update['date'] = preg_replace("/(\d+)\.(\w+)\.(\d+)/i","\$3-\$2-\$1",$update['date']);
 			$update['id'] = $this->session->userdata('current_item');
+			$update['translit'] = $this->translite($update['title']);
 			$this->news->update_record($update);
 			$this->session->unset_userdata('current_item');
 			$text = '<img src="'.site_url('img/check.png').'" alt="" /> Новость сохранена<hr/>';

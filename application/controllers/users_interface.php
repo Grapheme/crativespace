@@ -33,6 +33,23 @@ class Users_interface extends MY_Controller{
 		$this->load->view("users_interface/index",$pagevar);
 	}
 	
+	public function viewNews(){
+		
+		$this->load->helper('date');
+		$this->load->helper('text');
+		$this->load->model('news');
+		$this->load->model('news_images');
+		$news = $this->news->record_exist('news','translit',$this->uri->segment(2));
+		$pagevar = array(
+			'news' => $this->news->read_record($news,'news'),
+			'photos' => $this->news_images->photoNews($news)
+		);
+		if(!$pagevar['news']):
+			show_error('Запись не найдена');
+		endif;
+		$this->load->view("users_interface/view-news",$pagevar);
+	}
+	
 	public function events(){
 		
 		$this->load->helper('date');
@@ -99,7 +116,6 @@ class Users_interface extends MY_Controller{
 		);
 		$this->load->view("users_interface/contacts",$pagevar);
 	}
-	
 	
 	/********************************************************************************************************************/
 	public function logoff(){

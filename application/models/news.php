@@ -3,7 +3,7 @@
 class News extends MY_Model{
 
 	var $id = 0;
-	var $title = ''; var $content = ''; var $date_publish = '';
+	var $title = ''; var $translit = ''; var $content = ''; var $date_publish = '';
 
 	function __construct(){
 		parent::__construct();
@@ -11,12 +11,9 @@ class News extends MY_Model{
 	
 	function insert_record($data){
 
-		if(!empty($data['title'])):
-			$this->title = $data['title'];
-		endif;
-		if(!empty($data['content'])):
-			$this->content = $data['content'];
-		endif;
+		$this->title = $data['title'];
+		$this->translit = $data['translit'];
+		$this->content = $data['content'];
 		$this->date_publish = $data['date'].' '.date("H:i:s");
 		$this->db->insert('news',$this);
 		return $this->db->insert_id();
@@ -24,13 +21,10 @@ class News extends MY_Model{
 	
 	function update_record($data){
 		
-		if(!empty($data['title'])):
-			$this->db->set('title',$data['title']);
-		endif;
+		$this->db->set('title',$data['title']);
+		$this->db->set('translit',$data['translit']);
 		$this->db->set('content',$data['content']);
-		if(!empty($data['date'])):
-			$this->db->set('date_publish',$data['date'].' '.date("H:i:s"));
-		endif;
+		$this->db->set('date_publish',$data['date'].' '.date("H:i:s"));
 		$this->db->where('id',$data['id']);
 		$this->db->update('news');
 		return $this->db->affected_rows();

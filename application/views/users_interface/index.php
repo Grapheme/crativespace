@@ -82,7 +82,7 @@
 			<?php for($i=0;$i<count($news);$i++):?>
 				<div class="news_div">
 					<p>
-						<span class="news_title"><?=$news[$i]['title']?></span><br>
+						<a href="<?=site_url('news/'.$news[$i]['translit']);?>" class="news_title"><?=$news[$i]['title']?></a><br>
 						<span class="news_date"><?=month_date_with_time($news[$i]['date_publish']);?></span>
 					</p>
 				<?php
