@@ -1,6 +1,6 @@
 <header>
-	<div class="grid_1"><a href="<?=site_url('');?>"><img class="index_img" src="<?=site_url('img/index.jpg');?>"></a></div>
-	<div class="grid_11">
+	<div class="grid_2"><a class="cs__logo" href="<?=site_url('');?>"><img class="index_img" src="<?=site_url('img/index.jpg');?>">CreativeSpace.pro</a></div>
+	<div class="grid_9">
 		<nav>
 			<ul>
 				<li><a href="<?=site_url('contacts');?>" data-active="contacts" class="menu_option">КОНТАКТЫ</a></li>
