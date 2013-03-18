@@ -106,8 +106,8 @@ class Ajax_interface extends MY_Controller{
 			if($table == 'news'):
 				$photos = $this->news_images->photoNews($content[$i]['id']);
 				$html .= '<div class="news_div"><p><span class="news_title">'.$content[$i]['title'].'</span><br><span class="news_date">'.month_date_with_time($content[$i]['date_publish']).'</span>';
-				$html .= '</p><span class="news_text view-text">'.word_limiter($content[$i]['content'],50,' ...</p>').'</span><div class="clear"></div>';
-				$html .= '<span class="news_text hidden-text hidden">'.$content[$i]['content'].'</span><a class="expand def advanced" href="#">показать полностью</a>';
+				$html .= '</p><span class="news_text view-text">'.word_limiter($content[$i]['content'],50,' ...</p>').'<div class="clear"></div><a class="expand def advanced" href="#">показать полностью</a></span>';
+				$html .= '<span class="news_text hidden-text hidden">'.$content[$i]['content'].'<div class="clear"></div><a class="expand def сollapse" href="">свернуть текст</a></span>';
 				if(count($photos)):
 					$html .= '<p class="number_photo"><a href="#" class="prev"><img src="'.site_url('img/left.jpg').'" class="left"></a>1 / '.count($photos).'<a href="#" class="next"><img src="'.site_url('img/right.jpg').'" class="right"></a></p>';
 					$html .= '<div class="news_img_div cycle-slideshow" data-cycle-prev=".prev" data-cycle-next=".next" data-cycle-fx="fade" data-cycle-timeout=0>';
@@ -120,8 +120,8 @@ class Ajax_interface extends MY_Controller{
 			endif;
 			if($table == 'events'):
 				$html .= '<div class="event_page_div"><div class="grid_6 prefix_1"><span class="event_date">'.$content[$i]['date_begin'].'</span>';
-				$html .= '<p class="event_title">'.$content[$i]['title'].'</p><span class="event_text view-text">'.word_limiter($content[$i]['content'],50,' ...</p>').'</span>';
-				$html .= '<span class="event_text hidden-text hidden">'.$content[$i]['content'].'</span><a class="expand def advanced" href="#">показать полностью</a>';
+				$html .= '<p class="event_title">'.$content[$i]['title'].'</p><span class="event_text view-text">'.word_limiter($content[$i]['content'],50,' ...</p>').'<div class="clear"></div><a class="expand def advanced" href="#">показать полностью</a></span>';
+				$html .= '<span class="event_text hidden-text hidden">'.$content[$i]['content'].'<div class="clear"></div><a class="expand def сollapse" href="">свернуть текст</a></span>';
 				$html .= '<div class="like_div"><a href="#" class="def"><div class="like"><img src="'.site_url('img/like.jpg').'"></div>25</a></div>';
 				$html .= '</div><div class="grid_5"><div class="event_page_image"><img src="'.site_url('loadimage/events/'.$content[$i]['id']).'"></div></div></div>';
 			endif;
@@ -165,20 +165,20 @@ class Ajax_interface extends MY_Controller{
 			$content = $this->partners->read_record($partner,'partners');
 			$html .= '<img  src="'.site_url('loadimage/partner/'.$content['id']).'"><div class="popup_partner_div"><div class="popup_contacts">';
 			$html .= '<p><span class="popup_mast">'.$content['title'].'<br>офис № '.$content['office'].'</span></p>';
-			$html .= '<span class="popup_desc"><a href="http://'.$content['site'].'/" target="_blank">'.$content['site'].'</a></span><br>';
+			$html .= '<span class="popup_desc"><a href="http://'.$content['site'].'" target="_blank">'.$content['site'].'</a></span><br>';
 			$html .= '<span class="popup_desc"><a href="mailto:'.$content['email'].'">'.$content['email'].'</a></span>';
 			$html .= '<p>';
 			if(!empty($content['facebook'])):
-				$html .= '<a target="_blank" href="http://'.$content['facebook'].'/"><img src="'.site_url('img/facebook_button.jpg').'"></a>';
+				$html .= '<a target="_blank" href="http://'.$content['facebook'].'"><img src="'.site_url('img/facebook_button.jpg').'"></a>';
 			endif;
 			if(!empty($content['twitter'])):
-				$html .= '<a target="_blank" href="http://'.$content['twitter'].'/"><img src="'.site_url('img/twitter_button.jpg').'"></a>';
+				$html .= '<a target="_blank" href="http://'.$content['twitter'].'"><img src="'.site_url('img/twitter_button.jpg').'"></a>';
 			endif;
 			if(!empty($content['vk'])):
-				$html .= '<a target="_blank" href="http://'.$content['vk'].'/"><img src="'.site_url('img/vk_button.jpg').'"></a>';
+				$html .= '<a target="_blank" href="http://'.$content['vk'].'"><img src="'.site_url('img/vk_button.jpg').'"></a>';
 			endif;
 			if(!empty($content['google'])):
-				$html .= '<a target="_blank" href="http://'.$content['google'].'/"><img src="'.site_url('img/gplus_button.jpg').'"></a>';
+				$html .= '<a target="_blank" href="http://'.$content['google'].'"><img src="'.site_url('img/gplus_button.jpg').'"></a>';
 			endif;
 			$html .= '</p></div></div>';
 			echo $html;
@@ -206,16 +206,16 @@ class Ajax_interface extends MY_Controller{
 			$html .= '<span class="popup_desc"><a href="#">'.$content['email'].'</a></span>';
 			$html .= '<p>';
 			if(!empty($content['facebook'])):
-				$html .= '<a target="_blank" href="http://'.$content['facebook'].'/"><img src="'.site_url('img/facebook_button.jpg').'"></a>';
+				$html .= '<a target="_blank" href="http://'.$content['facebook'].'"><img src="'.site_url('img/facebook_button.jpg').'"></a>';
 			endif;
 			if(!empty($content['twitter'])):
-				$html .= '<a target="_blank" href="http://'.$content['twitter'].'/"><img src="'.site_url('img/twitter_button.jpg').'"></a>';
+				$html .= '<a target="_blank" href="http://'.$content['twitter'].'"><img src="'.site_url('img/twitter_button.jpg').'"></a>';
 			endif;
 			if(!empty($content['vk'])):
-				$html .= '<a target="_blank" href="http://'.$content['vk'].'/"><img src="'.site_url('img/vk_button.jpg').'"></a>';
+				$html .= '<a target="_blank" href="http://'.$content['vk'].'"><img src="'.site_url('img/vk_button.jpg').'"></a>';
 			endif;
 			if(!empty($content['google'])):
-				$html .= '<a target="_blank" href="http://'.$content['google'].'/"><img src="'.site_url('img/gplus_button.jpg').'"></a>';
+				$html .= '<a target="_blank" href="http://'.$content['google'].'"><img src="'.site_url('img/gplus_button.jpg').'"></a>';
 			endif;
 			$html .= '</p></div></div>';
 			echo $html;

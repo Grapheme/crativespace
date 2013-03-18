@@ -26,12 +26,12 @@
 			<?php for($i=0;$i<3;$i++):?>
 				<?php if(isset($events[$i]['id'])):?>
 					<div class="grid_4">
-						<div class="event">
+						<div class="event event_link" data-item="<?=$events[$i]['id'];?>">
 							<img src="<?=site_url('loadimage/events/'.$events[$i]['id']);?>" class="ievent">
 							<div class="event_div_text">
 								<span class="event_index_date"><?=$events[$i]['date_begin']?></span><br>
 								<span class="event_index_text"><?=$events[$i]['title']?></span>
-								<div class="like_div" data-type="events" data-item="<?=$events[$i]['id'];?>">
+								<div class="like_div">
 									<a href="#" class="def">
 										<div class="like">
 											<img src="<?=site_url('img/like.jpg');?>">
@@ -51,7 +51,7 @@
 				<?php for($j=0;$j<3;$j++):?>
 					<?php if(isset($events[$i+$j]['id'])):?>
 					<div class="grid_4">
-						<div class="event">
+						<div class="event event_link" data-item="<?=$events[$i+$j]['id'];?>">
 							<img src="<?=site_url('loadimage/events/'.$events[$i+$j]['id']);?>" class="ievent">
 							<div class="event_div_text">
 								<span class="event_index_date"><?=$events[$i+$j]['date_begin'];?></span><br>
@@ -84,9 +84,16 @@
 						<span class="news_title"><?=$news[$i]['title']?></span><br>
 						<span class="news_date"><?=month_date_with_time($news[$i]['date_publish']);?></span>
 					</p>
-					<span class="news_text view-text"><?=word_limiter($news[$i]['content'],50,' ...</p>');?></span>
-					<span class="news_text hidden-text hidden"><?=$news[$i]['content'];?></span>
-					<a class="expand def advanced" href="#">показать полностью</a>
+					<span class="news_text view-text">
+						<?=word_limiter($news[$i]['content'],50,' ...</p>');?>
+						<div class="clear"></div>
+						<a class="expand def advanced" href="">показать полностью</a>
+					</span>
+					<span class="news_text hidden-text hidden">
+						<?=$news[$i]['content'];?>
+						<div class="clear"></div>
+						<a class="expand def сollapse" href="">свернуть текст</a>
+					</span>
 				<?php if(count($news[$i]['photos'])):?>
 					<p class="number_photo">
 						<a href="#" class="prev<?=$i;?>"><img src="<?=site_url('img/left.jpg');?>" class="left"></a>1 / <?=count($news[$i]['photos']);?><a href="#" class="next<?=$i;?>"><img src="<?=site_url('img/right.jpg');?>" class="right"></a>
@@ -123,7 +130,6 @@
 				</div>
 			</div>
 			<div class="clear"></div>
-		<?php endif;?>
 		</div>
 	</div>
 <?php $this->load->view("users_interface/includes/footer");?>

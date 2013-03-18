@@ -100,7 +100,7 @@ $(function(){
 		if(mt.currentElement){
 			var url = $("a.link-operation-account[data-src='"+mt.currentElement+"']").attr('data-url');
 			$.post(url,{'parameter':mt.currentElement},function(data){
-				if(data.status){$("div.list-item-block[data-src="+mt.currentElement+"]").parents(".media").height(100).css('border','1px dashed black').html(data.message);}
+				if(data.status){$("div.list-item-block[data-src="+mt.currentElement+"]").parents(".media").html(data.message);}
 				$("#confirm-user").modal('hide');
 			},"json");
 		}

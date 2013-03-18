@@ -22,9 +22,8 @@
 							</li>
 						</ul>
 					</div>
-					<select id="admin-operation" value="Администратор" class="span" tabindex="1" name="operation">
-						<option value="<?=site_url(ADM_START_PAGE);?>" <?=(uri_string() == ADM_START_PAGE)?'selected="selected"':'';?> >Контрольная панель</option>
-						<option value="<?=site_url('administrator/profile');?>" <?=($this->uri->segment(2) == 'profile')?'selected="selected"':'';?>>Мой профиль</option>
+					<select id="admin-operation" value="Администратор" class="span input-large" tabindex="1" name="operation">
+						<option value="<?=site_url('administrator/profile');?>" <?=($this->uri->segment(2) == 'profile')?'selected="selected"':'';?>>Профиль</option>
 						<option value="<?=site_url('logoff');?>">Завершить сеанс</option>
 					</select>
 				</div>

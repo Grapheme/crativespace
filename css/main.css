@@ -1387,3 +1387,7 @@ footer {
 .cycle-slideshow  .event_container.first{
 	display:block;
 }
+
+.event_link{
+	cursor: pointer;
+}
