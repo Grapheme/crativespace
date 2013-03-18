@@ -1390,12 +1390,7 @@ footer {
 	display:block;
 }
 
-<<<<<<< HEAD
-.event_link{
-	cursor: pointer;
-}
-=======
+.event_link{cursor: pointer;}
 .cs__logo { position: relative; line-height: 3.1em; padding-left: 0.75em; }
 .cs__logo img { position: absolute; left: -0.75em; }
 .social_widget { margin: 1em 0 1em 1.25em; }
->>>>>>> 8cf07361e91528fb378fbea7ce88a94b39c8d5fe
