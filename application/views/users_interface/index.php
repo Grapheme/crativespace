@@ -156,6 +156,10 @@
 					<a target="_blank" href="http://vk.com/creativespacepro"><img src="<?=site_url('img/vk_button.jpg');?>"></a>
 					<!--<a class="none" href="#"><img src="<?=site_url('img/gplus_button.jpg');?>"></a>-->
 				</p>
+				<p>
+					<span class="follow_contact">наш hashtag в instagram:</span><br/>
+					<span class="">#creativespace</span>
+				</p>
 				<div class="adress">
 					<span class="follow_contact">г. Ростов-на-Дону<br>ул. Суворова 52а<br>+7(863)234-56-78<br>
 					<?=safe_mailto('mail@CrSp.pro','mail@CrSp.pro','class="b"');?></span>
