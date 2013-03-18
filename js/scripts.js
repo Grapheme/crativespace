@@ -28,9 +28,8 @@ $(function(){
 			});
 		}
 	});
-	$("div.event_link").click(function(){
-		mt.redirect(mt.baseURL+'events#anchor'+$(this).attr('data-item'));
-	});
+	$("div.event_link").click(function(){mt.redirect(mt.baseURL+'events#anchor'+$(this).attr('data-item'));});
+	$("div .event .like_div").click(function(even){even.stopPropagation();});
 	$("div.partner_div").click(function(){
 		var _this = this;
 		var parameter = $(_this).attr('data-item');

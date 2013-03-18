@@ -36,7 +36,7 @@
 										<div class="like">
 											<img src="<?=site_url('img/like.jpg');?>">
 										</div>
-										<span class="liked-value"><?=$events[$i]['liked'];?></span>
+										0
 									</a>
 								</div>
 							</div>
@@ -61,7 +61,7 @@
 										<div class="like">
 											<img src="<?=site_url('img/like.jpg');?>">
 										</div>
-										25
+										0
 									</a>
 								</div>
 							</div>
@@ -85,16 +85,28 @@
 						<span class="news_title"><?=$news[$i]['title']?></span><br>
 						<span class="news_date"><?=month_date_with_time($news[$i]['date_publish']);?></span>
 					</p>
+				<?php
+					$smalltext = trim(word_limiter($news[$i]['content'],50,' ...</p>'));
+					$fulltext = trim($news[$i]['content']);
+					$advanced = FALSE;
+					if(mb_strlen($smalltext,'utf-8') != mb_strlen($fulltext,'utf-8')):
+						$advanced = TRUE;
+					endif;
+				?>
 					<span class="news_text view-text">
-						<?=word_limiter($news[$i]['content'],50,' ...</p>');?>
+						<?=$smalltext;?>
+					<?php if($advanced):?>
 						<div class="clear"></div>
 						<a class="expand def advanced" href="">показать полностью</a>
+					<?php endif;?>
 					</span>
+				<?php if($advanced):?>
 					<span class="news_text hidden-text hidden">
-						<?=$news[$i]['content'];?>
+						<?=$fulltext;?>
 						<div class="clear"></div>
 						<a class="expand def сollapse" href="">свернуть текст</a>
 					</span>
+				<?php endif;?>
 				<?php if(count($news[$i]['photos'])):?>
 					<p class="number_photo">
 						<a href="#" class="prev<?=$i;?>"><img src="<?=site_url('img/left.jpg');?>" class="left"></a>1 / <?=count($news[$i]['photos']);?><a href="#" class="next<?=$i;?>"><img src="<?=site_url('img/right.jpg');?>" class="right"></a>
@@ -105,7 +117,7 @@
 					<?php endfor;?>
 					</div>
 				<?php endif;?>
-					<div class="like_div"><a href="#" class="def"><div class="like"><img src="<?=site_url('img/like.jpg');?>"></div>25</a></div>
+					<div class="like_div"><a href="#" class="def"><div class="like"><img src="<?=site_url('img/like.jpg');?>"></div>0</a></div>
 				</div>
 			<?php endfor;?>
 			<?php if($next_items):?>
@@ -139,10 +151,10 @@
 					<div class="fb-like-box" data-href="https://www.facebook.com/CreativeSpace.PRO" data-width="200" data-show-faces="true" data-stream="false" data-header="true"></div>
 				</div>
 				<p>
-					<a href="#"><img src="<?=site_url('img/facebook_button.jpg');?>"></a>
-					<a href="#"><img src="<?=site_url('img/twitter_button.jpg');?>"></a>
-					<a href="#"><img src="<?=site_url('img/vk_button.jpg');?>"></a>
-					<a href="#"><img src="<?=site_url('img/gplus_button.jpg');?>"></a>
+					<a target="_blank" href="http://www.facebook.com/CreativeSpace.PRO"><img src="<?=site_url('img/facebook_button.jpg');?>"></a>
+					<!--<a class="none" href="#"><img src="<?=site_url('img/twitter_button.jpg');?>"></a>-->
+					<a target="_blank" href="http://vk.com/creativespacepro"><img src="<?=site_url('img/vk_button.jpg');?>"></a>
+					<!--<a class="none" href="#"><img src="<?=site_url('img/gplus_button.jpg');?>"></a>-->
 				</p>
 				<div class="adress">
 					<span class="follow_contact">г. Ростов-на-Дону<br>ул. Суворова 52а<br>+7(863)234-56-78<br>

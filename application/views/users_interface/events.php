@@ -23,17 +23,29 @@
 					<div class="grid_6 prefix_1">
 						<span class="event_date"><?=$events[$i]['date_begin']?></span>
 						<p class="event_title"><?=$events[$i]['title']?></p>
+					<?php
+						$smalltext = trim(word_limiter($events[$i]['content'],50,' ...</p>'));
+						$fulltext = trim($events[$i]['content']);
+						$advanced = FALSE;
+						if(mb_strlen($smalltext,'utf-8') != mb_strlen($fulltext,'utf-8')):
+							$advanced = TRUE;
+						endif;
+					?>
 						<span class="event_text view-text">
-							<?=word_limiter($events[$i]['content'],50,' ...</p>');?>
+							<?=$smalltext;?>
+						<?php if($advanced):?>
 							<div class="clear"></div>
-							<a class="expand def advanced" href="#">показать полностью</a>
+							<a class="expand def advanced" href="">показать полностью</a>
+						<?php endif;?>
 						</span>
+					<?php if($advanced):?>
 						<span class="event_text hidden-text hidden">
-							<?=$events[$i]['content'];?>
+							<?=$fulltext;?>
 							<div class="clear"></div>
 							<a class="expand def сollapse" href="">свернуть текст</a>
 						</span>
-						<div class="like_div"><a href="#" class="def"><div class="like"><img src="<?=site_url('img/like.jpg');?>"></div>25</a></div>
+					<?php endif;?>
+						<div class="like_div"><a href="#" class="def"><div class="like"><img src="<?=site_url('img/like.jpg');?>"></div>0</a></div>
 					</div>
 					<div class="grid_5">
 						<div class="event_page_image"><img src="<?=site_url('loadimage/events/'.$events[$i]['id']);?>"></div>

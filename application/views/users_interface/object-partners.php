@@ -32,7 +32,7 @@
 				<div class="grid_10 partner_photo_container">
 				<?php for($i=0;$i<count($partners);$i++):?>
 					<div class="partner_div" data-item="<?=$partners[$i]['id']?>">
-						<a href="#">
+						<a class="none" href="">
 							<div class="partner_black_div"></div>
 							<img class="partner_photo" src="<?=site_url('loadimage/partner/'.$partners[$i]['id']);?>">
 						</a>
