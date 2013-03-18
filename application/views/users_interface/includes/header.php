@@ -5,7 +5,7 @@
 			<ul>
 				<li><a href="<?=site_url('contacts');?>" data-active="contacts" class="menu_option">КОНТАКТЫ</a></li>
 				<li><a href="<?=site_url('people');?>"  data-active="people" class="menu_option">ЛЮДИ</a></li>
-				<li><a href="<?=site_url('object/partners');?>" data-active="object" class="menu_option">ОБЪЕКТ</a></li>
+				<li><a href="<?=site_url('object/project');?>" data-active="object" class="menu_option">ОБЪЕКТ</a></li>
 				<li><a href="<?=site_url('projects');?>"  data-active="projects" class="menu_option">ПРОЕКТЫ</a></li>
 				<li><a href="<?=site_url('events');?>"  data-active="events" class="menu_option">МЕРОПРИЯТИЯ</a></li>
 			</ul>

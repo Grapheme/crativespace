@@ -24,9 +24,9 @@
 				<div class="empty35"></div>
 					<nav>
 						<ul>
+							<li><a href="<?=site_url('object/project');?>" class="projects_nav">ПЛАН ЗДАНИЯ</a></li>
 							<li><a href="<?=site_url('object/partners');?>" class="projects_nav">ПАРТНЕРЫ</a></li>
 							<li><a href="<?=site_url('object/photos');?>" class="projects_nav linked">ФОТОГРАФИИ</a></li>
-							<li><a href="<?=site_url('object/project');?>" class="projects_nav">ПЛАН ЗДАНИЯ</a></li>
 						</ul>
 					</nav>
 				</div>

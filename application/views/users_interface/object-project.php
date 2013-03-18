@@ -23,9 +23,9 @@
 				<div class="grid_2">
 					<nav>
 						<ul>
+							<li><a href="<?=site_url('object/project');?>" class="projects_nav linked">ПЛАН ЗДАНИЯ</a></li>
 							<li><a href="<?=site_url('object/partners');?>" class="projects_nav ">ПАРТНЕРЫ</a></li>
 							<li><a href="<?=site_url('object/photos');?>" class="projects_nav">ФОТОГРАФИИ</a></li>
-							<li><a href="<?=site_url('object/project');?>" class="projects_nav linked">ПЛАН ЗДАНИЯ</a></li>
 						</ul>
 					</nav>
 					<div class="floors">

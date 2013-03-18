@@ -73,6 +73,7 @@
 			<?php endfor;?>
 		<?php endif;?>
 			</div>
+	<?php endif;?>
 		<?php if(count($news)):?>
 			<div class="clear"></div>
 			<div class="grid_8 prefix_1 infinite-scroll">
