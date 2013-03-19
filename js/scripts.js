@@ -25,6 +25,7 @@ $(function(){
 			$("#project-information").load(mt.baseURL+"project-load",{'parameter':parameter},function(){
 				$("a.change-project").removeClass('linked');
 				$(_this).addClass('linked');
+				$("a.people_div").click(function(){peopleDiv(this);});
 			});
 		}
 	});
@@ -35,9 +36,11 @@ $(function(){
 		var parameter = $(_this).attr('data-item');
 		$("#div-popup").load(mt.baseURL+"partner-load",{'parameter':parameter},function(){popup('in');});
 	});
-	$("div.people_div").click(function(){
-		var _this = this;
+	$(".people_div").click(function(){peopleDiv(this);});
+	
+	function peopleDiv(_this){
 		var parameter = $(_this).attr('data-item');
 		$("#div-popup").load(mt.baseURL+"people-load",{'parameter':parameter},function(){popup('in');});
-	});
+	}
+	
 });

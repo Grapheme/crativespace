@@ -14,7 +14,6 @@
 					<div class="media-body list-item-block" data-src="<?=$projects[$i]['id'];?>">
 						<h3 class="media-heading">
 							<?=$projects[$i]['title'];?>
-							<p class="palette-paragraph"><?=$projects[$i]['people'];?></p>
 						</h3>
 						<div class="media">
 							<p><?=word_limiter($projects[$i]['content'],50);?></p>

@@ -161,9 +161,31 @@ class Ajax_interface extends MY_Controller{
 		if($project):
 			$this->load->model('projects');
 			$content = $this->projects->read_record($project,'projects');
+			
+			if(!empty($content['people'])):
+				$people = json_decode($content['people']);
+				if($people):
+					$this->load->model('people');
+					$content['people'] = $this->people->peopleArray($people);
+				else:
+					$content['people'] = FALSE;
+				endif;
+			endif;
+			
 			$html .= '<img src="'.site_url('loadimage/project/'.$content['id']).'">';
 			$html .= '<div class="dobrocoworkru_explain">'.$content['content'].'</div>';
-			$html .= '<div class="projects_people"><p class="dobrocoworkru_people">ЛЮДИ: '.$content['people'].'</p>';
+			
+			$html .= '<div class="projects_people">';
+			if($content['people']):
+				$html .= '<p class="dobrocoworkru_people">ЛЮДИ: ';
+				for($i=0;$i<count($content['people']);$i++):
+					$html .= '<a href="#" data-item="'.$content['people'][$i]['id'].'" class="people_div">'.$content['people'][$i]['name'].'</a>';
+					if(isset($content['people'][$i+1]['id'])):
+						$html .= ',';
+					endif;
+				endfor;
+				$html .= '</p>';
+			endif;
 			$html .= '<a class="dobrocoworkru" target="_blank" href="http://'.$content['site'].'">'.$content['site'].'</a></div>';
 			echo $html;
 		else:
@@ -488,6 +510,11 @@ class Ajax_interface extends MY_Controller{
 		if($insert):
 			$this->load->model('projects');
 			$insert['translit'] = $this->translite($insert['title']);
+			if(isset($insert['people'])):
+				$insert['people'] = json_encode($insert['people']);
+			else:
+				$insert['people'] = '';
+			endif;
 			$project_id = $this->projects->insert_record($insert);
 			if($project_id):
 				if(isset($_FILES['photo'])):
@@ -520,6 +547,11 @@ class Ajax_interface extends MY_Controller{
 			$this->load->model('projects');
 			$update['id'] = $this->session->userdata('current_item');
 			$update['translit'] = $this->translite($update['title']);
+			if(isset($update['people'])):
+				$update['people'] = json_encode($update['people']);
+			else:
+				$update['people'] = '';
+			endif;
 			$this->projects->update_record($update);
 			$this->session->unset_userdata('current_item');
 			$text = '<img src="'.site_url('img/check.png').'" alt="" /> Проект сохранен<hr/>';

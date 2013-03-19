@@ -6,7 +6,19 @@
 				<input type="text" name="title" class="span4 valid-required" value="<?=$project['title'];?>" placeholder="Название" <?=TOOLTIP_FIELD_BLANK;?> />
 				<input type="text" class="span5" name="site" placeholder="Введите URL сайта" value="<?=$project['site'];?>">
 				<div class="clear"></div>
-				<input type="text" class="span7" name="people" placeholder="Введите людей" value="<?=$project['people'];?>">
+				<div class="controls">
+					<select id="select-people" class="span9" multiple=""  name="people[]" data-placeholder="Выберите людей">
+				<?php for($i=0;$i<count($people);$i++):?>
+					<?php $selected = FALSE;?>
+					<?php for($j=0;$j<count($project['people']);$j++):?>
+						<?php if($people[$i]['id'] == $project['people'][$j]):?>
+							<?php $selected = TRUE;?>
+						<?php endif;?>
+					<?php endfor;?>
+						<option value="<?=$people[$i]['id'];?>" <?=($selected)?' selected="selected"':''?>><?=$people[$i]['name'];?></option>
+				<?php endfor;?>
+					</select>
+				</div>
 			</div>
 			<div class="controls">
 				<img class="destination-photo img-polaroid" src="<?=site_url('loadimage/project/'.$project['id']);?>" />

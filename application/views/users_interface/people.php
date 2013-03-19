@@ -28,12 +28,12 @@
 				</div>
 			<?php endfor;?>
 		</div>
-	</div>
-	<div class="clear"></div>
-	<div class="overlay hidden"></div>
-	<div class="popup hidden people">
-		<div id="div-popup"></div>
-		<div class="esc"><div class="esc_hover"></div><img src="<?=site_url('img/people_esc.jpg');?>"></div>
+		<div class="clear"></div>
+		<div class="overlay hidden"></div>
+		<div class="popup hidden people">
+			<div id="div-popup"></div>
+			<div class="esc"><div class="esc_hover"></div><img src="<?=site_url('img/people_esc.jpg');?>"></div>
+		</div>
 	</div>
 <?php $this->load->view("users_interface/includes/footer");?>
 <?php $this->load->view("users_interface/includes/scripts");?>

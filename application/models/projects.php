@@ -40,4 +40,14 @@ class Projects extends MY_Model{
 		return FALSE;
 	}
 	
+	function read_records($table,$field = 'id',$order = 'ASC'){
+		
+		$this->db->select('id,translit,title,content,people,site');
+		$this->db->order_by($field,$order);
+		$query = $this->db->get($table);
+		$data = $query->result_array();
+		if(count($data)) return $data;
+		return NULL;
+	}
+	
 }

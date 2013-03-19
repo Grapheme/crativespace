@@ -137,9 +137,11 @@ class Admin_interface extends MY_Controller{
 		
 		$this->load->helper('text');
 		$this->load->model('projects');
+		$this->load->model('people');
 		$per_page = 7;
 		$offset = intval($this->uri->segment(4));
 		$pagevar = array(
+			'people' => $this->people->read_records('people','name','ASC'),
 			'projects' => $this->projects->read_limit_records($per_page,$offset,'projects','id','DESC'),
 			'pagination' => $this->pagination('administrator/projects',4,$this->projects->count_all_records('projects'),$per_page),
 		);
@@ -148,8 +150,13 @@ class Admin_interface extends MY_Controller{
 	}
 	
 	public function insertProject(){
+		
+		$this->load->model('people');
+		$pagevar = array(
+			'people' => $this->people->read_records('people','name','ASC')
+		);
 		$this->session->unset_userdata('current_item');
-		$this->load->view("admin_interface/projects/insert-project");
+		$this->load->view("admin_interface/projects/insert-project",$pagevar);
 	}
 
 	public function editProject(){
@@ -161,12 +168,15 @@ class Admin_interface extends MY_Controller{
 			redirect('administrator/projects');
 		endif;
 		$this->load->model('projects');
+		$this->load->model('people');
 		$pagevar = array(
 			'project' => $this->projects->projectInformation($current_item),
+			'people' => $this->people->read_records('people','name','ASC')
 		);
 		if(!$pagevar['project']):
 			show_error('В доступе отказано');
 		endif;
+		$pagevar['project']['people'] = json_decode($pagevar['project']['people']);
 		$this->load->view("admin_interface/projects/update-project",$pagevar);
 	}
 	
