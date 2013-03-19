@@ -131,6 +131,7 @@ $(function(){
 						$("#form-delete-images input:checkbox:checked").each(function(i,element){
 							var imgID = $(element).parents('div.news-image-item').attr("data-src");
 							$("#form-title-images div.news-image-item[data-src='"+imgID+"']").remove();
+							$("#div-sort-object-images div.news-image-item[data-src='"+imgID+"']").remove();
 						})
 					}
 					$("#form-delete-images input:checkbox:checked").parents('div.news-image-item').remove();
