@@ -225,10 +225,10 @@ class Admin_interface extends MY_Controller{
 		$this->load->helper('text');
 		$this->load->model('people');
 		$per_page = 7;
-		$offset = intval($this->uri->segment(5));
+		$offset = intval($this->uri->segment(4));
 		$pagevar = array(
 			'people' => $this->people->read_limit_records($per_page,$offset,'people','id','DESC'),
-			'pagination' => $this->pagination('administrator/people',5,$this->people->count_all_records('people'),$per_page),
+			'pagination' => $this->pagination('administrator/people',4,$this->people->count_all_records('people'),$per_page),
 		);
 		$this->session->unset_userdata('current_item');
 		$this->load->view("admin_interface/people/people-list",$pagevar);

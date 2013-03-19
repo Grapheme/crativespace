@@ -162,9 +162,9 @@ class Ajax_interface extends MY_Controller{
 			$this->load->model('projects');
 			$content = $this->projects->read_record($project,'projects');
 			$html .= '<img src="'.site_url('loadimage/project/'.$content['id']).'">';
-			$html .= '<p class="dobrocoworkru_explain">'.$content['content'].'</p>';
+			$html .= '<div class="dobrocoworkru_explain">'.$content['content'].'</div>';
 			$html .= '<div class="projects_people"><p class="dobrocoworkru_people">ЛЮДИ: '.$content['people'].'</p>';
-			$html .= '<a class="dobrocoworkru none" href="">'.$content['site'].'</a></div>';
+			$html .= '<a class="dobrocoworkru" target="_blank" href="http://'.$content['site'].'">'.$content['site'].'</a></div>';
 			echo $html;
 		else:
 			echo 'Данные отсутствуют';
@@ -187,16 +187,16 @@ class Ajax_interface extends MY_Controller{
 			$html .= '<span class="popup_desc"><a href="mailto:'.$content['email'].'">'.$content['email'].'</a></span>';
 			$html .= '<p>';
 			if(!empty($content['facebook'])):
-				$html .= '<a target="_blank" href="http://'.$content['facebook'].'"><img src="'.site_url('img/facebook_button.jpg').'"></a>';
+				$html .= '<a target="_blank" href="'.$content['facebook'].'"><img src="'.site_url('img/facebook_button.jpg').'"></a>';
 			endif;
 			if(!empty($content['twitter'])):
-				$html .= '<a target="_blank" href="http://'.$content['twitter'].'"><img src="'.site_url('img/twitter_button.jpg').'"></a>';
+				$html .= '<a target="_blank" href="'.$content['twitter'].'"><img src="'.site_url('img/twitter_button.jpg').'"></a>';
 			endif;
 			if(!empty($content['vk'])):
-				$html .= '<a target="_blank" href="http://'.$content['vk'].'"><img src="'.site_url('img/vk_button.jpg').'"></a>';
+				$html .= '<a target="_blank" href="'.$content['vk'].'"><img src="'.site_url('img/vk_button.jpg').'"></a>';
 			endif;
 			if(!empty($content['google'])):
-				$html .= '<a target="_blank" href="http://'.$content['google'].'"><img src="'.site_url('img/gplus_button.jpg').'"></a>';
+				$html .= '<a target="_blank" href="'.$content['google'].'"><img src="'.site_url('img/gplus_button.jpg').'"></a>';
 			endif;
 			$html .= '</p></div></div>';
 			echo $html;
@@ -224,16 +224,16 @@ class Ajax_interface extends MY_Controller{
 			$html .= '<span class="popup_desc"><a href="#">'.$content['email'].'</a></span>';
 			$html .= '<p>';
 			if(!empty($content['facebook'])):
-				$html .= '<a target="_blank" href="http://'.$content['facebook'].'"><img src="'.site_url('img/facebook_button.jpg').'"></a>';
+				$html .= '<a target="_blank" href="'.$content['facebook'].'"><img src="'.site_url('img/facebook_button.jpg').'"></a>';
 			endif;
 			if(!empty($content['twitter'])):
-				$html .= '<a target="_blank" href="http://'.$content['twitter'].'"><img src="'.site_url('img/twitter_button.jpg').'"></a>';
+				$html .= '<a target="_blank" href="'.$content['twitter'].'"><img src="'.site_url('img/twitter_button.jpg').'"></a>';
 			endif;
 			if(!empty($content['vk'])):
-				$html .= '<a target="_blank" href="http://'.$content['vk'].'"><img src="'.site_url('img/vk_button.jpg').'"></a>';
+				$html .= '<a target="_blank" href="'.$content['vk'].'"><img src="'.site_url('img/vk_button.jpg').'"></a>';
 			endif;
 			if(!empty($content['google'])):
-				$html .= '<a target="_blank" href="http://'.$content['google'].'"><img src="'.site_url('img/gplus_button.jpg').'"></a>';
+				$html .= '<a target="_blank" href="'.$content['google'].'"><img src="'.site_url('img/gplus_button.jpg').'"></a>';
 			endif;
 			$html .= '</p></div></div>';
 			echo $html;

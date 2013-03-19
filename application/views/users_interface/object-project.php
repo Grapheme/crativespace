@@ -29,17 +29,15 @@
 						</ul>
 					</nav>
 					<div class="floors">
-						<p><a href="#" class="linked">1</a></p>
-						<p><a href="#">2</a></p>
-						<p><a href="#">3</a></p>
-						<p><a href="#">4</a></p>
+						<p><a href="#plan3" class="linked">1</a></p>
+						<p><a href="#plan2">2</a></p>
+						<p><a href="#plan1">3</a></p>
 					</div>
 				</div>
 				<div class="grid_8">
-					<div><img src="<?=site_url('img/plan_4.png');?>"></div>
-					<div><img src="<?=site_url('img/plan_3.png');?>"></div>
-					<div><img src="<?=site_url('img/plan_2.png');?>"></div>
-					<div><img src="<?=site_url('img/plan_1.png');?>"></div>
+					<div><a name="plan3"></a><img src="<?=site_url('img/plan_3.png');?>"></div>
+					<div><a name="plan2"></a><img src="<?=site_url('img/plan_2.png');?>"></div>
+					<div><a name="plan1"></a><img src="<?=site_url('img/plan_1.png');?>"></div>
 				</div>
 				<div class="grid_2">
 					<div class="company"><a href="#"><span class="plan_number">100</span><span class="plan_company">Велопрокат</span></a></div>

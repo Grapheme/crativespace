@@ -38,12 +38,12 @@
 						<p class="dobrocoworkru_explain"><?=$projects[0]['content'];?></p>
 						<div class="projects_people">
 							<p class="dobrocoworkru_people">ЛЮДИ: <?=$projects[0]['people'];?></p>
-							<a class="dobrocoworkru none" href=""><?=$projects[0]['site'];?></a>
+							<a class="dobrocoworkru" target="_blank" href="http://<?=$projects[0]['site'];?>"><?=$projects[0]['site'];?></a>
 						</div>
 					<?php endif;?>
 					</div>
+					<div class="clear"></div>
 				</div>
-				<div class="clear"></div>
 			</div>
 		</div>
 	</div>

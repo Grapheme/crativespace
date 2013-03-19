@@ -24,10 +24,12 @@
 					</div>
 					<img class="people_img" src="<?=site_url('loadimage/people/'.$people[$i]['id']);?>">
 					<p class="people_name"><?=$people[$i]['name'];?></p>
+					
 				</div>
 			<?php endfor;?>
 		</div>
 	</div>
+	<div class="clear"></div>
 	<div class="overlay hidden"></div>
 	<div class="popup hidden people">
 		<div id="div-popup"></div>
