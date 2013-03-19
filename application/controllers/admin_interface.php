@@ -98,7 +98,7 @@ class Admin_interface extends MY_Controller{
 		$per_page = 7;
 		$offset = intval($this->uri->segment(4));
 		$pagevar = array(
-			'events' => $this->events->read_limit_records($per_page,$offset,'events','id','DESC'),
+			'events' => $this->events->read_limit_records($per_page,$offset,'events','date','DESC'),
 			'pagination' => $this->pagination('administrator/events',4,$this->events->count_all_records('events'),$per_page),
 		);
 		$this->session->unset_userdata('current_item');
@@ -111,6 +111,7 @@ class Admin_interface extends MY_Controller{
 	}
 
 	public function editEvent(){
+		
 		$current_item = $this->session->userdata('current_item');
 		if(!$current_item && $this->uri->total_segments() == 4):
 			$this->session->set_userdata('current_item',$this->uri->segment(4));
@@ -118,10 +119,12 @@ class Admin_interface extends MY_Controller{
 		elseif(!$current_item && $this->uri->total_segments() == 3):
 			redirect('administrator/events');
 		endif;
+		$this->load->helper('date');
 		$this->load->model('events');
 		$pagevar = array(
 			'event' => $this->events->eventInformation($current_item),
 		);
+		$pagevar['event']['date'] = swap_dot_date($pagevar['event']['date']);
 		if(!$pagevar['event']):
 			show_error('В доступе отказано');
 		endif;
@@ -211,7 +214,7 @@ class Admin_interface extends MY_Controller{
 		
 		$this->load->model('object_images');
 		$pagevar = array(
-			'images' => $this->object_images->read_records('object_images','id','DESC'),
+			'images' => $this->object_images->read_records('object_images','position','ASC'),
 			'multi_upload_photos_url' => 'administrator/object/insert/images',
 			'multi_delete_photo_url' => 'administrator/object/images/delete',
 			'multi_title_photos_url' => 'administrator/object/images/title/save'

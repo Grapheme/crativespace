@@ -3,7 +3,7 @@
 class Events extends MY_Model{
 
 	var $id = 0;var $liked = 0;
-	var $title = ''; var $content = ''; var $date_begin = ''; var $photo = '';
+	var $title = ''; var $content = ''; var $date_begin = ''; var $photo = ''; var $date = '';
 
 	function __construct(){
 		parent::__construct();
@@ -13,7 +13,8 @@ class Events extends MY_Model{
 
 		$this->title = $data['title'];
 		$this->content = $data['content'];
-		$this->date_begin = $data['date'];
+		$this->date_begin = $data['date_begin'];
+		$this->date = $data['date_sort'];
 		$this->db->insert('events',$this);
 		return $this->db->insert_id();
 	}
@@ -22,7 +23,8 @@ class Events extends MY_Model{
 		
 		$this->db->set('title',$data['title']);
 		$this->db->set('content',$data['content']);
-		$this->db->set('date_begin',$data['date']);
+		$this->db->set('date_begin',$data['date_begin']);
+		$this->db->set('date',$data['date']);
 		$this->db->where('id',$data['id']);
 		$this->db->update('events');
 		return $this->db->affected_rows();
@@ -30,7 +32,7 @@ class Events extends MY_Model{
 	
 	function eventInformation($event){
 		
-		$this->db->select('id,title,content,date_begin');
+		$this->db->select('id,title,content,date_begin,date');
 		$query = $this->db->get_where('events',array('id'=>$event),1);
 		$data = $query->result_array();
 		if(isset($data[0])) return $data[0];

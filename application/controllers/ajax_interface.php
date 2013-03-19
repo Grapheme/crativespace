@@ -756,6 +756,28 @@ class Ajax_interface extends MY_Controller{
 		echo json_encode($json_request);
 	}
 	
+	public function objectPhotoSort(){
+		
+		if(!$this->input->is_ajax_request()):
+			show_error('Аccess denied');
+		endif;
+		$list = trim($this->input->post('list'));
+		if($list):
+			$list = preg_split("/&/",$list);
+			for($i=0;$i<count($list);$i++):
+				$dataid = preg_split("/=/",$list[$i]);
+				$dataval[$i] = $dataid[1];
+			endfor;
+			if($dataval):
+				$this->load->model('object_images');
+				$items = $this->object_images->read_records('object_images');
+				for($i=0;$i<count($items);$i++):
+					$this->object_images->update_field($dataval[$i],'position',$i+1,'object_images');
+				endfor;
+			endif;
+		endif;
+	}
+	
 	/************************************************* people ************************************************************/
 	public function insertPeople(){
 		

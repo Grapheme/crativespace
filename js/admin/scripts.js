@@ -62,9 +62,6 @@ $(function(){
 		return false;
 	});
 	$("#admin-operation").dropkick({change: function(value,label){mt.redirect(value);}});
-	$("#forgot-password").click(function(){
-
-	});
 	$("#insert-news-form").submit(function(){
 		var ckdata = CKEDITOR.instances.content.getData();
 		$(this).find("textarea.ckeditor").html(ckdata);
@@ -202,28 +199,28 @@ $(function(){
 		return false;
 	});
 	$("#add-object-images").click(function(){
-		$(this).addClass('disabled');
-		$("#delete-object-images").removeClass('disabled');
-		$("#title-object-images").removeClass('disabled');
-		$("#div-delete-object-images").addClass('hidden');
-		$("#div-title-object-images").addClass('hidden');
+		$("a.a-object-images").removeClass('disabled');
+		$("div.div-object-images").addClass('hidden');
 		$("#div-insert-object-images").removeClass('hidden');
+		$(this).addClass('disabled');
 	});
 	$("#title-object-images").click(function(){
-		$(this).addClass('disabled');
-		$("#add-object-images").removeClass('disabled');
-		$("#delete-object-images").removeClass('disabled');
-		$("#div-delete-object-images").addClass('hidden');
+		$("a.a-object-images").removeClass('disabled');
+		$("div.div-object-images").addClass('hidden');
 		$("#div-title-object-images").removeClass('hidden');
-		$("#div-insert-object-images").addClass('hidden');
+		$(this).addClass('disabled');
+	});
+	$("#sort-object-images").click(function(){
+		$("a.a-object-images").removeClass('disabled');
+		$("div.div-object-images").addClass('hidden');
+		$("#div-sort-object-images").removeClass('hidden');
+		$(this).addClass('disabled');
 	});
 	$("#delete-object-images").click(function(){
-		$(this).addClass('disabled');
-		$("#add-object-images").removeClass('disabled');
-		$("#title-object-images").removeClass('disabled');
+		$("a.a-object-images").removeClass('disabled');
+		$("div.div-object-images").addClass('hidden');
 		$("#div-delete-object-images").removeClass('hidden');
-		$("#div-title-object-images").addClass('hidden');
-		$("#div-insert-object-images").addClass('hidden');
+		$(this).addClass('disabled');
 	});
 	$("#form-title-images :button.btn-save-title-images").click(function(event){
 		event.preventDefault();

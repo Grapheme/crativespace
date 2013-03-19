@@ -20,8 +20,8 @@ mt.isValidPhone = function(phoneNumber){
 mt.formSerialize = function(objects){
 	var data = '';
 	$(objects).each(function(i,element){
-		if(data === ''){data = $(element).attr('name')+"="+$(element).val();
-		}else{data = data+"&"+$(element).attr('name')+"="+$(element).val();}
+		if(data === ''){data = $(element).attr('name')+"="+$(element).attr('value');
+		}else{data = data+"&"+$(element).attr('name')+"="+$(element).attr('value');}
 	});
 	return data;
 };

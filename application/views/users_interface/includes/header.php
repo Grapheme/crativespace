@@ -13,14 +13,7 @@
 	</div>
 	<div class="clear"></div>
 <?php if(uri_string() == ''):?>
-	<div class="main_img_div grid_12">
-		<div class="main_img_text_container">
-			<div class="main_img_text_div">
-				<span class="main_img_text">МЫ СОЗДАЕМ КРЕАТИВНУЮ СРЕДУ</span><br>
-				<span class="main_img_text">МЫ ПРЕДОСТАВЛЯЕМ ВОЗМОЖНОСТИ ДЛЯ САМОРЕАЛИЗАЦИИ</span>
-			</div>
-		</div>
-	</div>
+	<div class="main_img_div grid_12"></div>
 	<div class="clear"></div>
 <?php endif;?>
 </header>

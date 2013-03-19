@@ -4,7 +4,8 @@
 		<?=form_open('administrator/event/update',array('id'=>'update-event-form')); ?>
 			<div class="control-group">
 				<input type="text" name="title" class="span6 valid-required" value="<?=$event['title'];?>" placeholder="Название" <?=TOOLTIP_FIELD_BLANK;?> />
-				<input type="text" class="span3" name="date" placeholder="Введите дату" value="<?=$event['date_begin'];?>">
+				<input type="text" class="pull-right span3" name="date_begin" placeholder="Введите дату" value="<?=$event['date_begin'];?>">
+				<input type="text" class="pull-right input-small datepicker" name="date" value="<?=$event['date'];?>">
 			</div>
 			<div class="controls">
 				<img class="destination-photo img-polaroid" src="<?=site_url('loadimage/events/'.$event['id']);?>" />
