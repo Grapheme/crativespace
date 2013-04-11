@@ -30,7 +30,7 @@
 			<?=$pagination;?>
 			</div>
 		</div>
-		<?php $this->load->view("admin_interface/modal/confirm-user");?>
+		<?php $this->load->view("modal/confirm-user");?>
 	</div>
 	<?php $this->load->view("admin_interface/includes/scripts");?>
 </body>
