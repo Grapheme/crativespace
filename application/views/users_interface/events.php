@@ -21,7 +21,7 @@
 				<a name="anchor<?=$events[$i]['id']?>"></a>
 				<div class="event_page_div">
 					<div class="grid_6 prefix_1">
-						<span class="event_date"><?=$events[$i]['date_begin']?></span>
+						<span class="event_date"><?=month_date($events[$i]['date']).' '.$events[$i]['date_begin'];?></span>
 						<p class="event_title"><?=$events[$i]['title']?></p>
 					<?php
 						$smalltext = trim(word_limiter($events[$i]['content'],50,' ...</p>'));

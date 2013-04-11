@@ -29,7 +29,7 @@
 						<div class="event event_link" data-item="<?=$events[$i]['id'];?>">
 							<img src="<?=site_url('loadimage/events/'.$events[$i]['id']);?>" class="ievent">
 							<div class="event_div_text">
-								<span class="event_index_date"><?=$events[$i]['date_begin']?></span><br>
+								<span class="event_index_date"><?=month_date($events[$i]['date']).' '.$events[$i]['date_begin'];?><br>
 								<span class="event_index_text"><?=$events[$i]['title']?></span>
 								<div class="like_div">
 									<a href="#" class="def">

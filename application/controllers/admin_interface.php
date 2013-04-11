@@ -95,6 +95,7 @@ class Admin_interface extends MY_Controller{
 		
 		$this->load->helper('text');
 		$this->load->model('events');
+		$this->load->helper('date');
 		$per_page = 7;
 		$offset = intval($this->uri->segment(4));
 		$pagevar = array(

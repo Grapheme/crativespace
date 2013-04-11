@@ -14,7 +14,7 @@ class Events extends MY_Model{
 		$this->title = $data['title'];
 		$this->content = $data['content'];
 		$this->date_begin = $data['date_begin'];
-		$this->date = $data['date_sort'];
+		$this->date = $data['date'];
 		$this->db->insert('events',$this);
 		return $this->db->insert_id();
 	}
