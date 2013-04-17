@@ -412,6 +412,7 @@ class Ajax_interface extends MY_Controller{
 		if($insert):
 			$this->load->model('events');
 			$insert['date'] = preg_replace("/(\d+)\.(\w+)\.(\d+)/i","\$3-\$2-\$1",$insert['date']);
+			$insert['translit'] = $this->translite($insert['title']);
 			$event_id = $this->events->insert_record($insert);
 			if($event_id):
 				if(isset($_FILES['photo'])):
@@ -444,6 +445,7 @@ class Ajax_interface extends MY_Controller{
 			$this->load->model('events');
 			$update['date'] = preg_replace("/(\d+)\.(\w+)\.(\d+)/i","\$3-\$2-\$1",$update['date']);
 			$update['id'] = $this->session->userdata('current_item');
+			$update['translit'] = $this->translite($update['title']);
 			$this->events->update_record($update);
 			$this->session->unset_userdata('current_item');
 			$text = '<img src="'.site_url('img/check.png').'" alt="" /> Мероприятие сохранено<hr/>';
@@ -546,7 +548,6 @@ class Ajax_interface extends MY_Controller{
 		if($update && $this->session->userdata('current_item')):
 			$this->load->model('projects');
 			$update['id'] = $this->session->userdata('current_item');
-			$update['translit'] = $this->translite($update['title']);
 			if(isset($update['people'])):
 				$update['people'] = json_encode($update['people']);
 			else:

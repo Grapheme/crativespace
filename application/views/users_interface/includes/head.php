@@ -8,6 +8,11 @@ if($this->uri->segment(1) == 'news'):
 	$uri = 0;
 	$head_variable[$uri]['title'] = $news['title'];
 	$head_variable[$uri]['description'] = $news['title'];
+endif;
+if($this->uri->segment(1) == 'event'):
+	$uri = 0;
+	$head_variable[$uri]['title'] = $event['title'];
+	$head_variable[$uri]['description'] = $event['title'];
 endif;?>
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />

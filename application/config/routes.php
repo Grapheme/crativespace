@@ -47,6 +47,7 @@ $route['administrator/people/save/photo'] = "ajax_interface/updatePeoplePhoto";
 $route['loadimage/:any/:num'] = "users_interface/loadimage";
 /************** pages ****************/
 $route['events'] = "users_interface/events";
+$route['event/:any'] = "users_interface/viewEvents";
 $route['projects'] = "users_interface/projects";
 $route['object/partners'] = "users_interface/objectPartners";
 $route['object/photos'] = "users_interface/objectPhotos";

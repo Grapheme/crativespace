@@ -26,19 +26,12 @@
 			<?php for($i=0;$i<3;$i++):?>
 				<?php if(isset($events[$i]['id'])):?>
 					<div class="grid_4">
-						<div class="event event_link" data-item="<?=$events[$i]['id'];?>">
+						<div class="event event_link" data-translit="<?=$events[$i]['translit'];?>" data-item="<?=$events[$i]['id'];?>">
 							<img src="<?=site_url('loadimage/events/'.$events[$i]['id']);?>" class="ievent">
 							<div class="event_div_text">
 								<span class="event_index_date"><?=month_date($events[$i]['date']).' '.$events[$i]['date_begin'];?><br>
 								<span class="event_index_text"><?=$events[$i]['title']?></span>
-								<div class="like_div">
-									<a href="#" class="def">
-										<div class="like">
-											<img src="<?=site_url('img/like.jpg');?>">
-										</div>
-										0
-									</a>
-								</div>
+								<!--<div class="like_div"><a href="#" class="def"><div class="like"><img src="<?=site_url('img/like.jpg');?>"></div>0</a></div>-->
 							</div>
 						</div>
 					</div>
@@ -56,14 +49,7 @@
 							<div class="event_div_text">
 								<span class="event_index_date"><?=$events[$i+$j]['date_begin'];?></span><br>
 								<span class="event_index_text"><?=$events[$i+$j]['title'];?></span>
-								<div class="like_div">
-									<a href="#" class="def">
-										<div class="like">
-											<img src="<?=site_url('img/like.jpg');?>">
-										</div>
-										0
-									</a>
-								</div>
+								<!--<div class="like_div"><a href="#" class="def"><div class="like"><img src="<?=site_url('img/like.jpg');?>"></div>0</a></div>-->
 							</div>
 						</div>
 					</div>
@@ -117,7 +103,7 @@
 					<?php endfor;?>
 					</div>
 				<?php endif;?>
-					<div class="like_div"><a href="#" class="def"><div class="like"><img src="<?=site_url('img/like.jpg');?>"></div>0</a></div>
+				<!--<div class="like_div"><a href="#" class="def"><div class="like"><img src="<?=site_url('img/like.jpg');?>"></div>0</a></div>-->
 				</div>
 			<?php endfor;?>
 			<?php if($next_items):?>
@@ -148,10 +134,10 @@
 					  js.src = "//connect.facebook.net/ru_RU/all.js#xfbml=1&appId=118650518205495";
 					  fjs.parentNode.insertBefore(js, fjs);
 					}(document, 'script', 'facebook-jssdk'));</script>
-					<div class="fb-like-box" data-href="https://www.facebook.com/CreativeSpace.PRO" data-width="200" data-show-faces="true" data-stream="false" data-header="true"></div>
+					<div class="fb-like-box" data-href="https://www.facebook.com/creativespacepr" data-width="200" data-show-faces="true" data-stream="false" data-header="true"></div>
 				</div>
 				<p>
-					<a target="_blank" href="http://www.facebook.com/CreativeSpace.PRO"><img src="<?=site_url('img/facebook_button.jpg');?>"></a>
+					<a target="_blank" href="https://www.facebook.com/creativespacepr"><img src="<?=site_url('img/facebook_button.jpg');?>"></a>
 					<!--<a class="none" href="#"><img src="<?=site_url('img/twitter_button.jpg');?>"></a>-->
 					<a target="_blank" href="http://vk.com/creativespacepro"><img src="<?=site_url('img/vk_button.jpg');?>"></a>
 					<!--<a class="none" href="#"><img src="<?=site_url('img/gplus_button.jpg');?>"></a>-->

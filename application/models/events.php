@@ -3,7 +3,7 @@
 class Events extends MY_Model{
 
 	var $id = 0;var $liked = 0;
-	var $title = ''; var $content = ''; var $date_begin = ''; var $photo = ''; var $date = '';
+	var $title = ''; var $translit = ''; var $content = ''; var $date_begin = ''; var $photo = ''; var $date = '';
 
 	function __construct(){
 		parent::__construct();
@@ -12,6 +12,8 @@ class Events extends MY_Model{
 	function insert_record($data){
 
 		$this->title = $data['title'];
+		$this->translit = $data['translit'];
+		$this->db->set('translit',$data['translit']);
 		$this->content = $data['content'];
 		$this->date_begin = $data['date_begin'];
 		$this->date = $data['date'];
@@ -22,6 +24,7 @@ class Events extends MY_Model{
  	function update_record($data){
 		
 		$this->db->set('title',$data['title']);
+		$this->db->set('translit',$data['translit']);
 		$this->db->set('content',$data['content']);
 		$this->db->set('date_begin',$data['date_begin']);
 		$this->db->set('date',$data['date']);

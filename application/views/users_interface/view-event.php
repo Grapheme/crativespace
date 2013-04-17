@@ -18,23 +18,15 @@
 			<div class="clear"></div>
 			<div class="event_page_div">
 				<div class="grid_6 prefix_1">
-					<span class="event_date"><?=month_date_with_time($news['date_publish']);?></span>
-					<p class="event_title"><?=$news['title']?></p>
+					<span class="event_date"><?=month_date($event['date']).' '.$event['date_begin'];?></span>
+					<p class="event_title"><?=$event['title']?></p>
 					<span class="event_text view-text">
-						<?=$news['content']?>
-						<div class="clear"></div>
+						<?=trim($event['content']);?>
 					</span>
-				<?php if(count($photos)):?>
-					<p class="number_photo">
-						<a href="#" class="prev"><img src="<?=site_url('img/left.jpg');?>" class="left"></a>1 / <?=count($photos);?><a href="#" class="next"><img src="<?=site_url('img/right.jpg');?>" class="right"></a>
-					</p>
-					<div class="news_img_div cycle-slideshow" data-cycle-prev=".prev" data-cycle-next=".next" data-cycle-fx="fade" data-cycle-timeout=0>
-					<?php for($j=0;$j<count($photos);$j++):?>
-						<img class="news_img" src="<?=site_url($photos[$j]['src']);?>">
-					<?php endfor;?>
-					</div>
-				<?php endif;?>
 					<!--<div class="like_div"><a href="#" class="def"><div class="like"><img src="<?=site_url('img/like.jpg');?>"></div>0</a></div>-->
+				</div>
+				<div class="grid_5">
+					<div class="event_page_image"><img src="<?=site_url('loadimage/events/'.$event['id']);?>"></div>
 				</div>
 			</div>
 			<div class="clear"></div>

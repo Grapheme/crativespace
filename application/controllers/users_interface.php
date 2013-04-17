@@ -62,6 +62,21 @@ class Users_interface extends MY_Controller{
 		$this->load->view("users_interface/events",$pagevar);
 	}
 	
+	public function viewEvents(){
+		
+		$this->load->helper('date');
+		$this->load->helper('text');
+		$this->load->model('events');
+		$event = $this->events->record_exist('events','translit',$this->uri->segment(2));
+		$pagevar = array(
+			'event' => $this->events->read_record($event,'events'),
+		);
+		if(!$pagevar['event']):
+			show_error('Запись не найдена');
+		endif;
+		$this->load->view("users_interface/view-event",$pagevar);
+	}
+	
 	public function projects(){
 		
 		$this->load->helper('text');
