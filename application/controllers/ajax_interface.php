@@ -30,6 +30,32 @@ class Ajax_interface extends MY_Controller{
 		echo json_encode($json_request);
 	}
 	
+	public function sendFeedBack(){
+		
+		if(!$this->input->is_ajax_request()):
+			show_error('В доступе отказано');
+		endif;
+		$json_request = array('status'=>FALSE,'message'=>'Сообщенеи не отправлено');
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules('user-email','','required|trim|valid_email|xss_clean');
+		$this->form_validation->set_rules('user-phone','','trim|xss_clean');
+		$this->form_validation->set_rules('user-content','','required|trim|xss_clean');
+		if($this->form_validation->run()):
+			ob_start();?>
+<p>Здравствуйте, <em>Администратор</em></p>
+<p>Номер телефона пользователя: <?=(!empty($_POST['user-phone']))?$_POST['user-phone']:'Не указан';?></p>
+<p>Email адрес пользователя: <?=$_POST['user-email'];?></p>
+<p>Сообщение от пользователя:<br/><?=$_POST['user-content']?></p>
+			<?php $mailtext = ob_get_clean();
+			$this->send_mail('info@creativespace.pro',$_POST['user-email'],$_POST['user-email'],$_POST['user-thema'].'. Форма обратной связи',$mailtext);
+			$json_request['status'] = TRUE;
+			$json_request['message'] = 'Сообщение отправлено';
+		else:
+			$json_request['message'] = 'Неверно заполнены поля';
+		endif;
+		echo json_encode($json_request);
+	}
+	
 	public function forgot_password(){
 		
 		if(!$this->input->is_ajax_request()):

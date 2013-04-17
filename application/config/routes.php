@@ -5,6 +5,7 @@ $route['404_override'] = '';
 
 /*************************************************** AJAX INTRERFACE ***********************************************/
 $route['admin/login'] = "ajax_interface/login_in";
+$route['send-feedback'] = "ajax_interface/sendFeedBack";
 $route['administrator/profile/save'] = "ajax_interface/profileSave";
 $route['set-item-like'] = "ajax_interface/setItemLike";
 $route['text-load/:any/from/:num'] = "ajax_interface/textScrollLoad";

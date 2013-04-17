@@ -37,10 +37,8 @@ $(function(){
 		$("#div-popup").load(mt.baseURL+"partner-load",{'parameter':parameter},function(){popup('in');});
 	});
 	$(".people_div").click(function(){peopleDiv(this);});
-	
 	function peopleDiv(_this){
 		var parameter = $(_this).attr('data-item');
 		$("#div-popup").load(mt.baseURL+"people-load",{'parameter':parameter},function(){popup('in');});
 	}
-	
 });

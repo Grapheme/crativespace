@@ -44,7 +44,7 @@
 				<?php for($j=0;$j<3;$j++):?>
 					<?php if(isset($events[$i+$j]['id'])):?>
 					<div class="grid_4">
-						<div class="event event_link" data-item="<?=$events[$i+$j]['id'];?>">
+						<div class="event event_link" data-translit="<?=$events[$i+$j]['translit'];?>" data-item="<?=$events[$i+$j]['id'];?>">
 							<img src="<?=site_url('loadimage/events/'.$events[$i+$j]['id']);?>" class="ievent">
 							<div class="event_div_text">
 								<span class="event_index_date"><?=$events[$i+$j]['date_begin'];?></span><br>
