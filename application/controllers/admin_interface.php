@@ -143,7 +143,7 @@ class Admin_interface extends MY_Controller{
 		$offset = intval($this->uri->segment(4));
 		$pagevar = array(
 			'people' => $this->people->read_records('people','name','ASC'),
-			'projects' => $this->projects->read_limit_records($per_page,$offset,'projects','id','DESC'),
+			'projects' => $this->projects->read_limit_records($per_page,$offset,'projects','sort','ASC'),
 			'pagination' => $this->pagination('administrator/projects',4,$this->projects->count_all_records('projects'),$per_page),
 		);
 		$this->session->unset_userdata('current_item');

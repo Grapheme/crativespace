@@ -66,7 +66,7 @@ class Users_interface extends MY_Controller{
 		
 		$this->load->helper('text');
 		$this->load->model('projects');
-		$pagevar = array('projects' => $this->projects->read_records('projects','title','ASC'));
+		$pagevar = array('projects' => $this->projects->read_records());
 		if(!empty($pagevar['projects'][0]['people'])):
 			$people = json_decode($pagevar['projects'][0]['people']);
 			if($people):

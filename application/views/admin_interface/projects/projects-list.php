@@ -17,6 +17,7 @@
 						</h3>
 						<div class="media">
 							<p><?=word_limiter($projects[$i]['content'],50);?></p>
+							<p class="text-info">№ <?=$projects[$i]['sort'];?></p>
 						</div>
 						<a href="<?=site_url('administrator/projects/edit/'.$projects[$i]['id']);?>">Редактировать</a>
 						<a class="link-operation-account" href="#confirm-user" data-toggle="modal" data-src="<?=$projects[$i]['id'];?>" data-url="<?=site_url('administrator/project/delete');?>">Удалить</a>

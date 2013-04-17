@@ -3,8 +3,9 @@
 		<h2>Редактирование проекта</h2>
 		<?=form_open('administrator/project/update',array('id'=>'update-project-form')); ?>
 			<div class="control-group">
-				<input type="text" name="title" class="span4 valid-required" value="<?=$project['title'];?>" placeholder="Название" <?=TOOLTIP_FIELD_BLANK;?> />
+				<input type="text" name="title" class="span3 valid-required" value="<?=$project['title'];?>" placeholder="Название" <?=TOOLTIP_FIELD_BLANK;?> />
 				<input type="text" class="span5" name="site" placeholder="Введите URL сайта" value="<?=$project['site'];?>">
+				<input type="text" class="span1" name="sort" placeholder="№ п.п" value="<?=$project['sort'];?>" title="Используется для сортировки">
 				<div class="clear"></div>
 				<div class="controls">
 					<select id="select-people" class="span9" multiple=""  name="people[]" data-placeholder="Выберите людей">
