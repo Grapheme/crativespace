@@ -47,6 +47,13 @@ class MY_Controller extends CI_Controller{
 		$config['num_tag_open'] 	= '<li>';
 		$config['num_tag_close'] 	= '</li>';
 		
+		$config['first_link'] 		= '<img src="'.site_url('images/pager/previous.png').'">';
+		$config['first_tag_open'] 	= '<li class="previous">';
+		$config['first_tag_close'] 	= '</li>';
+		$config['last_link'] 		= '<img src="'.site_url('images/pager/next.png').'">';
+		$config['last_tag_open'] 	= '<li class="next">';
+		$config['last_tag_close'] 	= '<li>';
+		
 		$this->pagination->initialize($config);
 		return $this->pagination->create_links();
 	}

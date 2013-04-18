@@ -35,7 +35,7 @@
 					<div class="projects_main_div" id="project-information">
 					<?php if(isset($projects[0])):?>
 						<img src="<?=site_url('loadimage/project/'.$projects[0]['id']);?>">
-						<p class="dobrocoworkru_explain"><?=$projects[0]['content'];?></p>
+						<div class="dobrocoworkru_explain"><?=$projects[0]['content'];?></div>
 						<div class="projects_people">
 						<?php if($projects[0]['people']):?>
 							<p class="dobrocoworkru_people">ЛЮДИ: 

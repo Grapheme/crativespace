@@ -244,6 +244,9 @@ class Admin_interface extends MY_Controller{
 			'people' => $this->people->read_limit_records($per_page,$offset,'people','id','DESC'),
 			'pagination' => $this->pagination('administrator/people',4,$this->people->count_all_records('people'),$per_page),
 		);
+		
+//		print_r($pagevar['pagination']);exit;
+		
 		$this->session->unset_userdata('current_item');
 		$this->load->view("admin_interface/people/people-list",$pagevar);
 	}
