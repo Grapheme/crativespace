@@ -3,19 +3,9 @@
  */
 var mt = mt || {};
 mt.baseURL = 'http://'+window.location.hostname+'/';
-mt.ExtendText = function(element,event){
-	event.preventDefault();
-	$(element).parents('span.view-text').addClass('hidden').siblings('span.hidden-text').hide().removeClass('hidden').fadeIn(100);
-}
-mt.CollapseText = function(element,event){
-	event.preventDefault();
-	$(element).parents('span.hidden-text').addClass('hidden').siblings('span.view-text').hide().removeClass('hidden').fadeIn(100);
-}
 mt.redirect = function(path){window.location=path;}
 $(function(){
 	$(".none").click(function(event){event.preventDefault();});
-	$("a.advanced").click(function(event){event.preventDefault(); mt.ExtendText($(this),event);});
-	$("a.сollapse").click(function(event){event.preventDefault(); mt.CollapseText($(this),event);});
 	$("a.change-project").click(function(event){
 		event.preventDefault();
 		if(!$(this).hasClass('linked')){

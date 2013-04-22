@@ -1,5 +1,5 @@
 <header>
-	<div class="grid_2"><a class="cs__logo" href="<?=site_url('');?>"><img class="index_img" src="<?=site_url('img/index.jpg');?>">CreativeSpace.pro</a></div>
+	<div class="grid_3"><a class="cs__logo" href="<?=site_url('');?>"><img class="index_img" src="<?=site_url('img/index.jpg');?>">CreativeSpace.pro</a></div>
 	<div class="grid_9">
 		<nav>
 			<ul>

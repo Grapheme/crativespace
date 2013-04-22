@@ -23,8 +23,8 @@ class Users_interface extends MY_Controller{
 		$this->load->model('news_images');
 		
 		$pagevar = array(
-			'events' => $this->events->read_limit_records($this->per_page,$this->offset,'events','date','DESC'),
-			'news' => $this->news->read_limit_records($this->per_page,$this->offset,'news','date_publish','DESC'),
+			'events' => $this->events->read_limit_records($this->per_page,$this->offset,'events'),
+			'news' => $this->news->read_limit_records($this->per_page,$this->offset,'news'),
 			'next_items' => $this->news->exist_next_records($this->per_page+$this->offset+1,'news')
 		);
 		for($i=0;$i<count($pagevar['news']);$i++):
@@ -56,7 +56,7 @@ class Users_interface extends MY_Controller{
 		$this->load->helper('text');
 		$this->load->model('events');
 		$pagevar = array(
-			'events' => $this->events->read_limit_records($this->per_page,$this->offset,'events','date','DESC'),
+			'events' => $this->events->read_limit_records($this->per_page,$this->offset,'events'),
 			'next_items' => $this->events->exist_next_records($this->per_page+$this->offset+1,'events')
 		);
 		$this->load->view("users_interface/events",$pagevar);

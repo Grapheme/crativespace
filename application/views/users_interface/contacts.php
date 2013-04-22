@@ -18,12 +18,12 @@
 		<div class="container_12 contacts">
 		<?php $this->load->view("users_interface/includes/header");?>
 			<div class="grid_12 empty35"></div>
-			<div class="grid_2">
+			<div class="grid_3">
 				<div class="c_div"><div class="c_title">АДРЕС</div><div class="c_text">г.Ростов-на-Дону<br>ул. Суворова 52а</div></div>
-				<div class="c_div"><div class="c_title">E-MAIL</div><div class="c_text"><?=safe_mailto('mail@CrSp.pro','mail@CrSp.pro','class="c_email"');?></div></div>
-				<div class="c_div"><div class="c_title">ТЕЛЕФОН</div><div class="c_text">+7 (863) 234-56-78</div></div>
+				<div class="c_div"><div class="c_title">E-MAIL</div><div class="c_text"><?=safe_mailto('info@creativespace.pro','info@creativespace.pro','class="c_email"');?></div></div>
+				<div class="c_div"><div class="c_title">ТЕЛЕФОН</div><div class="c_text">+7 (863) 270-78-48</div></div>
 			</div>
-			<div class="grid_6 prefix_2">
+			<div class="grid_7 prefix_2">
 				<?php $this->load->view("users_interface/forms/feedback");?>
 			</div>
 			<div class="clear"></div>

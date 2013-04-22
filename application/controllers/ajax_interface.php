@@ -118,34 +118,23 @@ class Ajax_interface extends MY_Controller{
 		$next_items = FALSE;
 		if($table == 'news'):
 			$this->load->model($table);
-			$content = $this->$table->read_limit_records($this->per_page,$this->offset,$table,'date_publish','DESC');
+			$content = $this->$table->read_limit_records($this->per_page,$this->offset,$table);
 			$next_items = $this->$table->exist_next_records($this->offset,$table);
 		endif;
 		if($table == 'events'):
 			$this->load->model($table);
-			$content = $this->$table->read_limit_records($this->per_page,$this->offset,$table,'id','DESC');
+			$content = $this->$table->read_limit_records($this->per_page,$this->offset,$table);
 			$next_items = $this->$table->exist_next_records($this->offset,$table);
 		endif;
 		$this->load->model('news_images');
 		$html = '';
 		for($i=0;$i<count($content);$i++):
-			$smalltext = trim(word_limiter($content[$i]['content'],50,' ...</p>'));
-			$fulltext = trim($content[$i]['content']);
-			$advanced = FALSE;
-			if(mb_strlen($smalltext,'utf-8') != mb_strlen($fulltext,'utf-8')):
-				$advanced = TRUE;
-			endif;
+			$smalltext = trim(word_limiter($content[$i]['content'],100,' ...</p>'));
 			if($table == 'news'):
 				$photos = $this->news_images->photoNews($content[$i]['id']);
 				$html .= '<div class="news_div"><p><span class="news_title">'.$content[$i]['title'].'</span><br><span class="news_date">'.month_date_with_time($content[$i]['date_publish']).'</span>';
 				$html .= '</p><span class="news_text view-text">'.$smalltext;
-				if($advanced):
-					$html .= '<div class="clear"></div><a class="expand def advanced" href="#">показать полностью</a>';
-				endif;
 				$html .= '</span>';
-				if($advanced):
-					$html .= '<span class="news_text hidden-text hidden">'.$fulltext.'<div class="clear"></div><a class="expand def сollapse" href="">свернуть текст</a></span>';
-				endif;
 				if(count($photos)):
 					$html .= '<p class="number_photo"><a href="#" class="prev"><img src="'.site_url('img/left.jpg').'" class="left"></a>1 / '.count($photos).'<a href="#" class="next"><img src="'.site_url('img/right.jpg').'" class="right"></a></p>';
 					$html .= '<div class="news_img_div cycle-slideshow" data-cycle-prev=".prev" data-cycle-next=".next" data-cycle-fx="fade" data-cycle-timeout=0>';
@@ -154,19 +143,13 @@ class Ajax_interface extends MY_Controller{
 					endfor;
 					$html .= '</div>';
 				endif;
-				$html .= '<div class="like_div"><a href="#" class="def"><div class="like"><img src="'.site_url('img/like.jpg').'"></div>25</a></div></div>';
+				//$html .= '<div class="like_div"><a href="#" class="def"><div class="like"><img src="'.site_url('img/like.jpg').'"></div>25</a></div></div>';
 			endif;
 			if($table == 'events'):
-				$html .= '<div class="event_page_div"><div class="grid_6 prefix_1"><span class="event_date">'.$content[$i]['date_begin'].'</span>';
+				$html .= '<div class="event_page_div"><div class="grid_6 prefix_1"><span class="event_date">'.month_date($content[$i]['date']).' '.$content[$i]['date_begin'].'</span>';
 				$html .= '<p class="event_title">'.$content[$i]['title'].'</p><span class="event_text view-text">'.$smalltext;
-				if($advanced):
-					$html .= '<div class="clear"></div><a class="expand def advanced" href="#">показать полностью</a>';
-				endif;
 				$html .= '</span>';
-				if($advanced):
-					$html .= '<span class="event_text hidden-text hidden">'.$fulltext.'<div class="clear"></div><a class="expand def сollapse" href="">свернуть текст</a></span>';
-				endif;
-				$html .= '<div class="like_div"><a href="#" class="def"><div class="like"><img src="'.site_url('img/like.jpg').'"></div>25</a></div>';
+				//$html .= '<div class="like_div"><a href="#" class="def"><div class="like"><img src="'.site_url('img/like.jpg').'"></div>25</a></div>';
 				$html .= '</div><div class="grid_5"><div class="event_page_image"><img src="'.site_url('loadimage/events/'.$content[$i]['id']).'"></div></div></div>';
 			endif;
 		endfor;

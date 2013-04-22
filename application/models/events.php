@@ -42,4 +42,15 @@ class Events extends MY_Model{
 		return FALSE;
 	}
 	
+	function read_limit_records($count,$offset,$table){
+		
+		$this->db->select('id,title,translit,content,date_begin,date');
+		$this->db->order_by('date','DESC');
+		$this->db->limit($count,$offset);
+		$query = $this->db->get($table);
+		$data = $query->result_array();
+		if(count($data)) return $data;
+		return NULL;
+	}
+	
 }

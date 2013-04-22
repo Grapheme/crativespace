@@ -38,5 +38,15 @@ class News extends MY_Model{
 		if(isset($data[0])) return $data[0];
 		return FALSE;
 	}
-
+	
+	function read_limit_records($count,$offset,$table){
+		
+		$this->db->select('id,title,translit,content,date_publish');
+		$this->db->order_by('date_publish','DESC');
+		$this->db->limit($count,$offset);
+		$query = $this->db->get($table);
+		$data = $query->result_array();
+		if(count($data)) return $data;
+		return NULL;
+	}
 }

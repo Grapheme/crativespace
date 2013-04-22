@@ -71,28 +71,9 @@
 						<a href="<?=site_url('news/'.$news[$i]['translit']);?>" class="news_title"><?=$news[$i]['title']?></a><br>
 						<span class="news_date"><?=month_date_with_time($news[$i]['date_publish']);?></span>
 					</p>
-				<?php
-					$smalltext = trim(word_limiter($news[$i]['content'],50,' ...</p>'));
-					$fulltext = trim($news[$i]['content']);
-					$advanced = FALSE;
-					if(mb_strlen($smalltext,'utf-8') != mb_strlen($fulltext,'utf-8')):
-						$advanced = TRUE;
-					endif;
-				?>
 					<span class="news_text view-text">
-						<?=$smalltext;?>
-					<?php if($advanced):?>
-						<div class="clear"></div>
-						<a class="expand def advanced" href="">показать полностью</a>
-					<?php endif;?>
+						<?=trim(word_limiter($news[$i]['content'],50,' ...</p>'));?>
 					</span>
-				<?php if($advanced):?>
-					<span class="news_text hidden-text hidden">
-						<?=$fulltext;?>
-						<div class="clear"></div>
-						<a class="expand def сollapse" href="">свернуть текст</a>
-					</span>
-				<?php endif;?>
 				<?php if(count($news[$i]['photos'])):?>
 					<p class="number_photo">
 						<a href="#" class="prev<?=$i;?>"><img src="<?=site_url('img/left.jpg');?>" class="left"></a>1 / <?=count($news[$i]['photos']);?><a href="#" class="next<?=$i;?>"><img src="<?=site_url('img/right.jpg');?>" class="right"></a>
@@ -147,8 +128,8 @@
 					<span class="">#creativespace</span>
 				</p>
 				<div class="adress">
-					<span class="follow_contact">г. Ростов-на-Дону<br>ул. Суворова 52а<br>+7(863)234-56-78<br>
-					<?=safe_mailto('mail@CrSp.pro','mail@CrSp.pro','class="b"');?></span>
+					<span class="follow_contact">г. Ростов-на-Дону<br>ул. Суворова 52а<br>+7 (863) 270-78-48<br>
+					<?=safe_mailto('info@creativespace.pro','info@creativespace.pro','class="b"');?></span>
 				</div>
 			</div>
 			<div class="clear"></div>

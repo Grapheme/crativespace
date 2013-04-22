@@ -53,11 +53,11 @@
 					<div class="company"><a href="#"><span class="plan_number">302</span><span class="plan_company">M-Point</span></a></div>
 					<div class="company"><a href="#"><span class="plan_number">303</span><span class="plan_company">Флорариум</span></a></div>
 					<div class="company"><a href="#"><span class="plan_number">304</span><span class="plan_company">Grapheme</span></a></div>
-					<div class="company"><a href="#"><span class="plan_number">305</span><span class="plan_company">НЕФТЬ</span></a></div>
+					<div class="company"><a href="#"><span class="plan_number">305</span><span class="plan_company">The Grizzly</span></a></div>
 					<div class="company"><a href="#"><span class="plan_number">306</span><span class="plan_company">[ekswai'zi]</span></a></div>
 					<div class="company"><a href="#"><span class="plan_number">307</span><span class="plan_company">ALASKA</span></a></div>
 					<div class="company"><a href="#"><span class="plan_number">308</span><span class="plan_company">ОНИ</span></a></div>
-					<div class="company"><a href="#"><span class="plan_number">309</span><span class="plan_company">ТЮРЬМА</span></a></div>
+					<div class="company"><a href="#"><span class="plan_number">309</span><span class="plan_company">Кладовая</span></a></div>
 					<div class="company"><a href="#"><span class="plan_number">310</span><span class="plan_company">let me speak from my heart</span></a></div>
 					<div class="company"><a href="#"><span class="plan_number">311</span><span class="plan_company">VodooBooks</span></a></div>
 					<div class="means">
