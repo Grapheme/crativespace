@@ -2,7 +2,7 @@
 
 class Ajax_interface extends MY_Controller{
 	
-	var $per_page = 5;
+	var $per_page = 6;
 	var $offset = 0;
 	
 	function __construct(){
