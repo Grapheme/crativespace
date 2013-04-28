@@ -14,10 +14,10 @@
 					<div class="media-body list-item-block" data-src="<?=$projects[$i]['id'];?>">
 						<h3 class="media-heading">
 							<?=$projects[$i]['title'];?>
-							<p class="palette-paragraph"><?=$projects[$i]['people'];?></p>
 						</h3>
 						<div class="media">
-							<p><?=word_limiter($projects[$i]['content'],50);?></p>
+							<div><?=word_limiter(strip_tags($projects[$i]['content']),50);?></div>
+							<div class="text-info">№ <?=$projects[$i]['sort'];?></div>
 						</div>
 						<a href="<?=site_url('administrator/projects/edit/'.$projects[$i]['id']);?>">Редактировать</a>
 						<a class="link-operation-account" href="#confirm-user" data-toggle="modal" data-src="<?=$projects[$i]['id'];?>" data-url="<?=site_url('administrator/project/delete');?>">Удалить</a>

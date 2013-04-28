@@ -23,23 +23,21 @@
 				<div class="grid_2">
 					<nav>
 						<ul>
+							<li><a href="<?=site_url('object/project');?>" class="projects_nav linked">ПЛАН ЗДАНИЯ</a></li>
 							<li><a href="<?=site_url('object/partners');?>" class="projects_nav ">ПАРТНЕРЫ</a></li>
 							<li><a href="<?=site_url('object/photos');?>" class="projects_nav">ФОТОГРАФИИ</a></li>
-							<li><a href="<?=site_url('object/project');?>" class="projects_nav linked">ПЛАН ЗДАНИЯ</a></li>
 						</ul>
 					</nav>
 					<div class="floors">
-						<p><a href="#" class="linked">1</a></p>
-						<p><a href="#">2</a></p>
-						<p><a href="#">3</a></p>
-						<p><a href="#">4</a></p>
+						<p><a href="#plan3" class="linked">1</a></p>
+						<p><a href="#plan2">2</a></p>
+						<p><a href="#plan1">3</a></p>
 					</div>
 				</div>
 				<div class="grid_8">
-					<div><img src="<?=site_url('img/plan_4.png');?>"></div>
-					<div><img src="<?=site_url('img/plan_3.png');?>"></div>
-					<div><img src="<?=site_url('img/plan_2.png');?>"></div>
-					<div><img src="<?=site_url('img/plan_1.png');?>"></div>
+					<div><a name="plan3"></a><img src="<?=site_url('img/plan_3.png');?>"></div>
+					<div><a name="plan2"></a><img src="<?=site_url('img/plan_2.png');?>"></div>
+					<div><a name="plan1"></a><img src="<?=site_url('img/plan_1.png');?>"></div>
 				</div>
 				<div class="grid_2">
 					<div class="company"><a href="#"><span class="plan_number">100</span><span class="plan_company">Велопрокат</span></a></div>
@@ -55,11 +53,11 @@
 					<div class="company"><a href="#"><span class="plan_number">302</span><span class="plan_company">M-Point</span></a></div>
 					<div class="company"><a href="#"><span class="plan_number">303</span><span class="plan_company">Флорариум</span></a></div>
 					<div class="company"><a href="#"><span class="plan_number">304</span><span class="plan_company">Grapheme</span></a></div>
-					<div class="company"><a href="#"><span class="plan_number">305</span><span class="plan_company">НЕФТЬ</span></a></div>
+					<div class="company"><a href="#"><span class="plan_number">305</span><span class="plan_company">The Grizzly</span></a></div>
 					<div class="company"><a href="#"><span class="plan_number">306</span><span class="plan_company">[ekswai'zi]</span></a></div>
 					<div class="company"><a href="#"><span class="plan_number">307</span><span class="plan_company">ALASKA</span></a></div>
 					<div class="company"><a href="#"><span class="plan_number">308</span><span class="plan_company">ОНИ</span></a></div>
-					<div class="company"><a href="#"><span class="plan_number">309</span><span class="plan_company">ТЮРЬМА</span></a></div>
+					<div class="company"><a href="#"><span class="plan_number">309</span><span class="plan_company">Кладовая</span></a></div>
 					<div class="company"><a href="#"><span class="plan_number">310</span><span class="plan_company">let me speak from my heart</span></a></div>
 					<div class="company"><a href="#"><span class="plan_number">311</span><span class="plan_company">VodooBooks</span></a></div>
 					<div class="means">

@@ -35,16 +35,31 @@
 					<div class="projects_main_div" id="project-information">
 					<?php if(isset($projects[0])):?>
 						<img src="<?=site_url('loadimage/project/'.$projects[0]['id']);?>">
-						<p class="dobrocoworkru_explain"><?=$projects[0]['content'];?></p>
+						<div class="dobrocoworkru_explain"><?=$projects[0]['content'];?></div>
 						<div class="projects_people">
-							<p class="dobrocoworkru_people">ЛЮДИ: <?=$projects[0]['people'];?></p>
-							<a class="dobrocoworkru none" href=""><?=$projects[0]['site'];?></a>
+						<?php if($projects[0]['people']):?>
+							<p class="dobrocoworkru_people">ЛЮДИ: 
+						<?php for($i=0;$i<count($projects[0]['people']);$i++):?>
+							<a href="#" data-item="<?=$projects[0]['people'][$i]['id']?>" class="people_div"><?=$projects[0]['people'][$i]['name']?></a>
+							<?php if(isset($projects[0]['people'][$i+1]['id'])):?>
+								, 
+							<?php endif;?>
+						<?php endfor;?>
+						</p>
+						<?php endif;?>
+							<a class="dobrocoworkru" target="_blank" href="http://<?=$projects[0]['site'];?>"><?=$projects[0]['site'];?></a>
 						</div>
 					<?php endif;?>
 					</div>
+					<div class="clear"></div>
 				</div>
-				<div class="clear"></div>
 			</div>
+		</div>
+		<div class="clear"></div>
+		<div class="overlay hidden"></div>
+		<div class="popup hidden people">
+			<div id="div-popup"></div>
+			<div class="esc"><div class="esc_hover"></div><img src="<?=site_url('img/people_esc.jpg');?>"></div>
 		</div>
 	</div>
 <?php $this->load->view("users_interface/includes/footer");?>

@@ -62,9 +62,6 @@ $(function(){
 		return false;
 	});
 	$("#admin-operation").dropkick({change: function(value,label){mt.redirect(value);}});
-	$("#forgot-password").click(function(){
-
-	});
 	$("#insert-news-form").submit(function(){
 		var ckdata = CKEDITOR.instances.content.getData();
 		$(this).find("textarea.ckeditor").html(ckdata);
@@ -100,7 +97,7 @@ $(function(){
 		if(mt.currentElement){
 			var url = $("a.link-operation-account[data-src='"+mt.currentElement+"']").attr('data-url');
 			$.post(url,{'parameter':mt.currentElement},function(data){
-				if(data.status){$("div.list-item-block[data-src="+mt.currentElement+"]").parents(".media").height(100).css('border','1px dashed black').html(data.message);}
+				if(data.status){$("div.list-item-block[data-src="+mt.currentElement+"]").parents(".media").html(data.message);}
 				$("#confirm-user").modal('hide');
 			},"json");
 		}
@@ -134,6 +131,7 @@ $(function(){
 						$("#form-delete-images input:checkbox:checked").each(function(i,element){
 							var imgID = $(element).parents('div.news-image-item').attr("data-src");
 							$("#form-title-images div.news-image-item[data-src='"+imgID+"']").remove();
+							$("#div-sort-object-images div.news-image-item[data-src='"+imgID+"']").remove();
 						})
 					}
 					$("#form-delete-images input:checkbox:checked").parents('div.news-image-item').remove();
@@ -202,28 +200,28 @@ $(function(){
 		return false;
 	});
 	$("#add-object-images").click(function(){
-		$(this).addClass('disabled');
-		$("#delete-object-images").removeClass('disabled');
-		$("#title-object-images").removeClass('disabled');
-		$("#div-delete-object-images").addClass('hidden');
-		$("#div-title-object-images").addClass('hidden');
+		$("a.a-object-images").removeClass('disabled');
+		$("div.div-object-images").addClass('hidden');
 		$("#div-insert-object-images").removeClass('hidden');
+		$(this).addClass('disabled');
 	});
 	$("#title-object-images").click(function(){
-		$(this).addClass('disabled');
-		$("#add-object-images").removeClass('disabled');
-		$("#delete-object-images").removeClass('disabled');
-		$("#div-delete-object-images").addClass('hidden');
+		$("a.a-object-images").removeClass('disabled');
+		$("div.div-object-images").addClass('hidden');
 		$("#div-title-object-images").removeClass('hidden');
-		$("#div-insert-object-images").addClass('hidden');
+		$(this).addClass('disabled');
+	});
+	$("#sort-object-images").click(function(){
+		$("a.a-object-images").removeClass('disabled');
+		$("div.div-object-images").addClass('hidden');
+		$("#div-sort-object-images").removeClass('hidden');
+		$(this).addClass('disabled');
 	});
 	$("#delete-object-images").click(function(){
-		$(this).addClass('disabled');
-		$("#add-object-images").removeClass('disabled');
-		$("#title-object-images").removeClass('disabled');
+		$("a.a-object-images").removeClass('disabled');
+		$("div.div-object-images").addClass('hidden');
 		$("#div-delete-object-images").removeClass('hidden');
-		$("#div-title-object-images").addClass('hidden');
-		$("#div-insert-object-images").addClass('hidden');
+		$(this).addClass('disabled');
 	});
 	$("#form-title-images :button.btn-save-title-images").click(function(event){
 		event.preventDefault();

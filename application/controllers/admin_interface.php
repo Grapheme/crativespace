@@ -95,10 +95,11 @@ class Admin_interface extends MY_Controller{
 		
 		$this->load->helper('text');
 		$this->load->model('events');
+		$this->load->helper('date');
 		$per_page = 7;
 		$offset = intval($this->uri->segment(4));
 		$pagevar = array(
-			'events' => $this->events->read_limit_records($per_page,$offset,'events','id','DESC'),
+			'events' => $this->events->read_limit_records($per_page,$offset,'events','date','DESC'),
 			'pagination' => $this->pagination('administrator/events',4,$this->events->count_all_records('events'),$per_page),
 		);
 		$this->session->unset_userdata('current_item');
@@ -111,6 +112,7 @@ class Admin_interface extends MY_Controller{
 	}
 
 	public function editEvent(){
+		
 		$current_item = $this->session->userdata('current_item');
 		if(!$current_item && $this->uri->total_segments() == 4):
 			$this->session->set_userdata('current_item',$this->uri->segment(4));
@@ -118,10 +120,12 @@ class Admin_interface extends MY_Controller{
 		elseif(!$current_item && $this->uri->total_segments() == 3):
 			redirect('administrator/events');
 		endif;
+		$this->load->helper('date');
 		$this->load->model('events');
 		$pagevar = array(
 			'event' => $this->events->eventInformation($current_item),
 		);
+		$pagevar['event']['date'] = swap_dot_date($pagevar['event']['date']);
 		if(!$pagevar['event']):
 			show_error('В доступе отказано');
 		endif;
@@ -134,10 +138,12 @@ class Admin_interface extends MY_Controller{
 		
 		$this->load->helper('text');
 		$this->load->model('projects');
+		$this->load->model('people');
 		$per_page = 7;
 		$offset = intval($this->uri->segment(4));
 		$pagevar = array(
-			'projects' => $this->projects->read_limit_records($per_page,$offset,'projects','id','DESC'),
+			'people' => $this->people->read_records('people','name','ASC'),
+			'projects' => $this->projects->read_limit_records($per_page,$offset,'projects','sort','ASC'),
 			'pagination' => $this->pagination('administrator/projects',4,$this->projects->count_all_records('projects'),$per_page),
 		);
 		$this->session->unset_userdata('current_item');
@@ -145,8 +151,13 @@ class Admin_interface extends MY_Controller{
 	}
 	
 	public function insertProject(){
+		
+		$this->load->model('people');
+		$pagevar = array(
+			'people' => $this->people->read_records('people','name','ASC')
+		);
 		$this->session->unset_userdata('current_item');
-		$this->load->view("admin_interface/projects/insert-project");
+		$this->load->view("admin_interface/projects/insert-project",$pagevar);
 	}
 
 	public function editProject(){
@@ -158,12 +169,15 @@ class Admin_interface extends MY_Controller{
 			redirect('administrator/projects');
 		endif;
 		$this->load->model('projects');
+		$this->load->model('people');
 		$pagevar = array(
 			'project' => $this->projects->projectInformation($current_item),
+			'people' => $this->people->read_records('people','name','ASC')
 		);
 		if(!$pagevar['project']):
 			show_error('В доступе отказано');
 		endif;
+		$pagevar['project']['people'] = json_decode($pagevar['project']['people']);
 		$this->load->view("admin_interface/projects/update-project",$pagevar);
 	}
 	
@@ -211,7 +225,7 @@ class Admin_interface extends MY_Controller{
 		
 		$this->load->model('object_images');
 		$pagevar = array(
-			'images' => $this->object_images->read_records('object_images','id','DESC'),
+			'images' => $this->object_images->read_records('object_images','position','ASC'),
 			'multi_upload_photos_url' => 'administrator/object/insert/images',
 			'multi_delete_photo_url' => 'administrator/object/images/delete',
 			'multi_title_photos_url' => 'administrator/object/images/title/save'
@@ -225,11 +239,14 @@ class Admin_interface extends MY_Controller{
 		$this->load->helper('text');
 		$this->load->model('people');
 		$per_page = 7;
-		$offset = intval($this->uri->segment(5));
+		$offset = intval($this->uri->segment(4));
 		$pagevar = array(
 			'people' => $this->people->read_limit_records($per_page,$offset,'people','id','DESC'),
-			'pagination' => $this->pagination('administrator/people',5,$this->people->count_all_records('people'),$per_page),
+			'pagination' => $this->pagination('administrator/people',4,$this->people->count_all_records('people'),$per_page),
 		);
+		
+//		print_r($pagevar['pagination']);exit;
+		
 		$this->session->unset_userdata('current_item');
 		$this->load->view("admin_interface/people/people-list",$pagevar);
 	}

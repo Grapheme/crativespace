@@ -2,7 +2,7 @@
 
 class Ajax_interface extends MY_Controller{
 	
-	var $per_page = 5;
+	var $per_page = 6;
 	var $offset = 0;
 	
 	function __construct(){
@@ -26,6 +26,32 @@ class Ajax_interface extends MY_Controller{
 				$this->session->set_userdata(array('logon'=>md5($user_email),'userid'=>$user['id']));
 				$json_request['cabinet_path'] = ADM_START_PAGE;
 			endif;
+		endif;
+		echo json_encode($json_request);
+	}
+	
+	public function sendFeedBack(){
+		
+		if(!$this->input->is_ajax_request()):
+			show_error('В доступе отказано');
+		endif;
+		$json_request = array('status'=>FALSE,'message'=>'Сообщенеи не отправлено');
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules('user-email','','required|trim|valid_email|xss_clean');
+		$this->form_validation->set_rules('user-phone','','trim|xss_clean');
+		$this->form_validation->set_rules('user-content','','required|trim|xss_clean');
+		if($this->form_validation->run()):
+			ob_start();?>
+<p>Здравствуйте, <em>Администратор</em></p>
+<p>Номер телефона пользователя: <?=(!empty($_POST['user-phone']))?$_POST['user-phone']:'Не указан';?></p>
+<p>Email адрес пользователя: <?=$_POST['user-email'];?></p>
+<p>Сообщение от пользователя:<br/><?=$_POST['user-content']?></p>
+			<?php $mailtext = ob_get_clean();
+			$this->send_mail('info@creativespace.pro',$_POST['user-email'],$_POST['user-email'],$_POST['user-thema'].'. Форма обратной связи',$mailtext);
+			$json_request['status'] = TRUE;
+			$json_request['message'] = 'Сообщение отправлено';
+		else:
+			$json_request['message'] = 'Неверно заполнены поля';
 		endif;
 		echo json_encode($json_request);
 	}
@@ -92,22 +118,23 @@ class Ajax_interface extends MY_Controller{
 		$next_items = FALSE;
 		if($table == 'news'):
 			$this->load->model($table);
-			$content = $this->$table->read_limit_records($this->per_page,$this->offset,$table,'date_publish','DESC');
+			$content = $this->$table->read_limit_records($this->per_page,$this->offset,$table);
 			$next_items = $this->$table->exist_next_records($this->offset,$table);
 		endif;
 		if($table == 'events'):
 			$this->load->model($table);
-			$content = $this->$table->read_limit_records($this->per_page,$this->offset,$table,'id','DESC');
+			$content = $this->$table->read_limit_records($this->per_page,$this->offset,$table);
 			$next_items = $this->$table->exist_next_records($this->offset,$table);
 		endif;
 		$this->load->model('news_images');
 		$html = '';
 		for($i=0;$i<count($content);$i++):
+			$smalltext = trim(word_limiter($content[$i]['content'],100,' ...</p>'));
 			if($table == 'news'):
 				$photos = $this->news_images->photoNews($content[$i]['id']);
 				$html .= '<div class="news_div"><p><span class="news_title">'.$content[$i]['title'].'</span><br><span class="news_date">'.month_date_with_time($content[$i]['date_publish']).'</span>';
-				$html .= '</p><span class="news_text view-text">'.word_limiter($content[$i]['content'],50,' ...</p>').'</span><div class="clear"></div>';
-				$html .= '<span class="news_text hidden-text hidden">'.$content[$i]['content'].'</span><a class="expand def advanced" href="#">показать полностью</a>';
+				$html .= '</p><span class="news_text view-text">'.$smalltext;
+				$html .= '</span>';
 				if(count($photos)):
 					$html .= '<p class="number_photo"><a href="#" class="prev"><img src="'.site_url('img/left.jpg').'" class="left"></a>1 / '.count($photos).'<a href="#" class="next"><img src="'.site_url('img/right.jpg').'" class="right"></a></p>';
 					$html .= '<div class="news_img_div cycle-slideshow" data-cycle-prev=".prev" data-cycle-next=".next" data-cycle-fx="fade" data-cycle-timeout=0>';
@@ -116,13 +143,13 @@ class Ajax_interface extends MY_Controller{
 					endfor;
 					$html .= '</div>';
 				endif;
-				$html .= '<div class="like_div"><a href="#" class="def"><div class="like"><img src="'.site_url('img/like.jpg').'"></div>25</a></div></div>';
+				//$html .= '<div class="like_div"><a href="#" class="def"><div class="like"><img src="'.site_url('img/like.jpg').'"></div>25</a></div></div>';
 			endif;
 			if($table == 'events'):
-				$html .= '<div class="event_page_div"><div class="grid_6 prefix_1"><span class="event_date">'.$content[$i]['date_begin'].'</span>';
-				$html .= '<p class="event_title">'.$content[$i]['title'].'</p><span class="event_text view-text">'.word_limiter($content[$i]['content'],50,' ...</p>').'</span>';
-				$html .= '<span class="event_text hidden-text hidden">'.$content[$i]['content'].'</span><a class="expand def advanced" href="#">показать полностью</a>';
-				$html .= '<div class="like_div"><a href="#" class="def"><div class="like"><img src="'.site_url('img/like.jpg').'"></div>25</a></div>';
+				$html .= '<div class="event_page_div"><div class="grid_6 prefix_1"><span class="event_date">'.month_date($content[$i]['date']).' '.$content[$i]['date_begin'].'</span>';
+				$html .= '<p class="event_title">'.$content[$i]['title'].'</p><span class="event_text view-text">'.$smalltext;
+				$html .= '</span>';
+				//$html .= '<div class="like_div"><a href="#" class="def"><div class="like"><img src="'.site_url('img/like.jpg').'"></div>25</a></div>';
 				$html .= '</div><div class="grid_5"><div class="event_page_image"><img src="'.site_url('loadimage/events/'.$content[$i]['id']).'"></div></div></div>';
 			endif;
 		endfor;
@@ -143,10 +170,32 @@ class Ajax_interface extends MY_Controller{
 		if($project):
 			$this->load->model('projects');
 			$content = $this->projects->read_record($project,'projects');
+			
+			if(!empty($content['people'])):
+				$people = json_decode($content['people']);
+				if($people):
+					$this->load->model('people');
+					$content['people'] = $this->people->peopleArray($people);
+				else:
+					$content['people'] = FALSE;
+				endif;
+			endif;
+			
 			$html .= '<img src="'.site_url('loadimage/project/'.$content['id']).'">';
-			$html .= '<p class="dobrocoworkru_explain">'.$content['content'].'</p>';
-			$html .= '<div class="projects_people"><p class="dobrocoworkru_people">ЛЮДИ: '.$content['people'].'</p>';
-			$html .= '<a class="dobrocoworkru none" href="">'.$content['site'].'</a></div>';
+			$html .= '<div class="dobrocoworkru_explain">'.$content['content'].'</div>';
+			
+			$html .= '<div class="projects_people">';
+			if($content['people']):
+				$html .= '<p class="dobrocoworkru_people">ЛЮДИ: ';
+				for($i=0;$i<count($content['people']);$i++):
+					$html .= '<a href="#" data-item="'.$content['people'][$i]['id'].'" class="people_div">'.$content['people'][$i]['name'].'</a>';
+					if(isset($content['people'][$i+1]['id'])):
+						$html .= ',';
+					endif;
+				endfor;
+				$html .= '</p>';
+			endif;
+			$html .= '<a class="dobrocoworkru" target="_blank" href="http://'.$content['site'].'">'.$content['site'].'</a></div>';
 			echo $html;
 		else:
 			echo 'Данные отсутствуют';
@@ -165,20 +214,20 @@ class Ajax_interface extends MY_Controller{
 			$content = $this->partners->read_record($partner,'partners');
 			$html .= '<img  src="'.site_url('loadimage/partner/'.$content['id']).'"><div class="popup_partner_div"><div class="popup_contacts">';
 			$html .= '<p><span class="popup_mast">'.$content['title'].'<br>офис № '.$content['office'].'</span></p>';
-			$html .= '<span class="popup_desc"><a href="http://'.$content['site'].'/" target="_blank">'.$content['site'].'</a></span><br>';
+			$html .= '<span class="popup_desc"><a href="http://'.$content['site'].'" target="_blank">'.$content['site'].'</a></span><br>';
 			$html .= '<span class="popup_desc"><a href="mailto:'.$content['email'].'">'.$content['email'].'</a></span>';
 			$html .= '<p>';
 			if(!empty($content['facebook'])):
-				$html .= '<a target="_blank" href="http://'.$content['facebook'].'/"><img src="'.site_url('img/facebook_button.jpg').'"></a>';
+				$html .= '<a target="_blank" href="'.$content['facebook'].'"><img src="'.site_url('img/facebook_button.jpg').'"></a>';
 			endif;
 			if(!empty($content['twitter'])):
-				$html .= '<a target="_blank" href="http://'.$content['twitter'].'/"><img src="'.site_url('img/twitter_button.jpg').'"></a>';
+				$html .= '<a target="_blank" href="'.$content['twitter'].'"><img src="'.site_url('img/twitter_button.jpg').'"></a>';
 			endif;
 			if(!empty($content['vk'])):
-				$html .= '<a target="_blank" href="http://'.$content['vk'].'/"><img src="'.site_url('img/vk_button.jpg').'"></a>';
+				$html .= '<a target="_blank" href="'.$content['vk'].'"><img src="'.site_url('img/vk_button.jpg').'"></a>';
 			endif;
 			if(!empty($content['google'])):
-				$html .= '<a target="_blank" href="http://'.$content['google'].'/"><img src="'.site_url('img/gplus_button.jpg').'"></a>';
+				$html .= '<a target="_blank" href="'.$content['google'].'"><img src="'.site_url('img/gplus_button.jpg').'"></a>';
 			endif;
 			$html .= '</p></div></div>';
 			echo $html;
@@ -206,16 +255,16 @@ class Ajax_interface extends MY_Controller{
 			$html .= '<span class="popup_desc"><a href="#">'.$content['email'].'</a></span>';
 			$html .= '<p>';
 			if(!empty($content['facebook'])):
-				$html .= '<a target="_blank" href="http://'.$content['facebook'].'/"><img src="'.site_url('img/facebook_button.jpg').'"></a>';
+				$html .= '<a target="_blank" href="'.$content['facebook'].'"><img src="'.site_url('img/facebook_button.jpg').'"></a>';
 			endif;
 			if(!empty($content['twitter'])):
-				$html .= '<a target="_blank" href="http://'.$content['twitter'].'/"><img src="'.site_url('img/twitter_button.jpg').'"></a>';
+				$html .= '<a target="_blank" href="'.$content['twitter'].'"><img src="'.site_url('img/twitter_button.jpg').'"></a>';
 			endif;
 			if(!empty($content['vk'])):
-				$html .= '<a target="_blank" href="http://'.$content['vk'].'/"><img src="'.site_url('img/vk_button.jpg').'"></a>';
+				$html .= '<a target="_blank" href="'.$content['vk'].'"><img src="'.site_url('img/vk_button.jpg').'"></a>';
 			endif;
 			if(!empty($content['google'])):
-				$html .= '<a target="_blank" href="http://'.$content['google'].'/"><img src="'.site_url('img/gplus_button.jpg').'"></a>';
+				$html .= '<a target="_blank" href="'.$content['google'].'"><img src="'.site_url('img/gplus_button.jpg').'"></a>';
 			endif;
 			$html .= '</p></div></div>';
 			echo $html;
@@ -233,6 +282,7 @@ class Ajax_interface extends MY_Controller{
 		if($insert):
 			$this->load->model('news');
 			$insert['date'] = preg_replace("/(\d+)\.(\w+)\.(\d+)/i","\$3-\$2-\$1",$insert['date']);
+			$insert['translit'] = $this->translite($insert['title']);
 			$news_id = $this->news->insert_record($insert);
 			if($news_id):
 				$this->session->set_userdata('current_item',$news_id);
@@ -259,6 +309,7 @@ class Ajax_interface extends MY_Controller{
 			$this->load->model('news');
 			$update['date'] = preg_replace("/(\d+)\.(\w+)\.(\d+)/i","\$3-\$2-\$1",$update['date']);
 			$update['id'] = $this->session->userdata('current_item');
+			$update['translit'] = $this->translite($update['title']);
 			$this->news->update_record($update);
 			$this->session->unset_userdata('current_item');
 			$text = '<img src="'.site_url('img/check.png').'" alt="" /> Новость сохранена<hr/>';
@@ -370,6 +421,7 @@ class Ajax_interface extends MY_Controller{
 		if($insert):
 			$this->load->model('events');
 			$insert['date'] = preg_replace("/(\d+)\.(\w+)\.(\d+)/i","\$3-\$2-\$1",$insert['date']);
+			$insert['translit'] = $this->translite($insert['title']);
 			$event_id = $this->events->insert_record($insert);
 			if($event_id):
 				if(isset($_FILES['photo'])):
@@ -402,6 +454,7 @@ class Ajax_interface extends MY_Controller{
 			$this->load->model('events');
 			$update['date'] = preg_replace("/(\d+)\.(\w+)\.(\d+)/i","\$3-\$2-\$1",$update['date']);
 			$update['id'] = $this->session->userdata('current_item');
+			$update['translit'] = $this->translite($update['title']);
 			$this->events->update_record($update);
 			$this->session->unset_userdata('current_item');
 			$text = '<img src="'.site_url('img/check.png').'" alt="" /> Мероприятие сохранено<hr/>';
@@ -468,6 +521,11 @@ class Ajax_interface extends MY_Controller{
 		if($insert):
 			$this->load->model('projects');
 			$insert['translit'] = $this->translite($insert['title']);
+			if(isset($insert['people'])):
+				$insert['people'] = json_encode($insert['people']);
+			else:
+				$insert['people'] = '';
+			endif;
 			$project_id = $this->projects->insert_record($insert);
 			if($project_id):
 				if(isset($_FILES['photo'])):
@@ -499,7 +557,11 @@ class Ajax_interface extends MY_Controller{
 		if($update && $this->session->userdata('current_item')):
 			$this->load->model('projects');
 			$update['id'] = $this->session->userdata('current_item');
-			$update['translit'] = $this->translite($update['title']);
+			if(isset($update['people'])):
+				$update['people'] = json_encode($update['people']);
+			else:
+				$update['people'] = '';
+			endif;
 			$this->projects->update_record($update);
 			$this->session->unset_userdata('current_item');
 			$text = '<img src="'.site_url('img/check.png').'" alt="" /> Проект сохранен<hr/>';
@@ -734,6 +796,28 @@ class Ajax_interface extends MY_Controller{
 			endif;
 		endif;
 		echo json_encode($json_request);
+	}
+	
+	public function objectPhotoSort(){
+		
+		if(!$this->input->is_ajax_request()):
+			show_error('Аccess denied');
+		endif;
+		$list = trim($this->input->post('list'));
+		if($list):
+			$list = preg_split("/&/",$list);
+			for($i=0;$i<count($list);$i++):
+				$dataid = preg_split("/=/",$list[$i]);
+				$dataval[$i] = $dataid[1];
+			endfor;
+			if($dataval):
+				$this->load->model('object_images');
+				$items = $this->object_images->read_records('object_images');
+				for($i=0;$i<count($items);$i++):
+					$this->object_images->update_field($dataval[$i],'position',$i+1,'object_images');
+				endfor;
+			endif;
+		endif;
 	}
 	
 	/************************************************* people ************************************************************/

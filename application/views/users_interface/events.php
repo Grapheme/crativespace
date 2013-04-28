@@ -20,12 +20,14 @@
 			<?php for($i=0;$i<count($events);$i++):?>
 				<div class="event_page_div">
 					<div class="grid_6 prefix_1">
-						<span class="event_date"><?=$events[$i]['date_begin']?></span>
-						<p class="event_title"><?=$events[$i]['title']?></p>
-						<span class="event_text view-text"><?=word_limiter($events[$i]['content'],50,' ...</p>');?></span>
-						<span class="event_text hidden-text hidden"><?=$events[$i]['content'];?></span>
-						<a class="expand def advanced" href="#">показать полностью</a>
-						<div class="like_div"><a href="#" class="def"><div class="like"><img src="<?=site_url('img/like.jpg');?>"></div>25</a></div>
+						<span class="event_date"><?=month_date($events[$i]['date']).' '.$events[$i]['date_begin'];?></span>
+						<p class="event_title">
+							<a href="<?=site_url('event/'.$events[$i]['translit']);?>"><?=$events[$i]['title']?></a>
+						</p>
+						<span class="event_text view-text">
+							<?=trim(word_limiter($events[$i]['content'],100,' ...</p>'));;?>
+						</span>
+						<!--<div class="like_div"><a href="#" class="def"><div class="like"><img src="<?=site_url('img/like.jpg');?>"></div>0</a></div>-->
 					</div>
 					<div class="grid_5">
 						<div class="event_page_image"><img src="<?=site_url('loadimage/events/'.$events[$i]['id']);?>"></div>

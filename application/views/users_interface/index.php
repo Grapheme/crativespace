@@ -26,19 +26,12 @@
 			<?php for($i=0;$i<3;$i++):?>
 				<?php if(isset($events[$i]['id'])):?>
 					<div class="grid_4">
-						<div class="event">
+						<div class="event event_link" data-translit="<?=$events[$i]['translit'];?>" data-item="<?=$events[$i]['id'];?>">
 							<img src="<?=site_url('loadimage/events/'.$events[$i]['id']);?>" class="ievent">
 							<div class="event_div_text">
-								<span class="event_index_date"><?=$events[$i]['date_begin']?></span><br>
+								<span class="event_index_date"><?=month_date($events[$i]['date']).' '.$events[$i]['date_begin'];?><br>
 								<span class="event_index_text"><?=$events[$i]['title']?></span>
-								<div class="like_div" data-type="events" data-item="<?=$events[$i]['id'];?>">
-									<a href="#" class="def">
-										<div class="like">
-											<img src="<?=site_url('img/like.jpg');?>">
-										</div>
-										<span class="liked-value"><?=$events[$i]['liked'];?></span>
-									</a>
-								</div>
+								<!--<div class="like_div"><a href="#" class="def"><div class="like"><img src="<?=site_url('img/like.jpg');?>"></div>0</a></div>-->
 							</div>
 						</div>
 					</div>
@@ -51,19 +44,12 @@
 				<?php for($j=0;$j<3;$j++):?>
 					<?php if(isset($events[$i+$j]['id'])):?>
 					<div class="grid_4">
-						<div class="event">
+						<div class="event event_link" data-translit="<?=$events[$i+$j]['translit'];?>" data-item="<?=$events[$i+$j]['id'];?>">
 							<img src="<?=site_url('loadimage/events/'.$events[$i+$j]['id']);?>" class="ievent">
 							<div class="event_div_text">
 								<span class="event_index_date"><?=$events[$i+$j]['date_begin'];?></span><br>
 								<span class="event_index_text"><?=$events[$i+$j]['title'];?></span>
-								<div class="like_div">
-									<a href="#" class="def">
-										<div class="like">
-											<img src="<?=site_url('img/like.jpg');?>">
-										</div>
-										25
-									</a>
-								</div>
+								<!--<div class="like_div"><a href="#" class="def"><div class="like"><img src="<?=site_url('img/like.jpg');?>"></div>0</a></div>-->
 							</div>
 						</div>
 					</div>
@@ -73,6 +59,7 @@
 			<?php endfor;?>
 		<?php endif;?>
 			</div>
+	<?php endif;?>
 		<?php if(count($news)):?>
 			<div class="clear"></div>
 			<div class="grid_8 prefix_1 infinite-scroll">
@@ -81,12 +68,12 @@
 			<?php for($i=0;$i<count($news);$i++):?>
 				<div class="news_div">
 					<p>
-						<span class="news_title"><?=$news[$i]['title']?></span><br>
+						<a href="<?=site_url('news/'.$news[$i]['translit']);?>" class="news_title"><?=$news[$i]['title']?></a><br>
 						<span class="news_date"><?=month_date_with_time($news[$i]['date_publish']);?></span>
 					</p>
-					<span class="news_text view-text"><?=word_limiter($news[$i]['content'],50,' ...</p>');?></span>
-					<span class="news_text hidden-text hidden"><?=$news[$i]['content'];?></span>
-					<a class="expand def advanced" href="#">показать полностью</a>
+					<span class="news_text view-text">
+						<?=trim(word_limiter($news[$i]['content'],50,' ...</p>'));?>
+					</span>
 				<?php if(count($news[$i]['photos'])):?>
 					<p class="number_photo">
 						<a href="#" class="prev<?=$i;?>"><img src="<?=site_url('img/left.jpg');?>" class="left"></a>1 / <?=count($news[$i]['photos']);?><a href="#" class="next<?=$i;?>"><img src="<?=site_url('img/right.jpg');?>" class="right"></a>
@@ -97,7 +84,7 @@
 					<?php endfor;?>
 					</div>
 				<?php endif;?>
-					<div class="like_div"><a href="#" class="def"><div class="like"><img src="<?=site_url('img/like.jpg');?>"></div>25</a></div>
+				<!--<div class="like_div"><a href="#" class="def"><div class="like"><img src="<?=site_url('img/like.jpg');?>"></div>0</a></div>-->
 				</div>
 			<?php endfor;?>
 			<?php if($next_items):?>
@@ -128,21 +115,24 @@
 					  js.src = "//connect.facebook.net/ru_RU/all.js#xfbml=1&appId=118650518205495";
 					  fjs.parentNode.insertBefore(js, fjs);
 					}(document, 'script', 'facebook-jssdk'));</script>
-					<div class="fb-like-box" data-href="https://www.facebook.com/CreativeSpace.PRO" data-width="200" data-show-faces="true" data-stream="false" data-header="true"></div>
+					<div class="fb-like-box" data-href="https://www.facebook.com/creativespacepr" data-width="200" data-show-faces="true" data-stream="false" data-header="true"></div>
 				</div>
 				<p>
-					<a href="#"><img src="<?=site_url('img/facebook_button.jpg');?>"></a>
-					<a href="#"><img src="<?=site_url('img/twitter_button.jpg');?>"></a>
-					<a href="#"><img src="<?=site_url('img/vk_button.jpg');?>"></a>
-					<a href="#"><img src="<?=site_url('img/gplus_button.jpg');?>"></a>
+					<a target="_blank" href="https://www.facebook.com/creativespacepr"><img src="<?=site_url('img/facebook_button.jpg');?>"></a>
+					<!--<a class="none" href="#"><img src="<?=site_url('img/twitter_button.jpg');?>"></a>-->
+					<a target="_blank" href="http://vk.com/creativespacepro"><img src="<?=site_url('img/vk_button.jpg');?>"></a>
+					<!--<a class="none" href="#"><img src="<?=site_url('img/gplus_button.jpg');?>"></a>-->
+				</p>
+				<p>
+					<span class="follow_contact">наш hashtag в instagram:</span><br/>
+					<span class="">#creativespace</span>
 				</p>
 				<div class="adress">
-					<span class="follow_contact">г. Ростов-на-Дону<br>ул. Суворова 52а<br>+7(863)234-56-78<br>
-					<?=safe_mailto('mail@CrSp.pro','mail@CrSp.pro','class="b"');?></span>
+					<span class="follow_contact">г. Ростов-на-Дону<br>ул. Суворова 52а<br>+7 (863) 270-78-48<br>
+					<?=safe_mailto('info@creativespace.pro','info@creativespace.pro','class="b"');?></span>
 				</div>
 			</div>
 			<div class="clear"></div>
-		<?php endif;?>
 		</div>
 	</div>
 <?php $this->load->view("users_interface/includes/footer");?>

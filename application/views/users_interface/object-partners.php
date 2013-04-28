@@ -23,16 +23,16 @@
 					<div class="empty35"></div>
 					<nav>
 						<ul>
+							<li><a href="<?=site_url('object/project');?>" class="projects_nav">ПЛАН ЗДАНИЯ</a></li>
 							<li><a href="<?=site_url('object/partners');?>" class="projects_nav linked">ПАРТНЕРЫ</a></li>
 							<li><a href="<?=site_url('object/photos');?>" class="projects_nav">ФОТОГРАФИИ</a></li>
-							<li><a href="<?=site_url('object/project');?>" class="projects_nav">ПЛАН ЗДАНИЯ</a></li>
 						</ul>
 					</nav>
 				</div>
 				<div class="grid_10 partner_photo_container">
 				<?php for($i=0;$i<count($partners);$i++):?>
 					<div class="partner_div" data-item="<?=$partners[$i]['id']?>">
-						<a href="#">
+						<a class="none" href="">
 							<div class="partner_black_div"></div>
 							<img class="partner_photo" src="<?=site_url('loadimage/partner/'.$partners[$i]['id']);?>">
 						</a>

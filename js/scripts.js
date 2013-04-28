@@ -2,17 +2,10 @@
  *  http://grapheme.ru/
  */
 var mt = mt || {};
-mt.baseURL = 'http://creativespace.pro/';
-mt.ShowCut = function(element,event){
-	event.preventDefault();
-	$(element).addClass('hidden').siblings('span.view-text').remove();
-	$(element).siblings('span.hidden-text').hide().removeClass('hidden').fadeIn(100,function(){
-		$(element).remove();
-	});
-}
+mt.baseURL = 'http://'+window.location.hostname+'/';
+mt.redirect = function(path){window.location=path;}
 $(function(){
 	$(".none").click(function(event){event.preventDefault();});
-	$("a.advanced").click(function(event){event.preventDefault(); mt.ShowCut($(this),event);});
 	$("a.change-project").click(function(event){
 		event.preventDefault();
 		if(!$(this).hasClass('linked')){
@@ -22,18 +15,20 @@ $(function(){
 			$("#project-information").load(mt.baseURL+"project-load",{'parameter':parameter},function(){
 				$("a.change-project").removeClass('linked');
 				$(_this).addClass('linked');
+				$("a.people_div").click(function(){peopleDiv(this);});
 			});
 		}
 	});
-	
+	$("div.event_link").click(function(){mt.redirect(mt.baseURL+'event/'+$(this).attr('data-translit'));});
+	$("div .event .like_div").click(function(even){even.stopPropagation();});
 	$("div.partner_div").click(function(){
 		var _this = this;
 		var parameter = $(_this).attr('data-item');
 		$("#div-popup").load(mt.baseURL+"partner-load",{'parameter':parameter},function(){popup('in');});
 	});
-	$("div.people_div").click(function(){
-		var _this = this;
+	$(".people_div").click(function(){peopleDiv(this);});
+	function peopleDiv(_this){
 		var parameter = $(_this).attr('data-item');
 		$("#div-popup").load(mt.baseURL+"people-load",{'parameter':parameter},function(){popup('in');});
-	});
+	}
 });

@@ -6,8 +6,8 @@
 			<input type="text" name="name" class="span5 valid-required" value="<?=$people['name'];?>" placeholder="Имя" <?=TOOLTIP_FIELD_BLANK;?> />
 			<br/><input type="text" class="span5" name="company" placeholder="Место работы" value="<?=$people['company'];?>">
 			<br/><input type="text" class="span5" name="position" placeholder="Должность" value="<?=$people['position'];?>">
-			<br/><input type="text" class="span5 valid-required valid-email" name="email" placeholder="Email" value="<?=$people['email'];?>">
-			<br/><input type="text" class="span5 valid-required" name="phone" placeholder="Телефон" value="<?=$people['phone'];?>">
+			<br/><input type="text" class="span5 valid-email" <?=TOOLTIP_FIELD_BLANK;?> name="email" placeholder="Email" value="<?=$people['email'];?>">
+			<br/><input type="text" class="span5" name="phone" placeholder="Телефон" value="<?=$people['phone'];?>">
 		</div>
 		<div class="control-group">
 			<input type="text" class="span5" name="facebook" placeholder="Facebook" value="<?=$people['facebook'];?>">

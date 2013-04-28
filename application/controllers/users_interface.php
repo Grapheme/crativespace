@@ -2,7 +2,7 @@
 
 class Users_interface extends MY_Controller{
 	
-	var $per_page = 3;
+	var $per_page = 6;
 	var $offset = 0;
 	
 	function __construct(){
@@ -23,8 +23,8 @@ class Users_interface extends MY_Controller{
 		$this->load->model('news_images');
 		
 		$pagevar = array(
-			'events' => $this->events->read_records('events','id','DESC'),
-			'news' => $this->news->read_limit_records($this->per_page,$this->offset,'news','date_publish','DESC'),
+			'events' => $this->events->read_limit_records($this->per_page,$this->offset,'events'),
+			'news' => $this->news->read_limit_records($this->per_page,$this->offset,'news'),
 			'next_items' => $this->news->exist_next_records($this->per_page+$this->offset+1,'news')
 		);
 		for($i=0;$i<count($pagevar['news']);$i++):
@@ -33,25 +33,67 @@ class Users_interface extends MY_Controller{
 		$this->load->view("users_interface/index",$pagevar);
 	}
 	
+	public function viewNews(){
+		
+		$this->load->helper('date');
+		$this->load->helper('text');
+		$this->load->model('news');
+		$this->load->model('news_images');
+		$news = $this->news->record_exist('news','translit',$this->uri->segment(2));
+		$pagevar = array(
+			'news' => $this->news->read_record($news,'news'),
+			'photos' => $this->news_images->photoNews($news)
+		);
+		if(!$pagevar['news']):
+			show_error('Запись не найдена');
+		endif;
+		$this->load->view("users_interface/view-news",$pagevar);
+	}
+	
 	public function events(){
 		
 		$this->load->helper('date');
 		$this->load->helper('text');
 		$this->load->model('events');
 		$pagevar = array(
-			'events' => $this->events->read_limit_records($this->per_page,$this->offset,'events','id','DESC'),
+			'events' => $this->events->read_limit_records($this->per_page,$this->offset,'events'),
 			'next_items' => $this->events->exist_next_records($this->per_page+$this->offset+1,'events')
 		);
 		$this->load->view("users_interface/events",$pagevar);
+	}
+	
+	public function viewEvents(){
+		
+		$this->load->helper('date');
+		$this->load->helper('text');
+		$this->load->model('events');
+		$event = $this->events->record_exist('events','translit',$this->uri->segment(2));
+		$pagevar = array(
+			'event' => $this->events->read_record($event,'events'),
+		);
+		if(!$pagevar['event']):
+			show_error('Запись не найдена');
+		endif;
+		$this->load->view("users_interface/view-event",$pagevar);
 	}
 	
 	public function projects(){
 		
 		$this->load->helper('text');
 		$this->load->model('projects');
-		$pagevar = array(
-			'projects' => $this->projects->read_records('projects','title','ASC'),
-		);
+		$pagevar = array('projects' => $this->projects->read_records());
+		if(!empty($pagevar['projects'][0]['people'])):
+			$people = json_decode($pagevar['projects'][0]['people']);
+			if($people):
+				$this->load->model('people');
+				$pagevar['projects'][0]['people'] = $this->people->peopleArray($people);
+			else:
+				$pagevar['projects'][0]['people'] = FALSE;
+			endif;
+		endif;
+		
+//		print_r($pagevar['projects'][0]['people']);exit;
+		
 		$this->load->view("users_interface/projects",$pagevar);
 	}
 	
@@ -69,7 +111,7 @@ class Users_interface extends MY_Controller{
 		
 		$this->load->model('object_images');
 		$pagevar = array(
-			'images' => $this->object_images->read_records('object_images','id','DESC'),
+			'images' => $this->object_images->read_records('object_images','position','ASC'),
 		);
 		$this->load->view("users_interface/object-photos",$pagevar);
 	}
@@ -99,7 +141,6 @@ class Users_interface extends MY_Controller{
 		);
 		$this->load->view("users_interface/contacts",$pagevar);
 	}
-	
 	
 	/********************************************************************************************************************/
 	public function logoff(){

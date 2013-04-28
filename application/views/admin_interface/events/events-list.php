@@ -14,7 +14,7 @@
 					<div class="media-body list-item-block" data-src="<?=$events[$i]['id'];?>">
 						<h3 class="media-heading">
 							<?=$events[$i]['title'];?>
-							<p class="palette-paragraph"><?=$events[$i]['date_begin'];?></p>
+							<p class="palette-paragraph"><?=month_date($events[$i]['date']).' '.$events[$i]['date_begin'];?></p>
 						</h3>
 						<div class="media">
 							<p><?=word_limiter($events[$i]['content'],50);?></p>

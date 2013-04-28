@@ -1,6 +1,6 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-$config['base_url'] 			= "http://creativespace.pro/";
+$config['base_url'] 			= "http://creativespace/";
 $config['index_page'] 			= '';
 $config['uri_protocol']			= 'AUTO';
 $config['url_suffix'] 			= '';

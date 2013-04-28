@@ -3,10 +3,17 @@
 		<h2>Добавление проекта</h2>
 		<?=form_open_multipart('administrator/project/insert',array('id'=>'insert-project-form')); ?>
 			<div class="control-group">
-				<input type="text" name="title" class="span4 valid-required" value="" placeholder="Название" <?=TOOLTIP_FIELD_BLANK;?> />
+				<input type="text" name="title" class="span3 valid-required" value="" placeholder="Название" <?=TOOLTIP_FIELD_BLANK;?> />
 				<input type="text" class="span5" name="site" placeholder="Введите URL сайта" value="">
+				<input type="text" class="span1" name="sort" placeholder="№ п.п" value="0" title="Используется для сортировки">
 				<div class="clear"></div>
-				<input type="text" class="span7" name="people" placeholder="Введите людей" value="">
+				<div class="controls">
+					<select id="select-people" class="span9" multiple="" name="people[]" data-placeholder="Выбирите людей">
+					<?php for($i=0;$i<count($people);$i++):?>
+						<option value="<?=$people[$i]['id'];?>"><?=$people[$i]['name'];?></option>
+					<?php endfor;?>
+					</select>
+				</div>
 			</div>
 			<div class="clear"></div>
 			<label for="photo" class="control-label">Фотография: </label>

@@ -50,4 +50,24 @@ class People extends MY_Model{
 		return FALSE;
 	}
 	
+	function read_records($table,$field = 'id',$order = 'ASC'){
+		
+		$this->db->select('id,name,company,position,email,phone,facebook,twitter,vk,google');
+		$this->db->order_by($field,$order);
+		$query = $this->db->get($table);
+		$data = $query->result_array();
+		if(count($data)) return $data;
+		return NULL;
+	}
+	
+	function peopleArray($ids){
+		
+		$this->db->select('id,name,company,position,email,phone,facebook,twitter,vk,google');
+		$this->db->where_in('id',$ids);
+		$query = $this->db->get('people');
+		$data = $query->result_array();
+		if($data) return $data;
+		return NULL;
+	}
+	
 }

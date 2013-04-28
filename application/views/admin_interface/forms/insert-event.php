@@ -4,7 +4,11 @@
 		<?=form_open_multipart('administrator/event/insert',array('id'=>'insert-event-form')); ?>
 			<div class="control-group">
 				<input type="text" name="title" class="span6 valid-required" value="" placeholder="Название" <?=TOOLTIP_FIELD_BLANK;?> />
-				<input type="text" class="span3" name="date" placeholder="Введите дату начала" value="">
+			</div>
+			<label for="photo" class="control-label">Дата и время проведения: </label>
+			<div class="control-group">
+				<input type="text" class="span2 datepicker" name="date" value="<?=date("d.m.Y")?>">
+				<input type="text" class="span3" name="date_begin" placeholder="Введите время начала" value="">
 			</div>
 			<div class="clear"></div>
 			<label for="photo" class="control-label">Фотография: </label>

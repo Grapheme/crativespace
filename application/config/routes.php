@@ -5,12 +5,14 @@ $route['404_override'] = '';
 
 /*************************************************** AJAX INTRERFACE ***********************************************/
 $route['admin/login'] = "ajax_interface/login_in";
+$route['send-feedback'] = "ajax_interface/sendFeedBack";
 $route['administrator/profile/save'] = "ajax_interface/profileSave";
 $route['set-item-like'] = "ajax_interface/setItemLike";
 $route['text-load/:any/from/:num'] = "ajax_interface/textScrollLoad";
 $route['project-load'] = "ajax_interface/projectLoad";
 $route['partner-load'] = "ajax_interface/partnerLoad";
 $route['people-load'] = "ajax_interface/peopleLoad";
+$route['object/photos/change-position'] = "ajax_interface/objectPhotoSort";
 /*********** news ***************/
 $route['administrator/news/insert'] = "ajax_interface/insertNews";
 $route['administrator/news/update'] = "ajax_interface/updateNews";
@@ -46,13 +48,14 @@ $route['administrator/people/save/photo'] = "ajax_interface/updatePeoplePhoto";
 $route['loadimage/:any/:num'] = "users_interface/loadimage";
 /************** pages ****************/
 $route['events'] = "users_interface/events";
+$route['event/:any'] = "users_interface/viewEvents";
 $route['projects'] = "users_interface/projects";
 $route['object/partners'] = "users_interface/objectPartners";
 $route['object/photos'] = "users_interface/objectPhotos";
 $route['object/project'] = "users_interface/objectProject";
 $route['people'] = "users_interface/people";
 $route['contacts'] = "users_interface/contacts";
-
+$route['news/:any'] = "users_interface/viewNews";
 $route['admin'] = "users_interface/login";
 $route['logoff'] = "users_interface/logoff";
 /*************************************************** ADMIN INTRERFACE ***********************************************/

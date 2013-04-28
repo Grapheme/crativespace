@@ -5,6 +5,7 @@
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
 <head>
 <?php $this->load->view("admin_interface/includes/head");?>
+<link rel="stylesheet" href="<?=site_url('css/chosen.css');?>" />
 </head>
 <body>
 	<div class="container">
@@ -17,5 +18,9 @@
 	</div>
 <?php $this->load->view("admin_interface/includes/scripts");?>
 	<script type="text/javascript" src="<?=site_url('ckeditor/ckeditor.js');?>"></script>
+	<script type="text/javascript" src="<?=site_url('js/vendor/jquery.chosen.js');?>"></script>
+	<script type="text/javascript">
+		$(function(){$("#select-people").chosen();});
+	</script>
 </body>
 </html>

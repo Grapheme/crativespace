@@ -1,0 +1,9 @@
+/* ==========================================================================
+   Author's custom styles
+   Grapheme
+   ========================================================================== */
+
+.clear{clear: both;display: block;overflow: hidden;visibility: hidden;width: 0;height: 0}
+.form-request{ margin: 5px 0 0; font-size: 14px; }
+div.wait-request{background-image: url(../images/wait.gif);background-repeat: no-repeat;cursor: wait;min-height: 10px; margin: 5px 0; width: 120px; }
+.div-form-operation { width: 200px; }

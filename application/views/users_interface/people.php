@@ -16,6 +16,7 @@
 			<?php $this->load->view("users_interface/includes/header");?>
 			<div class="empty35 grid_12"></div>
 			<div class="clear"></div>
+			<div class="people__list">
 			<?php for($i=0;$i<count($people);$i++):?>
 				<div class="grid_2 people_div" data-item="<?=$people[$i]['id']?>">
 					<div class="people_img_div">
@@ -26,12 +27,15 @@
 					<p class="people_name"><?=$people[$i]['name'];?></p>
 				</div>
 			<?php endfor;?>
+			</div>
+			<div class="clear"></div>
 		</div>
-	</div>
-	<div class="overlay hidden"></div>
-	<div class="popup hidden people">
-		<div id="div-popup"></div>
-		<div class="esc"><div class="esc_hover"></div><img src="<?=site_url('img/people_esc.jpg');?>"></div>
+		<div class="clear"></div>
+		<div class="overlay hidden"></div>
+		<div class="popup hidden people">
+			<div id="div-popup"></div>
+			<div class="esc"><div class="esc_hover"></div><img src="<?=site_url('img/people_esc.jpg');?>"></div>
+		</div>
 	</div>
 <?php $this->load->view("users_interface/includes/footer");?>
 <?php $this->load->view("users_interface/includes/scripts");?>

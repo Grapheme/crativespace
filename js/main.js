@@ -19,23 +19,23 @@ function resize_height(name,padding){
 	});
 }
 function popup(act){
-	if(act == 'in'){
-		$('div.overlay').removeClass('hidden');
-		$('div.popup').removeClass('hidden');
-	}
-	if(act == 'out'){
-		$('div.overlay').addClass('hidden');
-		$('div.popup').addClass('hidden');
-	}
+	if(act == 'in'){$('div.overlay').removeClass('hidden');$('div.popup').removeClass('hidden');}
+	if(act == 'out'){$('div.overlay').addClass('hidden');$('div.popup').addClass('hidden');}
 }
-jQuery(document).ready(function(){
-		jQuery('div.like').ArteHover(250);
-		$(this).keydown(function(eventObject){
-			if(eventObject.which == 27)
-			popup('out');
-		});
-		if($("div.object_photo_container a").hasClass('fancy')){$(".fancy").attr('rel','gallery').fancybox({padding:0});}
+$('img').load(function(){
+	$('.news_img').each(function(){
+		var wd = $(this).width();
+		$(this).css('left','50%');
+		$(this).css('margin-left',-wd/2);
 	});
+});
+jQuery(document).ready(function(){
+	jQuery('div.like').ArteHover(250);
+	$(this).keydown(function(eventObject){
+		if(eventObject.which == 27) popup('out');
+	});
+	if($("div.object_photo_container a").hasClass('fancy')){$(".fancy").attr('rel','gallery').fancybox({padding:0});}
+});
 $("a.def").click(function(event){event.preventDefault();});
 $('.esc').click(function(){popup('out');});
 $('.overlay').click(function(){popup('out');});
