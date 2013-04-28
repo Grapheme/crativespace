@@ -38,6 +38,7 @@
 					<div><a name="plan3"></a><img src="<?=site_url('img/plan_3.png');?>"></div>
 					<div><a name="plan2"></a><img src="<?=site_url('img/plan_2.png');?>"></div>
 					<div><a name="plan1"></a><img src="<?=site_url('img/plan_1.png');?>"></div>
+					<p>&nbsp;</p>
 				</div>
 				<div class="grid_2">
 					<div class="company"><a href="#"><span class="plan_number">100</span><span class="plan_company">Велопрокат</span></a></div>
@@ -52,7 +53,7 @@
 					<div class="company"><a href="#"><span class="plan_number">301</span><span class="plan_company">People Around</span></a></div>
 					<div class="company"><a href="#"><span class="plan_number">302</span><span class="plan_company">M-Point</span></a></div>
 					<div class="company"><a href="#"><span class="plan_number">303</span><span class="plan_company">Флорариум</span></a></div>
-					<div class="company"><a href="#"><span class="plan_number">304</span><span class="plan_company">Grapheme</span></a></div>
+					<div class="company"><a href="#"><span class="plan_number">304</span><span class="plan_company">ГРАФЕМА</span></a></div>
 					<div class="company"><a href="#"><span class="plan_number">305</span><span class="plan_company">The Grizzly</span></a></div>
 					<div class="company"><a href="#"><span class="plan_number">306</span><span class="plan_company">[ekswai'zi]</span></a></div>
 					<div class="company"><a href="#"><span class="plan_number">307</span><span class="plan_company">ALASKA</span></a></div>
@@ -62,18 +63,22 @@
 					<div class="company"><a href="#"><span class="plan_number">311</span><span class="plan_company">VodooBooks</span></a></div>
 					<div class="means">
 						<div class="means_mar">
-							<div class="means_div"><img src="<?=site_url('img/means_1.png');?>" class="means_img">НОМЕР ОФИСА</div>
-							<div class="means_div"><img src="<?=site_url('img/means_2.png');?>" class="means_img">ВАКАНТНО</div>
-							<div class="means_div"><img src="<?=site_url('img/means_3.png');?>" class="means_img">САН.УЗЕЛ</div>
-							<div class="means_div"><img src="<?=site_url('img/means_4.png');?>" class="means_img">ОГНЕТУШИТЕЛЬ</div>
-							<div class="means_div"><img src="<?=site_url('img/means_5.png');?>" class="means_img">РЕМОНТ</div>
-							<div class="means_div"><img src="<?=site_url('img/means_6.png');?>" class="means_img">ВЫХОД</div>
+							<div class="means_div"><img src="<?=site_url('img/means_1.png');?>" class="means_img">ТУАЛЕТ</div>
+							<div class="means_div"><img src="<?=site_url('img/means_2.png');?>" class="means_img">ВЫХОД/ВХОД</div>
+							<div class="means_div"><img src="<?=site_url('img/means_3.png');?>" class="means_img">ВАКАНТНО</div>
+							<div class="means_div"><img src="<?=site_url('img/means_4.png');?>" class="means_img">СКЛАД</div>
+							<div class="means_div"><img src="<?=site_url('img/means_5.png');?>" class="means_img">ОГНЕТУШИТЕЛЬ</div>
+							<div class="means_div"><img src="<?=site_url('img/means_6.png');?>" class="means_img">РЕМОНТ</div>
+							<div class="means_div"><img src="<?=site_url('img/means_7.png');?>" class="means_img">НЕ КУХНЯ</div>
+							<div class="means_div"><img src="<?=site_url('img/means_8.png');?>" class="means_img">ФЛОРАРИУМ</div>
+							<div class="means_div"><img src="<?=site_url('img/means_9.png');?>" class="means_img">НОМЕР ОФИСА</div>
 						</div>
 					</div>
 				</div>
+				<div class="clear"></div> 
 			</div>
-			<div class="clear"></div>
 		</div>
+		<div class="clear"> </div>
 	</div>
 <?php $this->load->view("users_interface/includes/footer");?>
 <?php $this->load->view("users_interface/includes/scripts");?>

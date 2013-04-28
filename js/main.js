@@ -8,7 +8,7 @@ function initialize(){
 function height(name,padding){
 	var dh = $(".container_12").height();
 	if(padding=='0'){var h = $(window).height()-35;}else{var h = $(window).height()-75;}
-	$(".container_12").css("height",h+"px");
+	$(".container_12").css("height",h+65+"px");
 	$(".container_12").css("min-height",dh+"px");
 	$(name).css("visibility","visible");
 }

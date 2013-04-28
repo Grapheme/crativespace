@@ -1034,7 +1034,7 @@ footer {
 }
 
 .container_12 {
-	padding-bottom:65px;
+	/*padding-bottom:65px; */
 }
 
 .contacts_p{
@@ -1233,9 +1233,9 @@ footer {
 }
 
 .means_div {
-	line-height:20px;
+	line-height:30px;
 	height:20px;
-	margin-top:5px;
+	margin-top: 1.25em;
 	margin-left:5px;
 	font-size:12px;
 	color:#666666;

@@ -12,61 +12,90 @@
 <![endif]-->
 	
 	<div class="page">
-		<div class="main_img_container"></div>
 		<div class="navigation_border"></div>
+
 		<div class="container_12">
-		<?php $this->load->view("users_interface/includes/header");?>
-	<?php if(count($events)):?>
-			<div class="event_title_div grid_20">
-				<a href="#" class="prev-e"><img src="<?=site_url('img/left.jpg');?>" class="left"></a>МЕРОПРИЯТИЯ<a href="#" class="next-e"><img src="<?=site_url('img/right.jpg');?>" class="right"></a>
+			<?php $this->load->view("users_interface/includes/header");?>
+		</div>
+
+		<div class="fotorama" data-width="100%" data-height="350" data-cropToFit="true" data-autoplay="true" data-loop="true" data-nav="none"> 
+			<img src="img/main_1.jpg" alt="" />
+			<img src="img/main_2.jpg" alt="" />
+			<img src="img/main_3.jpg" alt="" />
+		</div>
+
+		<div class="container_12">
+		<?php if(count($events)):?>
+			<div class="event_title_div grid_12">
+				<a href="#" class="prev-e"><img src="<?=site_url('img/left.jpg');?>" class="left"></a>
+				МЕРОПРИЯТИЯ
+				<a href="#" class="next-e"><img src="<?=site_url('img/right.jpg');?>" class="right"></a>
 			</div>
 			<div class="clear"></div>
+			
 			<div class="cycle-slideshow" data-cycle-prev=".prev-e" data-cycle-next=".next-e" data-cycle-fx="scrollHorz" data-cycle-speed="300" data-cycle-timeout=0 data-cycle-slides="> div">
 				<div class="event_container first">
-			<?php for($i=0;$i<3;$i++):?>
-				<?php if(isset($events[$i]['id'])):?>
+				<?php for($i=0;$i<3;$i++):?>
+					<?php if(isset($events[$i]['id'])):?>
 					<div class="grid_4">
 						<div class="event event_link" data-translit="<?=$events[$i]['translit'];?>" data-item="<?=$events[$i]['id'];?>">
 							<img src="<?=site_url('loadimage/events/'.$events[$i]['id']);?>" class="ievent">
 							<div class="event_div_text">
 								<span class="event_index_date"><?=month_date($events[$i]['date']).' '.$events[$i]['date_begin'];?><br>
 								<span class="event_index_text"><?=$events[$i]['title']?></span>
-								<!--<div class="like_div"><a href="#" class="def"><div class="like"><img src="<?=site_url('img/like.jpg');?>"></div>0</a></div>-->
-							</div>
-						</div>
-					</div>
-				<?php endif;?>
-			<?php endfor;?>
-				</div>
-		<?php if(isset($events[3]['id'])):?>
-			<?php for($i=3;$i<count($events);$i+=3):?>
-				<div class="event_container">
-				<?php for($j=0;$j<3;$j++):?>
-					<?php if(isset($events[$i+$j]['id'])):?>
-					<div class="grid_4">
-						<div class="event event_link" data-translit="<?=$events[$i+$j]['translit'];?>" data-item="<?=$events[$i+$j]['id'];?>">
-							<img src="<?=site_url('loadimage/events/'.$events[$i+$j]['id']);?>" class="ievent">
-							<div class="event_div_text">
-								<span class="event_index_date"><?=$events[$i+$j]['date_begin'];?></span><br>
-								<span class="event_index_text"><?=$events[$i+$j]['title'];?></span>
-								<!--<div class="like_div"><a href="#" class="def"><div class="like"><img src="<?=site_url('img/like.jpg');?>"></div>0</a></div>-->
 							</div>
 						</div>
 					</div>
 					<?php endif;?>
 				<?php endfor;?>
+				</div>
+				<?php if(isset($events[3]['id'])):?>
+					<?php for($i=3;$i<count($events);$i+=3):?>
+					<div class="event_container">
+					<?php for($j=0;$j<3;$j++):?>
+						<?php if(isset($events[$i+$j]['id'])):?>
+						<div class="grid_4">
+							<div class="event event_link" data-translit="<?=$events[$i+$j]['translit'];?>" data-item="<?=$events[$i+$j]['id'];?>">
+								<img src="<?=site_url('loadimage/events/'.$events[$i+$j]['id']);?>" class="ievent">
+								<div class="event_div_text">
+									<span class="event_index_date"><?=$events[$i+$j]['date_begin'];?></span><br>
+									<span class="event_index_text"><?=$events[$i+$j]['title'];?></span>
+								</div>
+							</div>
+						</div>
+						<?php endif;?>
+					<?php endfor;?>
 					</div>
-			<?php endfor;?>
-		<?php endif;?>
+					<?php endfor;?>
+				<?php endif;?>
 			</div>
-	<?php endif;?>
-		<?php if(count($news)):?>
 			<div class="clear"></div>
-			<div class="grid_8 prefix_1 infinite-scroll">
+			
+		<?php endif;?>
+		<!-- -->
+			<?php if(count($news)):?>
+			<div class="grid_9 infinite-scroll">
 				<p class="center">НОВОСТИ</p>
 				<div class="news_hr"></div>
-			<?php for($i=0;$i<count($news);$i++):?>
+				<?php for($i=0;$i<count($news);$i++):?>
 				<div class="news_div">
+					<div class="grid_1">
+						<script type="text/javascript">
+							(function() {
+								if (window.pluso)
+									if ( typeof window.pluso.start == "function")
+										return;
+								var d = document, s = d.createElement('script'), g = 'getElementsByTagName';
+								s.type = 'text/javascript';
+								s.charset = 'UTF-8';
+								s.async = true;
+								s.src = ('https:' == window.location.protocol ? 'https' : 'http') + '://share.pluso.ru/pluso-like.js';
+								var h = d[g]('head')[0] || d[g]('body')[0];
+								h.appendChild(s);
+							})();
+							</script>
+							<div class="pluso" data-options="medium,square,line,vertical,nocounter,theme=06" data-services="vkontakte,facebook,twitter" data-background="transparent" data-url="http://creativespace.pro" data-title="Title" data-description="Description"></div>
+					</div>
 					<p>
 						<a href="<?=site_url('news/'.$news[$i]['translit']);?>" class="news_title"><?=$news[$i]['title']?></a><br>
 						<span class="news_date"><?=month_date_with_time($news[$i]['date_publish']);?></span>
@@ -84,30 +113,27 @@
 					<?php endfor;?>
 					</div>
 				<?php endif;?>
-				<!--<div class="like_div"><a href="#" class="def"><div class="like"><img src="<?=site_url('img/like.jpg');?>"></div>0</a></div>-->
 				</div>
-			<?php endfor;?>
-			<?php if($next_items):?>
+				<?php endfor;?>
+				<?php if($next_items):?>
 				<?php $offset = $this->per_page+$this->offset;?>
 				<div class="next">
 					<a href="<?=site_url("text-load/news/from/$offset");?>">&nbsp;</a>
 				</div>
-			<?php endif;?>
+				<?php endif;?>
 			</div>
-		<?php endif;?>
+			<?php endif;?>
 			<div class="follow grid_3">
 				<p class="center">FOLLOW US</p>
 				<div class="follow_hr"></div>
 				<div class="social_widget">
 					<script type="text/javascript" src="//vk.com/js/api/openapi.js?82"></script>
-					<!-- VK Widget -->
 					<div id="vk_groups"></div>
 					<script type="text/javascript">
 					VK.Widgets.Group("vk_groups", {mode: 0, width: "200", height: "290"}, 832945);
 					</script>
 				</div>
 				<div class="social_widget">
-					<div id="fb-root"></div>
 					<script>(function(d, s, id) {
 					  var js, fjs = d.getElementsByTagName(s)[0];
 					  if (d.getElementById(id)) return;
@@ -119,9 +145,7 @@
 				</div>
 				<p>
 					<a target="_blank" href="https://www.facebook.com/creativespacepr"><img src="<?=site_url('img/facebook_button.jpg');?>"></a>
-					<!--<a class="none" href="#"><img src="<?=site_url('img/twitter_button.jpg');?>"></a>-->
 					<a target="_blank" href="http://vk.com/creativespacepro"><img src="<?=site_url('img/vk_button.jpg');?>"></a>
-					<!--<a class="none" href="#"><img src="<?=site_url('img/gplus_button.jpg');?>"></a>-->
 				</p>
 				<p>
 					<span class="follow_contact">наш hashtag в instagram:</span><br/>
@@ -133,7 +157,9 @@
 				</div>
 			</div>
 			<div class="clear"></div>
+			<!-- -->
 		</div>
+		<div class="clear"></div>
 	</div>
 <?php $this->load->view("users_interface/includes/footer");?>
 <?php $this->load->view("users_interface/includes/scripts");?>

@@ -19,7 +19,24 @@
 			<div class="infinite-scroll">
 			<?php for($i=0;$i<count($events);$i++):?>
 				<div class="event_page_div">
-					<div class="grid_6 prefix_1">
+					<div class="grid_1">
+						<script type="text/javascript">
+							(function() {
+								if (window.pluso)
+									if ( typeof window.pluso.start == "function")
+										return;
+								var d = document, s = d.createElement('script'), g = 'getElementsByTagName';
+								s.type = 'text/javascript';
+								s.charset = 'UTF-8';
+								s.async = true;
+								s.src = ('https:' == window.location.protocol ? 'https' : 'http') + '://share.pluso.ru/pluso-like.js';
+								var h = d[g]('head')[0] || d[g]('body')[0];
+								h.appendChild(s);
+							})();
+							</script>
+							<div class="pluso" data-options="medium,square,line,vertical,nocounter,theme=06" data-services="vkontakte,facebook,twitter" data-background="transparent" data-url="http://creativespace.pro" data-title="Title" data-description="Description"></div>
+					</div>
+					<div class="grid_6">
 						<span class="event_date"><?=month_date($events[$i]['date']).' '.$events[$i]['date_begin'];?></span>
 						<p class="event_title">
 							<a href="<?=site_url('event/'.$events[$i]['translit']);?>"><?=$events[$i]['title']?></a>

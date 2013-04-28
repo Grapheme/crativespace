@@ -21,5 +21,6 @@ endif;?>
 <meta name="viewport" content="width=device-width" />
 <link rel="stylesheet" href="<?=site_url('css/normalize.css');?>" />
 <link rel="stylesheet" href="<?=site_url('css/main.css');?>" />
+<link rel="stylesheet" href="<?=site_url('css/fotorama.css');?>" />
 <link href="http://fonts.googleapis.com/css?family=PT+Sans&subset=cyrillic,latin" rel="stylesheet" type="text/css" />
 <script src="<?=site_url('js/vendor/modernizr-2.6.2.min.js');?>"></script>

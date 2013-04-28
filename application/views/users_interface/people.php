@@ -17,7 +17,7 @@
 			<div class="empty35 grid_12"></div>
 			<div class="clear"></div>
 			<div class="people__list">
-			<?php for($i=0;$i<count($people);$i++):?>
+				<?php for($i=0;$i<count($people);$i++):?>
 				<div class="grid_2 people_div" data-item="<?=$people[$i]['id']?>">
 					<div class="people_img_div">
 						<div class="people_black_div"></div>
@@ -26,7 +26,8 @@
 					<img class="people_img" src="<?=site_url('loadimage/people/'.$people[$i]['id']);?>">
 					<p class="people_name"><?=$people[$i]['name'];?></p>
 				</div>
-			<?php endfor;?>
+				<?php endfor;?>
+				<div class="clear"></div>
 			</div>
 			<div class="clear"></div>
 		</div>

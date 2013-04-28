@@ -4,6 +4,7 @@
 <script type="text/javascript" src="<?=site_url('js/plugins.js');?>"></script>
 <script type="text/javascript" src="<?=site_url('js/main.js');?>"></script>
 <script type="text/javascript" src="<?=site_url('js/scripts.js');?>"></script>
+<script type="text/javascript" src="<?=site_url('js/fotorama.js');?>"></script>
 <script type="text/javascript">$("header a[data-active='<?=$this->uri->segment(1);?>']").addClass('linked');</script>
 <!-- Yandex.Metrika counter -->
 <script type="text/javascript">

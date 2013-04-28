@@ -12,8 +12,4 @@
 		</nav>
 	</div>
 	<div class="clear"></div>
-<?php if(uri_string() == ''):?>
-	<div class="main_img_div grid_12"></div>
-	<div class="clear"></div>
-<?php endif;?>
 </header>
